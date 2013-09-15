@@ -1,0 +1,13 @@
+ja:
+  helpers:
+    submit:
+      create: '登録する'
+      update: '更新する'
+      submit: '保存する'
+    label:
+      user:
+        email: 'メールアドレス'
+        password: 'パスワード'
+        current_password: '現在のパスワード'
+    title:
+      new: '新規登録'
