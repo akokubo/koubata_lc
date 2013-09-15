@@ -1,10 +1,31 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+group :development, :test do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+  # テストなどにRSpecを使用
+  gem 'rspec-rails'
+end
+
+group :test do
+  # Capybaraで使用
+  gem 'selenium-webdriver'
+  # アプリをユーザーが対話的に使用するように操作
+  gem 'capybara'
+  # テストの際にデータを作るのに使用
+  gem 'factory_girl_rails'
+end
+
+group :production do
+  gem 'pg'
+  # 静的なアセットをHerokuで使用するのに使用
+  gem 'rails_12factor'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -43,3 +64,6 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'devise'
+gem 'devise-i18n'
