@@ -10,3 +10,6 @@ ja:
       post:
         title: '題名'
         body: '内容'
+  errors:
+    messages:
+      not_saved: "エラー"
