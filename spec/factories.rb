@@ -14,10 +14,19 @@ FactoryGirl.define do
   # できることの生成
   factory :offering do
     user
-    title "Lorem ipsum"
-    description "Lorem ipsum" * 5
-    price "the current price"
+    sequence(:title) { |n| "offering_#{n}"}
+    sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
+    sequence(:price) { |n| "the current price #{n}"}
     expired_at 1.day.from_now
     category
   end
+
+  # お願いの生成
+  factory :want do
+    user
+    sequence(:title) { |n| "want_#{n}"}
+    sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
+    expired_at 1.day.from_now
+  end
+
 end

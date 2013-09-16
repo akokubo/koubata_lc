@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
          :confirmable, :lockable, :timeoutable
 
   has_many :offerings
+  has_many :wants
 end
