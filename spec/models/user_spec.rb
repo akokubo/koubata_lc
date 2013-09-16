@@ -18,6 +18,8 @@ describe User do
   # passwordとpassword_confirmation属性を持つ
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  # offerings属性を持つ
+  it { should respond_to(:offerings)}
 
   # 検証に通る
   it { should be_valid }
