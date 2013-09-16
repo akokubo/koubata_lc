@@ -1,5 +1,5 @@
 ja:
-  "Sign in": サインイン
+  "Sign in": ログイン
   "Registration": ユーザ登録
   "Sign up": ユーザ登録する
   "Forgot your password?": パスワード忘れはこちら
@@ -9,3 +9,4 @@ ja:
   "Didn't receive confirmation instructions?": パスワード再発行のメールが届かない
   "Didn't receive unlock instructions?": アカウントの凍結解除方法のメールが届かない
   "Resend unlock instructions": アカウント再凍結解除
+  "Sign out": ログアウト
