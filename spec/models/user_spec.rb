@@ -15,11 +15,17 @@ describe User do
 
   # email属性を持つ
   it { should respond_to(:email) }
+
   # passwordとpassword_confirmation属性を持つ
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+
   # offerings属性を持つ
   it { should respond_to(:offerings)}
+
+  # messages属性を持つ
+  it { should respond_to(:messages)}
+
 
   # 検証に通る
   it { should be_valid }
