@@ -10,3 +10,19 @@ ja:
   "Didn't receive unlock instructions?": アカウントの凍結解除方法のメールが届かない
   "Resend unlock instructions": アカウント再凍結解除
   "Sign out": ログアウト
+  "Confirm my account": アカウント確認
+  "Change my password": パスワード再設定
+  "Change your password": パスワード再設定
+  "New password": 新しいパスワード
+  "Confirm new password": 新しいパスワード(確認)
+  "Welcome": ようこそ
+  "Hello": こんにちは
+  "You can confirm your account email through the link below": 以下のリンクをクリックすると、アカウントの登録が完了します。
+  "Someone has requested a link to change your password. You can do this through the link below.": パスワード再設定が申請されました。以下のリンクをクリックするとパスワード再設定ができます。
+  "If you didn't request this, please ignore this email.": もしもあなたがパスワード再設定を申請していない場合、このメールを無視してください。
+  "Your password won't change until you access the link above and create a new one.": 上のリンクをクリックしてパスワードを再設定しない限り、パスワードは変更されません。
+  "Your account has been locked due to an excessive number of unsuccessful sign in attempts.": 何度もログインに失敗したため、アカウントが凍結されました。
+  "Click the link below to unlock your account": アカウント凍結解除するには以下のリンクをクリックしてください
+  devise:
+    passwords:
+      no_token: パスワード再設定のメール以外からは、パスワード再設定ページへアクセスする事はできません。もしパスワード再設定のメールに記載されたリンクをクリックして、このメッセージが表示された場合、不完全なURLのリンクをクリックしていないか確認してください。メーラーによっては、リンクのURLが途中で切れる可能性があります。
