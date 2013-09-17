@@ -5,12 +5,7 @@ describe Account do
   let(:user) { FactoryGirl.create(:user) }
 
   # @accountの作成
-  before do
-    @account = Account.new(
-      user_id: user.id,
-      balance: 1000
-    )
-  end
+  before { @account = user.build_account(balance: 1000) }
 
   # accountを対象としたテストを実施
   subject { @account }
@@ -37,7 +32,7 @@ describe Account do
   end
 
   # balanceが文字列の場合
-  describe "when balance is atring" do
+  describe "when balance is string" do
     before { @account.balance = "a" }
     it { should_not be_valid }
   end
@@ -72,7 +67,7 @@ describe Account do
 
     # 残高がマイナスになる支払いの場合
     it "has invalid amount should raise ActiveRecord::RecordInvalid" do
-      lambda{Account.transfer(@from, @to, 2000)}.should
+      lambda{ Account.transfer(@from, @to, 2000) }.should
         raise_error(ActiveRecord::RecordInvalid)
     end
   end
