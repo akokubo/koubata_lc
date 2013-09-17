@@ -21,10 +21,13 @@ describe User do
   it { should respond_to(:password_confirmation) }
 
   # offerings属性を持つ
-  it { should respond_to(:offerings)}
+  it { should respond_to(:offerings) }
 
   # messages属性を持つ
-  it { should respond_to(:messages)}
+  it { should respond_to(:messages) }
+
+  # account属性を持つ
+  it { should respond_to(:account) }
 
 
   # 検証に通る
