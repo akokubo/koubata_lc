@@ -4,6 +4,7 @@ describe User do
   # 事前に作成するユーザー
   before do
     @user = User.new(
+      name: "user",
       email: "user@example.com",
       password: "foobarfoobar",
       password_confirmation: "foobarfoobar"
@@ -12,6 +13,9 @@ describe User do
 
   # ユーザーに関するテストを実施する
   subject { @user }
+
+  # name属性を持つ
+  it { should respond_to(:name) }
 
   # email属性を持つ
   it { should respond_to(:email) }
@@ -32,6 +36,12 @@ describe User do
 
   # 検証に通る
   it { should be_valid }
+
+  # name属性が空の場合
+  describe "when name is not present" do
+    before { @user.name = " " }
+    it { should_not be_valid }
+  end
 
   # email属性が空の場合
   describe "when email is not present" do
