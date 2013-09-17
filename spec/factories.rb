@@ -28,5 +28,4 @@ FactoryGirl.define do
     sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
     expired_at 1.day.from_now
   end
-
 end

@@ -1,5 +1,6 @@
 class Account < ActiveRecord::Base
   belongs_to :user
+  has_many :payments, foreign_key: "from_id", dependent: :destroy
 
   # 必須属性の検証
   validates :user_id, presence: true
