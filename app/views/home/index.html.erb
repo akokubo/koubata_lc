@@ -6,9 +6,10 @@
 <br>
 <ul data-role="listview">
   <li data-role="list-divider"><%= t("Menu") %></li>
-  <li><%= link_to t("About"), "#" %></li>
   <li><%= link_to t("Sign up"), new_user_registration_path %></li>
-  <li><%= link_to t("Need help?"), "/home/help" %></li>
+  <li><%= link_to t("Need help?"), need_help_path %></li>
+  <li><%= link_to t("About"), about_path %></li>
+  <li><%= link_to t("Contact"), contact_path %></li>
 </ul>
 <% else %>
 <p>デフォルトでは、ニュースフィードがここに表示</p>
