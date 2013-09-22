@@ -1,0 +1,19 @@
+<div data-role="panel" id="menu_panel">
+  <ul data-role="listview">
+    <li><%= current_user.name %></li>
+    <li data-role="list-divider"><%= t("Favorites") %></li>
+    <li><%= link_to t("Feeds"), "#" %></li>
+    <li><%= link_to t("Search Wants"), "#" %></li>
+    <li><%= link_to t("Messages"), "#" %></li>
+    <li><%= link_to t("Logs"), "#" %></li>
+    <li data-role="list-divider"><%= t("Self Informations") %></li>
+    <li><%= link_to t("Offerings"), "#" %></li>
+    <li><%= link_to t("Wants"), "#" %></li>
+    <li><%= link_to t("Friends"), "#" %></li>
+    <li><%= link_to t("Accounts"), "#" %></li>
+    <li><%= link_to t("Settings"), "#" %></li>
+    <li data-role="list-divider"><%= t("System") %></li>
+    <li><%= link_to t("Instructions"), "#" %></li>
+    <li><%= link_to t("Sign out"), destroy_user_session_path, method: :delete, data: { ajax: false } %></li>
+  </ul>
+</div><!-- /menu_panel -->

@@ -6,6 +6,7 @@ ja:
   "Send me reset password instructions": パスワード再発行
   "Resend confirmation instructions": パスワード再発行
   "Update": 更新
+  "Need help?": お困りですか？
   "Didn't receive confirmation instructions?": パスワード再発行のメールが届かない
   "Didn't receive unlock instructions?": アカウントの凍結解除方法のメールが届かない
   "Resend unlock instructions": アカウント再凍結解除
@@ -15,8 +16,6 @@ ja:
   "Change your password": パスワード再設定
   "New password": 新しいパスワード
   "Confirm new password": 新しいパスワード(確認)
-  "Welcome": ようこそ
-  "Hello": こんにちは
   "You can confirm your account email through the link below": 以下のリンクをクリックすると、アカウントの登録が完了します。
   "Someone has requested a link to change your password. You can do this through the link below.": パスワード再設定が申請されました。以下のリンクをクリックするとパスワード再設定ができます。
   "If you didn't request this, please ignore this email.": もしもあなたがパスワード再設定を申請していない場合、このメールを無視してください。
