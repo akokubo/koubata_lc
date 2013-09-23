@@ -5,6 +5,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "person_#{n}@example.com" }
     password "foobarfoobar"
     password_confirmation "foobarfoobar"
+    confirmed_at Time.now
   end
 
   # カテゴリーの生成

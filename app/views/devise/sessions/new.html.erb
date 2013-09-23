@@ -1,5 +1,5 @@
 <% provide :title, t("Sign in") %>
-<h2><%= t("Sign in") %></h2>
+<h2><%= yield(:title) %></h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { data: {ajax: false } }) do |f| %>
   <div data-role="fieldcontain">

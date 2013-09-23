@@ -22,7 +22,7 @@ describe "Home Pages" do
     before { visit root_path }
     it { should have_title(full_title('')) }
     it { should have_title('幸畑プロジェクト') }
-    it { should_not have_title(' - ホーム') }
+    it { should_not have_title('ホーム - ') }
   end
 
   describe "Need Help page" do
