@@ -1,4 +1,7 @@
 KoubataLc::Application.routes.draw do
+  get "offerings/index"
+  get "offerings/show"
+  get "offerings/edit"
   match '/need_help', to: 'home#need_help', via: 'get'
   match '/about',     to: 'home#about',     via: 'get'
   match '/contact',   to: 'home#contact',   via: 'get'
