@@ -20,10 +20,11 @@ class OfferingsController < ApplicationController
   def create
     @offering = Offering.new(offering_params)
     @offering.user = current_user
+    @categories = Category.all
 
     respond_to do |format|
       if @offering.save
-        format.html { redirect_to @offering, notice: 'Offering was successfully created.' }
+        format.html { redirect_to @offering, notice: t('activerecord.successful.messages.created', :model => Offering.model_name.human) }
         format.json { render action: 'show', status: :created, location: @offering }
       else
         format.html { render action: 'new' }
@@ -33,9 +34,11 @@ class OfferingsController < ApplicationController
   end
 
   def update
+    @categories = Category.all
+
     respond_to do |format|
       if @offering.update(offering_params)
-        format.html { redirect_to @offering, notice: 'Offering was successfully updated.' }
+        format.html { redirect_to @offering, notice: t('activerecord.successful.messages.updateed', :model => Offering.model_name.human) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

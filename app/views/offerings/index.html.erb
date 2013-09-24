@@ -5,9 +5,9 @@
   <thead>
     <tr>
       <th><%= t("Title") %></th>
-      <th><%= t("User") %></th>
+<!--      <th><%= t("User") %></th> -->
       <th><%= t("Category") %></th>
-      <th><%= t("Description") %></th>
+<!--      <th><%= t("Description") %></th> -->
       <th><%= t("Price") %></th>
       <th><%= t("Expired_at") %></th>
       <th></th>
@@ -20,9 +20,9 @@
     <% @offerings.each do |offering| %>
       <tr>
         <td><%= offering.title %></td>
-        <td><%= offering.user.name %></td>
+<!--        <td><%= offering.user.name %></td> -->
         <td><%= offering.category.name %></td>
-        <td><%= offering.description %></td>
+<!--        <td><%= offering.description %></td> -->
         <td><%= offering.price %></td>
         <td><%= offering.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></td>
         <td><%= link_to t('Show'), offering %></td>
