@@ -1,0 +1,7 @@
+<% provide :title, t('Editing want') %>
+<h1><%= yield(:title) %></h1>
+
+<%= render 'form' %>
+
+<%= link_to t('Show'), @want %> |
+<%= link_to t('Back'), wants_path %>

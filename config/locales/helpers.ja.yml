@@ -11,8 +11,13 @@ ja:
         current_password: '現在のパスワード'
       offering:
         title: '件名'
+        category: 'カテゴリー'
         description: '内容'
         price: '価格'
+        exprired_at: '表示期限'
+      want:
+        title: '件名'
+        description: '内容'
         exprired_at: '表示期限'
     title:
       new: '新規登録'

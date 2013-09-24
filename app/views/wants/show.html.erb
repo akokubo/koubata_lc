@@ -1,0 +1,26 @@
+<% provide :title, t('Want') %>
+<h1><%= yield(:title) %></h1>
+
+<p>
+  <strong><%= t('Title') %>:</strong>
+  <%= @want.title %>
+</p>
+
+<p>
+  <strong><%= t('User') %>:</strong>
+  <%= @want.user.name %>
+</p>
+
+<p>
+  <strong><%= t('Description') %>:</strong>
+  <%= @want.description %>
+</p>
+
+<p>
+  <strong><%= t('Expired_at') %>:</strong>
+  <%= @want.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %>
+</p>
+
+
+<%= link_to t('Edit'), edit_want_path(@want) %> |
+<%= link_to t('Back'), wants_path %>

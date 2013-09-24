@@ -1,0 +1,34 @@
+<% provide :title, t('Listing wants') %>
+<h1><%= yield(:title) %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t("Title") %></th>
+<!--      <th><%= t("User") %></th> -->
+      <th><%= t("Description") %></th>
+      <th><%= t("Expired_at") %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wants.each do |want| %>
+      <tr>
+        <td><%= want.title %></td>
+<!--        <td><%= want.user.name %></td> -->
+        <td><%= want.description %></td>
+        <td><%= want.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></td>
+        <td><%= link_to t('Show'), want %></td>
+        <td><%= link_to t('Edit'), edit_want_path(want) %></td>
+        <td><%= link_to t('Destroy'), want, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to t('New want'), new_want_path %>

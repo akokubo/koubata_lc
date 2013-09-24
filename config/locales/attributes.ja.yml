@@ -1,5 +1,9 @@
 ja:
   activerecord:
+    models:
+      user: ユーザー
+      offering: 「できます！」
+      want: 「助けて！」
     attributes:
       user:
         name: '名前'
@@ -13,8 +17,15 @@ ja:
         description: '内容'
         price: '価格'
         expired_at: '表示期限'
-        no_expiration: '表示期限を設定しない'
         category: 'カテゴリー'
+      want:
+        title: '件名'
+        description: '内容'
+        expired_at: '表示期限'
+    successful:
+      messages:
+        created: "%{model}を保存しました。"
+        updated: "%{model}を更新しました。"
   errors:
     messages:
       not_saved: "エラー"
