@@ -1,0 +1,44 @@
+<%= form_for(@offering, html: { data: { ajax: false}} ) do |f| %>
+  <% if @offering.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@offering.errors.count, "error") %> prohibited this offering from being saved:</h2>
+
+      <ul>
+      <% @offering.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :category_id, t("Category") %>
+    <%= f.collection_select :category_id, @categories, :id, :name %>
+  </div>
+
+
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+
+  <div class="field" data-role="fieldcontain" id="setting_offering_expired_at">
+    <%= f.label :expired_at %>
+    <%= f.datetime_local_field :expired_at, placeholder: t("Remain blank if no expiration") %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

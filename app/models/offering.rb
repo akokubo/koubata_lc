@@ -7,4 +7,5 @@ class Offering < ActiveRecord::Base
   validates :category_id, presence: true
   validates :title, presence: true
   validates :price, presence: true
+
 end

@@ -1,12 +1,12 @@
 KoubataLc::Application.routes.draw do
-  get "offerings/index"
-  get "offerings/show"
-  get "offerings/edit"
   match '/need_help', to: 'home#need_help', via: 'get'
   match '/about',     to: 'home#about',     via: 'get'
   match '/contact',   to: 'home#contact',   via: 'get'
 
   devise_for :users
+
+  resources :offerings
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

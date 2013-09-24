@@ -8,9 +8,13 @@ ja:
         password_confirmation: 'パスワード(確認)'
         remember_me: 'パスワードを記憶'
         current_password: '現在のパスワード'
-      post:
-        title: '題名'
-        body: '内容'
+      offering:
+        title: '件名'
+        description: '内容'
+        price: '価格'
+        expired_at: '表示期限'
+        no_expiration: '表示期限を設定しない'
+        category: 'カテゴリー'
   errors:
     messages:
       not_saved: "エラー"

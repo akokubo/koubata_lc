@@ -1,2 +1,38 @@
-<h1>Offerings#show</h1>
-<p>Find me in app/views/offerings/show.html.erb</p>
+<% provide :title, t('Offering') %>
+<h1><%= yield(:title) %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('Title') %>:</strong>
+  <%= @offering.title %>
+</p>
+
+<p>
+  <strong><%= t('User') %>:</strong>
+  <%= @offering.user.name %>
+</p>
+
+<p>
+  <strong><%= t('Category') %>:</strong>
+  <%= @offering.category.name %>
+</p>
+
+<p>
+  <strong><%= t('Description') %>:</strong>
+  <%= @offering.description %>
+</p>
+
+<p>
+  <strong><%= t('Price') %>:</strong>
+  <%= @offering.price %>
+</p>
+
+<p>
+  <strong><%= t('Expired_at') %>:</strong>
+  <%= @offering.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %>
+</p>
+
+
+<%= link_to t('Edit'), edit_offering_path(@offering) %> |
+<%= link_to t('Back'), offerings_path %>

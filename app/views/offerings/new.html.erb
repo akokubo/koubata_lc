@@ -1,7 +1,6 @@
-<% provide :title, t('Editing offering') %>
+<% provide :title, t('New offering') %>
 <h1><%= yield(:title) %></h1>
 
 <%= render 'form' %>
 
-<%= link_to t('Show'), @offering %> |
 <%= link_to t('Back'), offerings_path %>
