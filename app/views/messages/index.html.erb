@@ -1,0 +1,34 @@
+<% provide :title, t('Listing messages') %>
+<h1><%= yield(:title) %></h1>
+
+<%= link_to t('New message'), new_message_path %>
+
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t("From") %></th>
+      <th><%= t("To") %></th>
+      <th><%= t("Subject") %></th>
+      <th><%= t("Body") %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @messages.each do |message| %>
+      <tr>
+        <td><%= message.from.name %></td>
+        <td><%= message.to.name %></td>
+        <td><%= message.subject %></td>
+        <td><%= message.body %></td>
+        <td><%= link_to t('Show'), message %></td>
+        <td><%= link_to t('Edit'), edit_message_path(message) %></td>
+        <td><%= link_to t('Destroy'), message, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

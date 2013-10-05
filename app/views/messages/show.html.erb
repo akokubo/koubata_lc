@@ -1,0 +1,25 @@
+<% provide :title, t('Message') %>
+<h1><%= yield(:title) %></h1>
+
+<p>
+  <strong><%= t('From_id') %>:</strong>
+  <%= @message.from_id %>
+</p>
+
+<p>
+  <strong><%= t('To_id') %>:</strong>
+  <%= @message.to_id %>
+</p>
+
+<p>
+  <strong><%= t('Subject') %>:</strong>
+  <%= @message.subject %>
+</p>
+
+<p>
+  <strong><%= t('Body') %>:</strong>
+  <%= @message.body %>
+</p>
+
+<%= link_to t('Edit'), edit_message_path(@message) %> |
+<%= link_to t('Back'), messages_path %>

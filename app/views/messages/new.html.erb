@@ -1,0 +1,6 @@
+<% provide :title, t('New message') %>
+<h1><%= yield(:title) %></h1>
+
+<%= render 'form' %>
+
+<%= link_to t('Back'), messages_path %>
