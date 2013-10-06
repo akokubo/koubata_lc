@@ -3,7 +3,6 @@
     <div id="error_explanation">
       <h2><%= t("activerecord.errors.template.header.other", :model => Want.model_name.human, :count => @want.errors.count) %></h2>
 
-
       <ul>
       <% @want.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -12,6 +11,10 @@
     </div>
   <% end %>
 
+  <div class="field" data-role="fieldcontain">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
 
   <div class="field" data-role="fieldcontain">
     <%= f.label :description %>

@@ -4,6 +4,11 @@ class Offering < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
 
+  scope :readable, -> {
+    now = Time.current
+    where("? < expired_at OR expired_at IS NULL", now)
+  }
+
   # 必須属性の検証
   validates :user_id, presence: true
   validates :category_id, presence: true

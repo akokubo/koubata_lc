@@ -20,6 +20,7 @@ ja:
         expired_at: '表示期限'
         no_expiration: '表示期限を設定しない'
         category: 'カテゴリー'
+        category_id: 'カテゴリー'
       want:
         title: '件名'
         description: '内容'

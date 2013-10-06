@@ -1,0 +1,48 @@
+<% provide :locale, I18n.locale.inspect %>
+<% provide :title,  t("Listing ", model: t('activerecord.models.want').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<%= link_to t('New ', model: t('activerecord.models.want')), new_want_path, data: { role: :button } %>
+<br>
+<br>
+<% if (@wants.count > 0) %>
+  <ul data-role="listview"> 
+    <% @wants.each do |want| %>
+      <li><%= link_to want.title, want %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><%= t("There is no ", model: t('activerecord.models.want')) %></p>
+<% end %>
+
+<!--
+<table>
+  <thead>
+    <tr>
+      <th><%= t("Title") %></th>
+      <th><%= t("User") %></th>
+      <th><%= t("Description") %></th>
+      <th><%= t("Expired_at") %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wants.each do |want| %>
+      <tr>
+        <td><%= want.title %></td>
+        <td><%= want.user.name %></td>
+        <td><%= want.description %></td>
+        <td><%= want.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></td>
+        <td><%= link_to t('Show'), want %></td>
+        <td><%= link_to t('Edit'), edit_want_path(want) %></td>
+        <td><%= link_to t('Destroy'), want, method: :delete, data: { confirm: t('Are you sure?') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+-->

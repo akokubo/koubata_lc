@@ -1,26 +1,22 @@
-<% provide :title, t('activerecord.models.want')) %>
+<% provide :title, t('activerecord.models.want') %>
 <h1><%= yield(:title) %></h1>
 
 <p>
-  <strong><%= t('Title') %>:</strong>
+  <strong><%= Want.human_attribute_name(:title) %>:</strong>
   <%= @want.title %>
 </p>
 
 <p>
-  <strong><%= t('User') %>:</strong>
-  <%= @want.user.name %>
-</p>
-
-<p>
-  <strong><%= t('Description') %>:</strong>
+  <strong><%= Want.human_attribute_name(:description) %>:</strong>
   <%= @want.description %>
 </p>
 
 <p>
-  <strong><%= t('Expired_at') %>:</strong>
+  <strong><%= Want.human_attribute_name(:expired_at) %>:</strong>
   <%= @want.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %>
 </p>
 
 
 <%= link_to t('Edit'), edit_want_path(@want) %> |
-<%= link_to t('Back'), wants_path %>
+<%= link_to t('Destroy'), @want, method: :delete, data: { confirm: t('Are you sure?') } %> |
+<%= link_to t('Back'), wants_user_path(current_user) %>

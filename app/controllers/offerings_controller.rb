@@ -50,7 +50,7 @@ class OfferingsController < ApplicationController
   def destroy
     @offering.destroy
     respond_to do |format|
-      format.html { redirect_to offerings_url }
+      format.html { redirect_to offerings_user_path(current_user) }
       format.json { head :no_content }
     end
   end
