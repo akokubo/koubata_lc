@@ -1,9 +1,10 @@
 ja:
   activerecord:
     models:
-      user: ユーザー
-      offering: 「できます！」
-      want: 「助けて！」
+      user: 'ユーザー'
+      offering: '「できること」'
+      want: '「頼みたいこと」'
+      message: 'メッセージ'
     attributes:
       user:
         name: '名前'
@@ -22,6 +23,13 @@ ja:
         title: '件名'
         description: '内容'
         expired_at: '表示期限'
+      message:
+        from: '送信者'
+        to: '受信者'
+        from_id: '送信者ID'
+        to_id: '受信者ID'
+        subject: '件名'
+        body: '本文'
     successful:
       messages:
         created: "%{model}を保存しました。"

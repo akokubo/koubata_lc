@@ -2,7 +2,8 @@ class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   def index
-    @messages = Message.where("from_id = '#{current_user.id}' or to_id = '#{current_user.id}'")
+    @messages = Message.list(current_user.id)
+    @withs = Message.withs(current_user.id)
   end
 
   def show
@@ -10,6 +11,7 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
+    @tos = User.where("id != '#{current_user.id}'")
   end
 
   def edit
@@ -18,10 +20,12 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     @message.from = current_user
+    @message.subject = "無題" unless @message.subject
+    @tos = User.where("id != '#{current_user.id}'")
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: t('activerecord.successful.messages.created', :model => Message.model_name.human) }
+        format.html { redirect_to "/users/#{@message.to_id}/messages", notice: t('activerecord.successful.messages.created', :model => Message.model_name.human) }
         format.json { render action: 'show', status: :created, location: @message }
       else
         format.html { render action: 'new' }

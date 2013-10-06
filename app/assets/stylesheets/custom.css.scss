@@ -124,3 +124,17 @@ table {
     border: 1px solid black;
   }
 }
+
+.message-right, .message-left {
+  width: 80%;
+  font-weight: normal !important;
+  text-align: left;
+  padding: 10px 10px 0 10px;
+  margin: 5px 0px;
+}
+.message-right {
+  float: right;
+}
+.message-left {
+  float: left;
+}

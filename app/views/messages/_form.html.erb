@@ -12,13 +12,8 @@
   <% end %>
 
   <div class="field" data-role="fieldcontain">
-    <%= f.label :from_id %>
-    <%= f.text_field :from_id %>
-  </div>
-
-  <div class="field" data-role="fieldcontain">
     <%= f.label :to_id %>
-    <%= f.text_field :to_id %>
+    <%= f.collection_select :to_id, @tos, :id, :name %>
   </div>
 
   <div class="field" data-role="fieldcontain">
@@ -32,6 +27,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit t("Submit new message") %>
   </div>
 <% end %>

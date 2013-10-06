@@ -19,5 +19,7 @@ ja:
         title: '件名'
         description: '内容'
         exprired_at: '表示期限'
+      message:
+        to_id: '送り先'
     title:
       new: '新規登録'

@@ -1,15 +1,35 @@
-<% provide :title, t('Listing messages') %>
+<% provide :locale, I18n.locale.inspect %>
+<% provide :title,  t("Listing ", model: t('activerecord.models.message').pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
-<%= link_to t('New message'), new_message_path %>
+<%= link_to t('New ', model: t('activerecord.models.message')), new_message_path, data: { role: :button } %>
 
 <br>
+<br>
+<br>
 
+<% if @withs.count > 0 %>
+  <ul data-role="listview">
+    <% @withs.each do |with| %>
+      <li><a href="/users/<%= with.id %>/messages"><%= with.name %><span class="ui-li-count"><%= Message.with(current_user.id, with.id).count %></span></a></li>
+      <!-- <li><%= link_to "#{with.name} <span class=\"ui-li-count\">12</span>", messages_user_path(with) %></li> -->
+    <% end %>
+  </ul>
+<% else %>
+  メッセージはありません。
+<% end %>
+<!--
+<br>
+<br>
+<br>
+<br>
 <table>
   <thead>
     <tr>
       <th><%= t("From") %></th>
       <th><%= t("To") %></th>
+      <th><%= t("With") %></th>
+      <th><%= t("Direction") %></th>
       <th><%= t("Subject") %></th>
       <th><%= t("Body") %></th>
       <th></th>
@@ -23,6 +43,8 @@
       <tr>
         <td><%= message.from.name %></td>
         <td><%= message.to.name %></td>
+        <td><%= message.with.name %></td>
+        <td><%= message.direction %></td>
         <td><%= message.subject %></td>
         <td><%= message.body %></td>
         <td><%= link_to t('Show'), message %></td>
@@ -32,3 +54,4 @@
     <% end %>
   </tbody>
 </table>
+-->

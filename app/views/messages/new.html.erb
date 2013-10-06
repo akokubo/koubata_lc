@@ -1,4 +1,4 @@
-<% provide :title, t('New message') %>
+<% provide :title, t('New ', model: t('activerecord.models.message')) %>
 <h1><%= yield(:title) %></h1>
 
 <%= render 'form' %>

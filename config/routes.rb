@@ -4,6 +4,11 @@ KoubataLc::Application.routes.draw do
   match '/contact',   to: 'home#contact',   via: 'get'
 
   devise_for :users
+  resources :users do
+    member do
+      get 'messages'
+    end
+  end
 
   resources :offerings
   resources :wants
