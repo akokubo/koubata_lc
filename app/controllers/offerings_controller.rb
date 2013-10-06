@@ -10,7 +10,7 @@ class OfferingsController < ApplicationController
 
   def new
     @offering = Offering.new
-    #@offering.expired_at = Time.now.tomorrow
+    @offering.expired_at = Time.now
     @categories = Category.all
   end
 
@@ -38,7 +38,7 @@ class OfferingsController < ApplicationController
 
     respond_to do |format|
       if @offering.update(offering_params)
-        format.html { redirect_to @offering, notice: t('activerecord.successful.messages.updateed', :model => Offering.model_name.human) }
+        format.html { redirect_to @offering, notice: t('activerecord.successful.messages.updated', :model => Offering.model_name.human) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -63,7 +63,7 @@ class OfferingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def offering_params
-      params.require(:offering).permit(:title, :category_id, :description, :price, :expired_at)
+      params.require(:offering).permit(:title, :category_id, :description, :price, :expired_at, :no_expiration)
     end
 
 end

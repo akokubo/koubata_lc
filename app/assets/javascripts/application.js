@@ -50,3 +50,32 @@ jQuery(document).bind('mobileinit', function () {
     ajaxEnabled: false
   });
 });
+
+jQuery(document).on('pageshow', function () {
+  var change_want_expired_at = function () {
+    if (jQuery('#want_no_expiration').is(':checked')) {
+      jQuery('#want_expired_at_div').hide();
+    } else {
+      jQuery('#want_expired_at_div').show();
+    }
+  };
+
+  var change_offering_expired_at = function () {
+    if (jQuery('#offering_no_expiration').is(':checked')) {
+      jQuery('#offering_expired_at_div').hide();
+    } else {
+      jQuery('#offering_expired_at_div').show();
+    }
+  };
+
+  jQuery('#want_no_expiration').click(function () {
+    change_want_expired_at();
+  });
+
+  jQuery('#offering_no_expiration').click(function () {
+    change_offering_expired_at();
+  });
+
+  change_offering_expired_at();
+  change_want_expired_at();
+});

@@ -9,6 +9,7 @@ class WantsController < ApplicationController
 
   def new
     @want = Want.new
+    @want.expired_at = Time.now.tomorrow
   end
 
   def edit
@@ -57,7 +58,7 @@ class WantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def want_params
-      params.require(:want).permit(:title, :description, :expired_at)
+      params.require(:want).permit(:title, :description, :expired_at, :no_expiration)
     end
 
 end

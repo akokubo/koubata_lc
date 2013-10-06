@@ -12,10 +12,6 @@
     </div>
   <% end %>
 
-  <div class="field" data-role="fieldcontain">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
 
   <div class="field" data-role="fieldcontain">
     <%= f.label :description %>
@@ -23,6 +19,11 @@
   </div>
 
   <div class="field" data-role="fieldcontain">
+    <%= f.label :no_expiration %>
+    <%= check_box_tag 'want[no_expiration]' %>
+  </div>
+
+  <div class="field" data-role="fieldcontain" id="want_expired_at_div">
     <%= f.label :expired_at %>
     <%= f.datetime_local_field :expired_at, placeholder: t("Remain blank if no expiration") %>
   </div>

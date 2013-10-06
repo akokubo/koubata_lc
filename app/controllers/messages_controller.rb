@@ -37,7 +37,7 @@ class MessagesController < ApplicationController
   def update
     respond_to do |format|
       if @message.update(message_params)
-        format.html { redirect_to @message, notice: t('activerecord.successful.messages.updateed', :model => Message.model_name.human) }
+        format.html { redirect_to @message, notice: t('activerecord.successful.messages.updated', :model => Message.model_name.human) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
