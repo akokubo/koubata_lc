@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # シードを投入するテーブルのリスト(空白区切り)
-table_names = %w(categories users messages)
+table_names = %w(categories users messages offerings wants)
 
 # シードデータが存在すれば、シードを投入する
 table_names.each do |table_name|
