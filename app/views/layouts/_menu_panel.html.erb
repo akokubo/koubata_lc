@@ -3,8 +3,8 @@
     <li><%= current_user.name %></li>
     <li data-role="list-divider"><%= t("Favorites") %></li>
     <li><%= link_to t("Feeds"), "#" %></li>
-    <li><%= link_to t("Search ", model: t('activerecord.models.offering').pluralize(:locale)), offerings_url %></li>
-    <li><%= link_to t("Search ", model: t('activerecord.models.want').pluralize(:locale)), wants_url %></li>
+    <li><%= link_to t("Search ", model: t('activerecord.models.offering').pluralize(:locale)), offerings_path %></li>
+    <li><%= link_to t("Search ", model: t('activerecord.models.want').pluralize(:locale)), wants_path %></li>
     <li><%= link_to t('activerecord.models.message'), messages_path %></li>
     <li><%= link_to t("Logs"), "#" %></li>
     <li data-role="list-divider"><%= t("Self Informations") %></li>
