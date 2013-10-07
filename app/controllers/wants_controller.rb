@@ -1,7 +1,7 @@
 class WantsController < ApplicationController
   before_action :set_want, only: [:show, :edit, :update, :destroy]
   def index
-    @wants = Want.where(user: current_user)
+    @wants = Want.all
   end
 
   def show
