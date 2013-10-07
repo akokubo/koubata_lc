@@ -5,7 +5,7 @@
 <%= link_to t('New ', model: t('activerecord.models.offering')), new_offering_path, data: { role: :button } %>
 <br>
 <br>
-<% if (@offerings.count > 0) %>
+<% if @offerings.present? %>
   <ul data-role="listview"> 
     <% @offerings.each do |offering| %>
       <li><%= link_to offering.title, offering %></li>

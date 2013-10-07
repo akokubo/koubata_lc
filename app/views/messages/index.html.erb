@@ -8,7 +8,7 @@
 <br>
 <br>
 
-<% if @withs.count > 0 %>
+<% if @withs.present? %>
   <ul data-role="listview">
     <% @withs.each do |with| %>
       <li><a href="/users/<%= with.id %>/messages"><%= with.name %><span class="ui-li-count"><%= Message.with(current_user.id, with.id).count %></span></a></li>
