@@ -1,32 +1,42 @@
 <% provide :title, t('activerecord.models.offering') %>
 <h1><%= yield(:title) %></h1>
 
-<p>
-  <strong><%= Offering.human_attribute_name(:title) %>:</strong>
-  <%= @offering.title %>
-</p>
+<ul data-role="listview" data-inset="true">
+  <li>
+    <h2><%= Offering.human_attribute_name(:title) %>:</h2>
+    <p><%= @offering.title %></p>
+  </li>
 
-<p>
-  <strong><%= Offering.human_attribute_name(:category) %>:</strong>
-  <%= @offering.category.name %>
-</p>
+  <li>
+    <h2><%= Offering.human_attribute_name(:user) %>:</h2>
+    <p><%= @offering.user.name %></p>
+  </li>
 
-<p>
-  <strong><%= Offering.human_attribute_name(:description) %>:</strong>
-  <%= @offering.description %>
-</p>
+  <li>
+    <h2><%= Offering.human_attribute_name(:category) %>:</h2>
+    <p><%= @offering.category.name %></p>
+  </li>
 
-<p>
-  <strong><%= Offering.human_attribute_name(:price) %>:</strong>
-  <%= @offering.price %>
-</p>
+  <li>
+    <h2><%= Offering.human_attribute_name(:description) %>:</h2>
+    <p><%= simple_format @offering.description %></p>
+  </li>
 
-<p>
-  <strong><%= Offering.human_attribute_name(:expired_at) %>:</strong>
-  <%= @offering.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %>
-</p>
+  <li>
+    <h2><%= Offering.human_attribute_name(:price) %>:</h2>
+    <p><%= @offering.price %></p>
+  </li>
 
+  <li>
+    <h2><%= Offering.human_attribute_name(:expired_at) %>:</h2>
+    <p><%= @offering.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></p>
+  </li>
+</ul>
 
-<%= link_to t('Edit'), edit_offering_path(@offering) %> |
-<%= link_to t('Destroy'), @offering, method: :delete, data: { confirm: t('Are you sure?') } %> |
-<%= link_to t('Back'), offerings_user_path(current_user) %>
+<% if @offering.user_id == current_user.id %>
+<%= link_to t('Edit'), edit_offering_path(@offering), data: { role: :button, inline: true } %>
+<%= link_to t('Destroy'), @offering, method: :delete, data: { confirm: t('Are you sure?'), role: :button, inline: true } %>
+<% else %>
+<%= link_to t('Entrust'), "#", data: { role: :button, inline: true } %>
+<% end %>
+<%= link_to t('Back'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
