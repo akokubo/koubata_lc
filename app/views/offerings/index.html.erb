@@ -7,7 +7,7 @@
     <% @categories.each do |category| %>
       <% if category.offerings.readable.present? %>
         <div data-role="collapsible">
-          <h2><%= category.name %></h2>
+          <h2><%= category.name %>: <span><%= category.offerings.readable.count %></span></h2>
           <% if category.offerings.readable.count > 10 %>
             <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d">
           <% else %>

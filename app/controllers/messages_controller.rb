@@ -12,6 +12,16 @@ class MessagesController < ApplicationController
   def new
     @message = Message.new
     @tos = User.where("id != '#{current_user.id}'")
+    if (params[:offering])
+      offering = Offering.find(params[:offering])
+      @message.subject = "できること「#{offering.title}」の依頼"
+      @tos = User.where(id: offering.user_id)
+    end
+    if (params[:want])
+      want = Want.find(params[:want])
+      @message.subject = "頼みたいこと「#{want.title}」の引き受け"
+      @tos = User.where(id: want.user_id)
+    end
   end
 
   def edit
