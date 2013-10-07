@@ -3,4 +3,4 @@
 
 <%= render 'form' %>
 
-<%= link_to t('Back'), offerings_path %>
+<%= link_to t('Back'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>

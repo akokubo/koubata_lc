@@ -46,7 +46,7 @@ class WantsController < ApplicationController
   def destroy
     @want.destroy
     respond_to do |format|
-      format.html { redirect_to wants_url }
+      format.html { redirect_to wants_user_url(current_user) }
       format.json { head :no_content }
     end
   end

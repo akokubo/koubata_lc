@@ -7,6 +7,8 @@ KoubataLc::Application.routes.draw do
   resources :users do
     member do
       get 'messages'
+      get 'offerings'
+      get 'wants'
     end
   end
 

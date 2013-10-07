@@ -1,47 +1,50 @@
 <%= form_for(@offering, html: { data: { ajax: false}} ) do |f| %>
-  <% if @offering.errors.any? %>
-    <div id="error_explanation">
-      <h2><%=t "activerecord.errors.template.header.other", :model => Offering.model_name.human, :count => @offering.errors.count %></h2>
+  <ul data-role="listview" data-inset="true">
+    <% if @offering.errors.any? %>
+    <li>
+      <div id="error_explanation">
+        <h2><%=t "activerecord.errors.template.header.other", :model => Offering.model_name.human, :count => @offering.errors.count %></h2>
 
-      <ul>
-      <% @offering.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <ul>
+        <% @offering.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </li>
+    <% end %>
 
-  <div class="field" data-role="fieldcontain">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
+    <li class="field" data-role="fieldcontain">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </li>
 
-  <div class="field" data-role="fieldcontain">
-    <%= f.label :category_id, t("Category") %>
-    <%= f.collection_select :category_id, @categories, :id, :name %>
-  </div>
+    <li class="field" data-role="fieldcontain">
+      <%= f.label :category_id %>
+      <%= f.collection_select :category_id, @categories, :id, :name %>
+    </li>
 
-  <div class="field" data-role="fieldcontain">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+    <li class="field" data-role="fieldcontain">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </li>
 
-  <div class="field" data-role="fieldcontain">
-    <%= f.label :price %>
-    <%= f.text_field :price %>
-  </div>
+    <li class="field" data-role="fieldcontain">
+      <%= f.label :price %>
+      <%= f.text_field :price %>
+    </li>
 
-  <div class="field" data-role="fieldcontain">
-    <%= f.label :no_expiration %>
-    <%= check_box_tag 'offering[no_expiration]' %>
-  </div>
+    <li class="field" data-role="fieldcontain">
+      <%= f.label :no_expiration %>
+      <%= check_box_tag 'offering[no_expiration]' %>
+      <div class="field" data-role="fieldcontain" id="offering_expired_at_div">
+        <%= f.label :expired_at %>
+        <%= f.datetime_local_field :expired_at, placeholder: t("Remain blank if no expiration") %>
+      </div>
+    </li>
 
-  <div class="field" data-role="fieldcontain" id="offering_expired_at_div">
-    <%= f.label :expired_at %>
-    <%= f.datetime_local_field :expired_at, placeholder: t("Remain blank if no expiration") %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <li class="actions">
+      <%= f.submit %>
+    </li>
+  </ul>
 <% end %>

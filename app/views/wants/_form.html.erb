@@ -1,34 +1,40 @@
 <%= form_for(@want, html: { data: { ajax: false}} ) do |f| %>
-  <% if @want.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= t("activerecord.errors.template.header.other", :model => Want.model_name.human, :count => @want.errors.count) %></h2>
+  <ul data-role="listview" data-inset="true">
+    <% if @want.errors.any? %>
+    <li>
+      <div id="error_explanation">
+        <h2><%= t("activerecord.errors.template.header.other", :model => Want.model_name.human, :count => @want.errors.count) %></h2>
 
+        <ul>
+        <% @want.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </li>
+    <% end %>
 
-      <ul>
-      <% @want.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <li class="field" data-role="fieldcontain">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </li>
 
+    <li class="field" data-role="fieldcontain">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </li>
 
-  <div class="field" data-role="fieldcontain">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+    <li class="field" data-role="fieldcontain">
+      <%= f.label :no_expiration %>
+      <%= check_box_tag 'want[no_expiration]' %>
+      <div class="field" data-role="fieldcontain" id="want_expired_at_div">
+        <%= f.label :expired_at %>
+        <%= f.datetime_local_field :expired_at, placeholder: t("Remain blank if no expiration") %>
+      </div>
+    </li>
 
-  <div class="field" data-role="fieldcontain">
-    <%= f.label :no_expiration %>
-    <%= check_box_tag 'want[no_expiration]' %>
-  </div>
-
-  <div class="field" data-role="fieldcontain" id="want_expired_at_div">
-    <%= f.label :expired_at %>
-    <%= f.datetime_local_field :expired_at, placeholder: t("Remain blank if no expiration") %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <li class="actions">
+      <%= f.submit %>
+    </li>
+  </ul>
 <% end %>

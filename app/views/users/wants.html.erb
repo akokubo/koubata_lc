@@ -2,15 +2,18 @@
 <% provide :title,  t("Listing ", model: t('activerecord.models.want').pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
-<% if @wants.readable.count > 10 %>
-  <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d">
+<%= link_to t('New ', model: t('activerecord.models.want')), new_want_path, data: { role: :button } %>
+<br>
+<br>
+<% if @wants.present? %>
+  <ul data-role="listview"> 
+    <% @wants.each do |want| %>
+      <li><%= link_to want.title, want %></li>
+    <% end %>
+  </ul>
 <% else %>
-  <ul data-role="listview" data-divider-theme="d">
+  <p><%= t("There is no ", model: t('activerecord.models.want')) %></p>
 <% end %>
-  <% @wants.readable.each do |want| %>
-    <li><%= link_to want.title, want %></li>
-  <% end %>
-</ul>
 
 <!--
 <table>
@@ -42,6 +45,4 @@
 </table>
 
 <br>
-
-<%= link_to t('New want'), new_want_path %>
 -->

@@ -2,7 +2,7 @@ class OfferingsController < ApplicationController
   before_action :set_offering, only: [:show, :edit, :update, :destroy]
 
   def index
-    @offerings = Offering.where(user: current_user)
+    @categories = Category.all
   end
 
   def show
@@ -50,7 +50,7 @@ class OfferingsController < ApplicationController
   def destroy
     @offering.destroy
     respond_to do |format|
-      format.html { redirect_to offerings_url }
+      format.html { redirect_to offerings_user_url(current_user) }
       format.json { head :no_content }
     end
   end

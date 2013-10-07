@@ -3,6 +3,11 @@ class Want < ActiveRecord::Base
 
   belongs_to :user
 
+  scope :readable, -> {
+    now = Time.current
+    where("? < expired_at OR expired_at IS NULL", now)
+  }
+  
   # 必須属性の検証
   validates :user_id, presence: true
   validates :title, presence: true
