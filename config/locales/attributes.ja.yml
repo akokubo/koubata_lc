@@ -15,6 +15,7 @@ ja:
         current_password: '現在のパスワード'
       offering:
         title: '件名'
+        user: '提供者'
         description: '内容'
         price: '価格'
         expired_at: '表示期限'
@@ -23,6 +24,7 @@ ja:
         category_id: 'カテゴリー'
       want:
         title: '件名'
+        user: '依頼者'
         description: '内容'
         expired_at: '表示期限'
         no_expiration: '表示期限を設定しない'

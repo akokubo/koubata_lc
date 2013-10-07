@@ -1,22 +1,29 @@
 <% provide :title, t('activerecord.models.want') %>
 <h1><%= yield(:title) %></h1>
 
-<p>
-  <strong><%= Want.human_attribute_name(:title) %>:</strong>
-  <%= @want.title %>
-</p>
+<ul data-role="listview" data-inset="true">
+  <li>
+    <h2><%= Want.human_attribute_name(:title) %></h2>
+    <p><%= @want.title %></p>
+  </li>
+  <li>
+    <h2><%= Want.human_attribute_name(:user) %></h2>
+    <p><%= @want.user.name %></p>
+  </li>
+  <li>
+    <h2><%= Want.human_attribute_name(:description) %></h2>
+    <div><%= simple_format @want.description %></div>
+  </li>
+  <li>
+    <h2><%= Want.human_attribute_name(:expired_at) %></h2>
+    <p><%= @want.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></p>
+  </li>
+</ul>
 
-<p>
-  <strong><%= Want.human_attribute_name(:description) %>:</strong>
-  <%= @want.description %>
-</p>
-
-<p>
-  <strong><%= Want.human_attribute_name(:expired_at) %>:</strong>
-  <%= @want.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %>
-</p>
-
-
-<%= link_to t('Edit'), edit_want_path(@want) %> |
-<%= link_to t('Destroy'), @want, method: :delete, data: { confirm: t('Are you sure?') } %> |
-<%= link_to t('Back'), wants_user_path(current_user) %>
+<% if @want.user_id == current_user.id %>
+<%= link_to t('Edit'), edit_want_path(@want), data: { role: :button, inline: true } %>
+<%= link_to t('Destroy'), @want, method: :delete, data: { confirm: t('Are you sure?'), role: :button, inline: true } %>
+<% else %>
+<%= link_to t('Contract'), "#", data: { role: :button, inline: true } %>
+<% end %>
+<%= link_to t('Back'), wants_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
