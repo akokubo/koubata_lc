@@ -2,38 +2,25 @@
 <% provide :title,  t("Listing ", model: t('activerecord.models.offering').pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= t("Title") %></th>
-<!--      <th><%= t("User") %></th> -->
-      <th><%= t("Category") %></th>
-<!--      <th><%= t("Description") %></th> -->
-      <th><%= t("Price") %></th>
-      <th><%= t("Expired_at") %></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @offerings.each do |offering| %>
-      <tr>
-        <td><%= offering.title %></td>
-<!--        <td><%= offering.user.name %></td> -->
-        <td><%= offering.category.name %></td>
-<!--        <td><%= offering.description %></td> -->
-        <td><%= offering.price %></td>
-        <td><%= offering.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></td>
-        <td><%= link_to t('Show'), offering %></td>
-        <td><%= link_to t('Edit'), edit_offering_path(offering) %></td>
-        <td><%= link_to t('Destroy'), offering, method: :delete, data: { confirm: t('Are you sure?') } %></td>
-      </tr>
+<% if @categories.present? %>
+  <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
+    <% @categories.each do |category| %>
+      <% if category.offerings.readable.present? %>
+        <div data-role="collapsible">
+          <h2><%= category.name %></h2>
+          <% if category.offerings.readable.count > 10 %>
+            <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d">
+          <% else %>
+            <ul data-role="listview" data-divider-theme="d">
+          <% end %>
+            <% category.offerings.readable.each do |offering| %>
+              <li><%= link_to offering.title, offering %></li>
+            <% end %>
+          </ul>
+       </div>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to t('New offering'), new_offering_path %>
+  </div>
+<% else %>
+  <p><%= t("No ", model: t('activerecord.models.category')) %></p>
+<% end %>

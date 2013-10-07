@@ -2,7 +2,7 @@ class OfferingsController < ApplicationController
   before_action :set_offering, only: [:show, :edit, :update, :destroy]
 
   def index
-    @offerings = Offering.where(user: current_user)
+    @categories = Category.all
   end
 
   def show
