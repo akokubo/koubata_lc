@@ -4,13 +4,32 @@
 <%= link_to t("Sign in"), new_user_session_path, data: { ajax: false, role: "button", inline: true, icon: "arrow-r", iconpos: "right" } %>
 <br>
 <br>
+<br>
 <ul data-role="listview">
-  <li data-role="list-divider"><%= t("Menu") %></li>
+<!--  <li data-role="list-divider"><%= t("Menu") %></li> -->
   <li><%= link_to t("Sign up"), new_user_registration_path %></li>
   <li><%= link_to t("Need help?"), need_help_path %></li>
-  <li><%= link_to t("About"), about_path %></li>
-  <li><%= link_to t("Contact"), contact_path %></li>
+<!--  <li><%= link_to t("About"), about_path %></li> -->
+<!--  <li><%= link_to t("Contact"), contact_path %></li> -->
 </ul>
 <% else %>
-<p>デフォルトでは、ニュースフィードがここに表示</p>
+  <ul data-role="listview">
+    <li><%= link_to current_user.name, user_path(current_user) %></li>
+    <li data-role="list-divider"><%= t("Favorites") %></li>
+    <li><%= link_to t("Home"), root_path %></li>
+    <li><%= link_to t("Search ", model: t('activerecord.models.user').pluralize(:locale)), users_path %></li>
+    <li><%= link_to t("Search ", model: t('activerecord.models.offering').pluralize(:locale)), offerings_path %></li>
+    <li><%= link_to t("Search ", model: t('activerecord.models.want').pluralize(:locale)), wants_path %></li>
+    <li><%= link_to t('activerecord.models.message'), messages_path %></li>
+    <!-- <li><%= link_to t("Logs"), "#" %></li> -->
+    <li data-role="list-divider"><%= t("Self Informations") %></li>
+    <li><%= link_to t('activerecord.models.offering'), offerings_user_path(current_user) %></li>
+    <li><%= link_to t('activerecord.models.want'), wants_user_path(current_user) %></li>
+    <!-- <li><%= link_to t("Friends"), "#" %></li> -->
+    <li><%= link_to t("activerecord.models.account"), accounts_path %></li>
+    <li><%= link_to t("Settings"), edit_user_registration_path %></li>
+    <li data-role="list-divider"><%= t("System") %></li>
+    <!-- <li><%= link_to t("Instructions"), "#" %></li> -->
+    <li><%= link_to t("Sign out"), destroy_user_session_path, method: :delete, data: { ajax: false } %></li>
+  </ul>
 <% end %>
