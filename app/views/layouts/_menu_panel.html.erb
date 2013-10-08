@@ -12,7 +12,7 @@
     <li><%= link_to t('activerecord.models.want'), wants_user_path(current_user) %></li>
     <li><%= link_to t("Friends"), "#" %></li>
     <li><%= link_to t("Accounts"), "#" %></li>
-    <li><%= link_to t("Settings"), "#" %></li>
+    <li><%= link_to t("Settings"), edit_user_registration_path %></li>
     <li data-role="list-divider"><%= t("System") %></li>
     <li><%= link_to t("Instructions"), "#" %></li>
     <li><%= link_to t("Sign out"), destroy_user_session_path, method: :delete, data: { ajax: false } %></li>
