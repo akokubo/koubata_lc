@@ -5,19 +5,28 @@
 
 <p><%= t('New ', model: t('activerecord.models.message')) %></p>
 <%= form_for(@message) do |f| %>
-  <%= f.hidden_field :to_id %>
-  <%= f.text_field :subject, placeholder: Message.human_attribute_name(:subject) %>
-  <%= f.text_area :body, placeholder: t("Compose new message...") %>
-  <%= f.submit t("Submit new message") %>
+  <ul data-role="listview" data-inset="true">
+    <%= f.hidden_field :to_id %>
+    <li data-role="fieldcontaion">
+      <%= f.label :subject %>
+      <%= f.text_field :subject %>
+    </li>
+    <li data-role="fieldcontaion">
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </li>
+    <li>
+      <%= f.submit t("Submit new message") %>
+    </li>
+  </ul>
 <% end %>
-
 <hr>
 
 <% @messages.each do |message| %>
 <% message.direction == "to" ? float = "left" : float = "right" %>
 <div class="ui-shadow ui-btn-corner-all ui-btn-up-c message-<%= float %>">
   <strong><%= message.subject %></strong>
-  <p><%= message.body %></p>
+  <p><%= simple_format message.body %></p>
   <p><%= l(message.created_at) %></p>
 </div>
 <% end %>

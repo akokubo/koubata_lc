@@ -1,0 +1,8 @@
+<% provide :title, @user.name %>
+<h1><%= yield(:title) %></h1>
+
+<%= link_to t('Messages'), messages_user_path(@user), data: { role: :button } %>
+
+<%= link_to t('Offerings'), offerings_user_path(@user), data: { role: :button } %>
+
+<%= link_to t('Wants'), wants_user_path(@user), data: { role: :button } %>
