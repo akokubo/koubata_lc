@@ -36,7 +36,8 @@
 <% if @offering.user_id == current_user.id %>
 <%= link_to t('Edit'), edit_offering_path(@offering), data: { role: :button, inline: true } %>
 <%= link_to t('Destroy'), @offering, method: :delete, data: { confirm: t('Are you sure?'), role: :button, inline: true } %>
+<%= link_to t('Back to my offerings'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
 <% else %>
 <%= link_to t('Entrust'), { controller: :messages, action: :new, offering: @offering.id }, data: { role: :button, inline: true } %>
 <% end %>
-<%= link_to t('Back'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
+<%= link_to t('Back'), offerings_path, data: { role: :button, icon: "arrow-l" } %>

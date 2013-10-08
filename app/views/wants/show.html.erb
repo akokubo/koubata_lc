@@ -23,7 +23,8 @@
 <% if @want.user_id == current_user.id %>
 <%= link_to t('Edit'), edit_want_path(@want), data: { role: :button, inline: true } %>
 <%= link_to t('Destroy'), @want, method: :delete, data: { confirm: t('Are you sure?'), role: :button, inline: true } %>
+<%= link_to t('Back to my wants'), wants_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
 <% else %>
 <%= link_to t('Contract'), { controller: :messages, action: :new, want: @want.id }, data: { role: :button, inline: true } %>
 <% end %>
-<%= link_to t('Back'), wants_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
+<%= link_to t('Back'), wants_path, data: { role: :button, icon: "arrow-l" } %>
