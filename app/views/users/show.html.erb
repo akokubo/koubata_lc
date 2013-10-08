@@ -1,8 +1,12 @@
 <% provide :title, @user.name %>
 <h1><%= yield(:title) %></h1>
 
-<%= link_to t('Messages'), messages_user_path(@user), data: { role: :button } %>
+<% if @user.id != current_user.id %>
+<%= link_to t('activerecord.models.message').pluralize(:locale), messages_user_path(@user), data: { role: :button } %>
+<% else %>
+<%= link_to t("Settings"), edit_user_registration_path, data: { role: :button } %>
+<% end %>
 
-<%= link_to t('Offerings'), offerings_user_path(@user), data: { role: :button } %>
+<%= link_to t('activerecord.models.offering').pluralize(:locale), offerings_user_path(@user), data: { role: :button } %>
 
-<%= link_to t('Wants'), wants_user_path(@user), data: { role: :button } %>
+<%= link_to t('activerecord.models.want').pluralize(:locale), wants_user_path(@user), data: { role: :button } %>
