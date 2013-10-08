@@ -1,0 +1,38 @@
+<% provide :title, t('activerecord.models.payment') %>
+<h1><%= yield(:title) %></h1>
+
+<ul data-role="listview" data-inset="true">
+<li>
+  <h2><%= Payment.human_attribute_name(:from) %>:</h2>
+  <p><%= @payment.from.user.name %></p>
+</li>
+
+<li>
+  <h2><%= Payment.human_attribute_name(:to) %>:</h2>
+  <p><%= @payment.to.user.name %></p>
+</li>
+
+<li>
+  <h2><%= Payment.human_attribute_name(:subject) %>:</h2>
+  <p><%= @payment.subject %></p>
+</li>
+
+<li>
+  <h2><%= Payment.human_attribute_name(:amount) %>:</h2>
+  <p><%= @payment.amount %></p>
+</li>
+<li>
+  <h2><%= Payment.human_attribute_name(:balance) %>:</h2>
+  <p><%= @payment.balance %></p>
+</li>
+
+<li>
+  <h2><%= Payment.human_attribute_name(:comment) %>:</h2>
+  <p><%= @payment.comment %></p>
+</li>
+</ul>
+  <%= link_to t('Back'), accounts_path, data: { role: :button } %>
+<!--
+<%= link_to t('Edit'), edit_payment_path(@payment) %> |
+<%= link_to t('Back'), payments_path %>
+-->

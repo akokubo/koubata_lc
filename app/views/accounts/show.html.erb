@@ -1,0 +1,15 @@
+<% provide :title, t('activerecord.models.account') %>
+<h1><%= yield(:title) %></h1>
+
+<p>
+  <strong><%= t('User') %>:</strong>
+  <%= @account.user.name %>
+</p>
+
+<p>
+  <strong><%= t('Balance') %>:</strong>
+  <%= @account.balance %>
+</p>
+
+<%= link_to t('Edit'), edit_account_path(@account) %> |
+<%= link_to t('Back'), accounts_path %>

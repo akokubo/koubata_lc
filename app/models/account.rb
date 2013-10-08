@@ -5,8 +5,10 @@ class Account < ActiveRecord::Base
   # 必須属性の検証
   validates :user_id, presence: true
   validates :balance, presence: true
-  # 残高は、0以上の整数
-  validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  # 残高は整数
+  validates :balance, numericality: { only_integer: true }
+
+  validate :balance_must_be_positive
 
   # 支出
   def withdraw(amount)
@@ -20,13 +22,17 @@ class Account < ActiveRecord::Base
 
   # 支払い
   def self.transfer(from, to, amount)
-    transaction do
+    Account.transaction do
       from.withdraw(amount)
       to.deposit(amount)
     end
   end
 
   private
+    def balance_must_be_positive
+      errors.add(:balance, "が負になりました。") if balance < 0
+    end
+
     # 残高を変更して保存
     def adjust_balance_and_save(amount)
       self.balance += amount

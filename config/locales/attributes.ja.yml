@@ -5,6 +5,8 @@ ja:
       offering: '「できること」'
       want: '「頼みたいこと」'
       message: 'メッセージ'
+      account: '通帳'
+      payment: '振込'
     attributes:
       user:
         name: '名前'
@@ -35,6 +37,19 @@ ja:
         to_id: '受信者ID'
         subject: '件名'
         body: '本文'
+      account:
+        user: '名前'
+        user_id: '名前'
+        balance: '所持ポイント'
+      payment:
+        from: '振込人'
+        to: '受取人'
+        from_id: '振込人'
+        to_id: '受取人'
+        subject: '件名'
+        amount: '振込ポイント'
+        balance: '残高ポイント'
+        comment: '備考'
     successful:
       messages:
         created: "%{model}を保存しました。"

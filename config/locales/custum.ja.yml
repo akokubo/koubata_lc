@@ -11,14 +11,9 @@ ja:
   "Menu": メニュー
   "Favorites": お気に入り
   "Feeds": ニュースフィード
-  "Search Wants": 「助けて！」を検索
-  "Messages": メッセージ
   "Logs": ログ
   "Self Informations": わたしの情報
-  "Offerings": できます！
-  "Wants": 助けて！
   "Friends": 友だち
-  "Accounts": 通帳
   "Settings": ユーザー情報の編集
   "System": システム
   "Instructions": 使い方
@@ -35,6 +30,9 @@ ja:
   "prohibited this want from being saved": つのエラーにより保存しませんでした。
   "Compose new message": 新しいメッセージを入力...
   "Submit new message": 送信
+  "Submit new payment": 振込を実行
+  "Back to my offerings": 自分が「できること」へ戻る
+  "Back to my wants": 自分が「頼みたいこと」へ戻る
   errors:
     messages:
       expired_at_too_old: "は現時刻より新しい日時にしてください。"

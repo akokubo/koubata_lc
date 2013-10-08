@@ -1,0 +1,7 @@
+<% provide :title, t('Editing ', model: t('activerecord.models.payment')) %>
+<h1><%= yield(:title) %></h1>
+
+<%= render 'form' %>
+
+<%= link_to t('Show'), @payment %> |
+<%= link_to t('Back'), payments_path %>

@@ -1,0 +1,11 @@
+<% provide :title, t('New ', model: t('activerecord.models.payment')) %>
+<h1><%= yield(:title) %></h1>
+
+<p><strong>現在の残高</strong>: <%= current_user.account.balance %>ポイント</p>
+<%= render 'form' %>
+
+<%= link_to t('Back'), accounts_path, data: { role: :button, icon: "arrow-l" } %>
+
+<!--
+<%= link_to t('Back'), payments_path, data: { role: :button, icon: "arrow-l" } %>
+-->

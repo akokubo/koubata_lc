@@ -1,0 +1,24 @@
+<% provide :locale, I18n.locale.inspect %>
+<% provide :title,  t("Listing ", model: t('activerecord.models.payment').pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<%= link_to t('New ', model: t('activerecord.models.payment')), new_payment_path, data: { role: :button } %>
+
+<% if @payments.present? %>
+  <table>
+    <tr>
+      <th>相手</th>
+      <th>ポイント</th>
+      <th>件名</th>
+    </tr>
+    <% @payments.each do |payment| %>
+    <tr>
+      <td><%= payment.with.name %></td>
+      <td style="text-align: right;"><%= payment.payment %></td>
+      <td><%= link_to payment.subject, payment %></td>
+    </tr>
+    <% end %>
+  </table>
+<% else %>
+  取引履歴はありません。
+<% end %>
