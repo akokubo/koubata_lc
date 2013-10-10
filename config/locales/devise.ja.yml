@@ -11,7 +11,7 @@ ja:
   "Didn't receive unlock instructions?": アカウントの凍結解除方法のメールが届かない
   "Resend unlock instructions": アカウント再凍結解除
   "Sign out": ログアウト
-  "Confirm my account": アカウント確認
+  "Confirm my account": アカウント登録の確認
   "Change my password": パスワード再設定
   "Change your password": パスワード再設定
   "New password": 新しいパスワード
@@ -28,5 +28,12 @@ ja:
   "Are you sure?": 本当に削除しますか？
   "Unhappy?": 問題がありましたか？
   devise:
+    mailer:
+      confirmation_instructions:
+        subject: "[幸畑プロジェクト]アカウント登録の確認"
+      reset_password_instructions:
+        subject: "[幸畑プロジェクト]パスワードの再設定"
+      unlock_instructions:
+        subject: "[幸畑プロジェクト]アカウントの凍結解除"
     passwords:
       no_token: パスワード再設定のメール以外からは、パスワード再設定ページへアクセスする事はできません。もしパスワード再設定のメールに記載されたリンクをクリックして、このメッセージが表示された場合、不完全なURLのリンクをクリックしていないか確認してください。メーラーによっては、リンクのURLが途中で切れる可能性があります。
