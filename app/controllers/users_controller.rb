@@ -18,11 +18,11 @@ class UsersController < ApplicationController
   end
 
   def offerings
-    @offerings = Offering.where(user_id: current_user.id)
+    @offerings = current_user.offerings
   end
 
   def wants
-    @wants = Want.where(user_id: current_user.id)
+    @wants = current_user.wants
   end
 
 end
