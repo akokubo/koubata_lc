@@ -33,6 +33,8 @@ ja:
   "Submit new payment": 振込を実行
   "Back to my offerings": 自分が「できること」へ戻る
   "Back to my wants": 自分が「頼みたいこと」へ戻る
+  "You cannot edit!": あなたは編集できません
+  "You cannot delete!": あなたは削除できません
   errors:
     messages:
       expired_at_too_old: "は現時刻より新しい日時にしてください。"

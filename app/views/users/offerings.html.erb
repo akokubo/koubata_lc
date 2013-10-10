@@ -12,43 +12,5 @@
     <% end %>
   </ul>
 <% else %>
-  <p><%= t("There is no offering.") %></p>
+  <p><%= t("There is no ", model: t('activerecord.models.offering')) %></p>
 <% end %>
-<!--
-<br>
-<br>
-<br>
-<table>
-  <thead>
-    <tr>
-      <th><%= t("Title") %></th>
-      <th><%= t("User") %></th>
-      <th><%= t("Category") %></th>
-      <th><%= t("Description") %></th>
-      <th><%= t("Price") %></th>
-      <th><%= t("Expired_at") %></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @offerings.each do |offering| %>
-      <tr>
-        <td><%= link_to offering.title, offering %></td>
-        <td><%= offering.user.name %></td>
-        <td><%= offering.category.name %></td>
-        <td><%= offering.description %></td>
-        <td><%= offering.price %></td>
-        <td><%= offering.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></td>
-        <td><%= link_to t('Show'), offering %></td>
-        <td><%= link_to t('Edit'), edit_offering_path(offering) %></td>
-        <td><%= link_to t('Destroy'), offering, method: :delete, data: { confirm: t('Are you sure?') } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
--->
