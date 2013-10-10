@@ -146,6 +146,6 @@ table {
 .ui-li .ui-btn-text a.ui-link-inherit, /* リンクリスト */
 .ui-li-desc /* リスト詳細 */
 {
-  overflow: visible;
-  white-space: normal;
+  overflow: visible !important;
+  white-space: normal !important;
 }
