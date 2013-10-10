@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  before_action :set_payment, only: [:show, :edit, :update, :destroy]
+  before_action :set_payment, only: [:show]
   before_action :authenticate_user!
 
   def index
@@ -15,8 +15,10 @@ class PaymentsController < ApplicationController
     @tos = User.where("id != '#{current_user.id}'")
   end
 
+=begin
   def edit
   end
+=end
 
   def create
     @payment = Payment.new(payment_params)
@@ -36,6 +38,7 @@ class PaymentsController < ApplicationController
     end
   end
 
+=begin
   def update
     respond_to do |format|
       if @payment.update(payment_params)
@@ -55,6 +58,7 @@ class PaymentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+=end
 
   private
     # Use callbacks to share common setup or constraints between actions.

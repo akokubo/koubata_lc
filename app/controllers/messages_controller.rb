@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
+  before_action :set_message, only: [:show]
   before_action :authenticate_user!
 
   def index
@@ -7,8 +7,10 @@ class MessagesController < ApplicationController
     @withs = Message.withs(current_user.id)
   end
 
+=begin
   def show
   end
+=end
 
   def new
     @message = Message.new
@@ -25,8 +27,10 @@ class MessagesController < ApplicationController
     end
   end
 
+=begin
   def edit
   end
+=end
 
   def create
     @message = Message.new(message_params)
@@ -45,6 +49,7 @@ class MessagesController < ApplicationController
     end
   end
 
+=begin
   def update
     respond_to do |format|
       if @message.update(message_params)
@@ -64,6 +69,8 @@ class MessagesController < ApplicationController
       format.json { head :no_content }
     end
   end
+=end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_message

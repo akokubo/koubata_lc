@@ -1,5 +1,5 @@
 class OfferingsController < ApplicationController
-  before_action :set_offering, only: [:show, :edit, :update, :destroy]
+  before_action :set_offering, only: [:show, :update, :destroy]
   before_action :authenticate_user!
 
   def index
@@ -16,6 +16,10 @@ class OfferingsController < ApplicationController
   end
 
   def edit
+    @offering = Want.find(params[:id])
+    if @offering.user != current_user
+      redirect_to @offering, alert: t('You cannot edit!')
+    end
   end
 
   def create
@@ -36,25 +40,39 @@ class OfferingsController < ApplicationController
 
   def update
     @categories = Category.all
-
-    respond_to do |format|
-      if @offering.update(offering_params)
-        format.html { redirect_to @offering, notice: t('activerecord.successful.messages.updated', :model => Offering.model_name.human) }
+    if @offering.user == current_user
+      respond_to do |format|
+        if @offering.update(offering_params)
+          format.html { redirect_to @offering, notice: t('activerecord.successful.messages.updated', :model => Offering.model_name.human) }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @offering.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to @offering, alert: t('You cannot edit!') }
         format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @offering.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @offering.destroy
-    respond_to do |format|
-      format.html { redirect_to offerings_user_url(current_user) }
-      format.json { head :no_content }
+    if @offering.user == current_user
+      @offering.destroy
+      respond_to do |format|
+        format.html { redirect_to offerings_user_url(current_user) }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to offerings_user_url(current_user), alert: t('You cannot delete!') }
+        format.json { head :no_content }
+      end
     end
   end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_offering
