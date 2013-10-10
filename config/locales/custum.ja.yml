@@ -20,6 +20,21 @@ ja:
   "About": 幸畑プロジェクトとは
   "Contact": お問い合わせ
   "User": ユーザー
+  "Transfer Record": 取引履歴
+  "Datetime": 日時
+  "Person": 相手
+  "Type": 種別
+  "Amount": 振込
+  "Balance": 残高
+  "Subject": 件名
+  "Deposit": 入金
+  "Withdraw": 送金
+  "points": ポイント
+  "Current balance": 現在の残高
+  "Welcome to Koubata Project!": 幸畑プロジェクトへようこそ
+  "If you don't have an account you can sign up!": はじめての方はユーザー登録してください。
+  "No transfer record.": 取引履歴はありません。
+  "No messsage.": メッセージはありません。
   "Listing ": "%{model}・リスト"
   "New ": "新しい%{model}を作成"
   "Editing ": "%{model}を編集"

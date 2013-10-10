@@ -7,9 +7,9 @@
 <% if @payments.present? %>
   <table>
     <tr>
-      <th>相手</th>
-      <th>ポイント</th>
-      <th>件名</th>
+      <th><%= t("Person") %></th>
+      <th><%= t("Amount") %></th>
+      <th><%= t("Subject") %></th>
     </tr>
     <% @payments.each do |payment| %>
     <tr>
@@ -20,5 +20,5 @@
     <% end %>
   </table>
 <% else %>
-  取引履歴はありません。
+  <%= t("No transfer record.") %>
 <% end %>

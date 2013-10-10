@@ -4,22 +4,22 @@
 <p><strong><%= Payment.human_attribute_name(:balance) %></strong>: <%= current_user.account.balance %></p>
 <%= link_to t('New ', model: t('activerecord.models.payment')), new_payment_path, data: { role: :button } %>
 
-<h2>取引履歴</h2>
+<h2><%= t('Transfer Record') %></h2>
 <% if @payments.present? %>
   <table>
     <tr>
-      <th>日時</th>
-      <th>取引相手</th>
-      <th>種別</th>
-      <th>振込</th>
-      <th>残高</th>
-      <th>件名</th>
+      <th><%= t('Datetime') %></th>
+      <th><%= t('Person') %></th>
+      <th><%= t('Type') %></th>
+      <th><%= t('Amount') %></th>
+      <th><%= t('Balance') %></th>
+      <th><%= t('Subject') %></th>
     </tr>
     <% @payments.each do |payment| %>
     <tr>
       <td><%= l(payment.created_at) %></td>
       <td><%= payment.with.name %></td>
-      <td><%= payment.direction == "from" ? "送金" : "入金" %></td>
+      <td><%= payment.direction == "from" ? t('Withdraw') : t('Deposite') %></td>
       <td style="text-align: right;"><%= payment.payment %></td>
       <td style="text-align: right;"><%= payment.balance %></td>
       <td><%= link_to payment.subject, payment %></td>
@@ -27,5 +27,5 @@
     <% end %>
   </table>
 <% else %>
-  取引履歴はありません。
+  <%= t('No transfer record.') %>
 <% end %>

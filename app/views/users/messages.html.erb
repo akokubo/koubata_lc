@@ -21,15 +21,15 @@
 <hr>
 
 <% if @message.present? %>
-<% @messages.each do |message| %>
-<% message.direction == "to" ? float = "left" : float = "right" %>
-<div class="ui-shadow ui-btn-corner-all ui-btn-up-c message-<%= float %>">
-  <strong><%= message.subject %></strong>
-  <p><%= simple_format message.body %></p>
-  <p><%= l(message.created_at) %></p>
-</div>
-<% end %>
-<br style="clear: both;">
+  <% @messages.each do |message| %>
+  <% message.direction == "to" ? float = "left" : float = "right" %>
+  <div class="ui-shadow ui-btn-corner-all ui-btn-up-c message-<%= float %>">
+    <strong><%= message.subject %></strong>
+    <p><%= simple_format message.body %></p>
+    <p><%= l(message.created_at) %></p>
+  </div>
+  <% end %>
+  <br style="clear: both;">
 <% else %>
   <p><%= t("There is no ", model: t('activerecord.models.message')) %></p>
 <% end %>
