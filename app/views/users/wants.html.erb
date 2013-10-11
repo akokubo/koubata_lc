@@ -1,5 +1,5 @@
 <% provide :locale, I18n.locale.inspect %>
-<% provide :title,  current_user.name + ":" + t("Listing ", model: t('activerecord.models.want').pluralize(:locale)) %>
+<% provide :title,  @user.name + ":" + t("Listing ", model: t('activerecord.models.want').pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
 <%= link_to t('New ', model: t('activerecord.models.want')), new_want_path, data: { role: :button } %>
