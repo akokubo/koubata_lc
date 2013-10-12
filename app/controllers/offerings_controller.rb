@@ -16,7 +16,8 @@ class OfferingsController < ApplicationController
   end
 
   def edit
-    @offering = Want.find(params[:id])
+    @offering = Offering.find(params[:id])
+    @categories = Category.all
     if @offering.user != current_user
       redirect_to @offering, alert: t('You cannot edit!')
     end
