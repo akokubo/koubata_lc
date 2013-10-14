@@ -1,7 +1,7 @@
 <br>
 <br>
 <ul data-role="listview">
-  <li data-role="list-divider">メニュー</li>
+  <li data-role="list-divider"><%= t('Menu') %></li>
 <%- if controller_name != 'sessions' %>
   <li><%= link_to t("Sign in"), new_session_path(resource_name), data: { ajax: false } %></li>
 <% end -%>
