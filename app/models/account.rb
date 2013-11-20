@@ -6,9 +6,7 @@ class Account < ActiveRecord::Base
   validates :user_id, presence: true
   validates :balance, presence: true
   # 残高は整数
-  validates :balance, numericality: { only_integer: true }
-
-  validate :balance_must_be_positive
+  validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   # 支出
   def withdraw(amount)
@@ -29,9 +27,6 @@ class Account < ActiveRecord::Base
   end
 
   private
-    def balance_must_be_positive
-      errors.add(:balance, "が負になりました。") if balance < 0
-    end
 
     # 残高を変更して保存
     def adjust_balance_and_save(amount)

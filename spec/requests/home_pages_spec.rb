@@ -8,12 +8,12 @@ describe "Home Pages" do
     expect(page).to have_title('お困りですか？')
 
     visit root_path
-    click_link "幸畑プロジェクトとは"
-    expect(page).to have_title('幸畑プロジェクトとは')
+    click_link "ユーザー登録する"
+    expect(page).to have_title('ユーザー登録する')
 
     visit root_path
-    click_link "お問い合わせ"
-    expect(page).to have_title('お問い合わせ')
+    click_link "ログイン"
+    expect(page).to have_title('ログイン')
   end
 
   subject { page }

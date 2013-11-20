@@ -30,10 +30,10 @@ class Message < ActiveRecord::Base
     messages = self.where("from_id = '#{user_id}' or to_id = '#{user_id}'")
     messages.each do |message|
       if message.from_id == user_id
-        message.with = User.find(message.to_id)
+        message.with = message.to
         message.direction = "from"
       else
-        message.with = User.find(message.from_id)
+        message.with = message.from
         message.direction = "to"
       end
     end
@@ -58,10 +58,10 @@ class Message < ActiveRecord::Base
     messages = self.where("(from_id = '#{user_id}' and to_id = '#{with_id}') or (to_id = '#{user_id}' and from_id = '#{with_id}')").order("created_at DESC")
     messages.each do |message|
       if message.from_id == user_id
-        message.with = User.find(message.to_id)
+        message.with = message.to
         message.direction = "from"
       else
-        message.with = User.find(message.from_id)
+        message.with = message.from
         message.direction = "to"
       end
     end

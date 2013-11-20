@@ -15,6 +15,7 @@ describe Payment do
       to_id: to.id,
       subject: "Lorem ipsum",
       amount: 100,
+      balance: 1000,
       comment: "Lorem ipsum" * 5
     )
   end

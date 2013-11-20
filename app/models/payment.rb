@@ -16,7 +16,6 @@ class Payment < ActiveRecord::Base
   validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   validate :from_id_not_equal_to_id
-  validate :balance_must_be_positive
 
   def with
     @with
@@ -35,10 +34,10 @@ class Payment < ActiveRecord::Base
   end
 
   def payment
-    if self.direction == "from"
-      - self.amount
+    if direction == "from"
+      -amount
     else
-      self.amount
+      amount
     end
   end
 
@@ -46,10 +45,10 @@ class Payment < ActiveRecord::Base
     payments = self.where("from_id = '#{user_id}' or to_id = '#{user_id}'")
     payments.each do |payment|
       if payment.from_id == user_id
-        payment.with = User.find(payment.to_id)
+        payment.with = payment.to
         payment.direction = "from"
       else
-        payment.with = User.find(payment.from_id)
+        payment.with = payment.from
         payment.direction = "to"
       end
     end
@@ -74,10 +73,10 @@ class Payment < ActiveRecord::Base
     payments = self.where("(from_id = '#{user_id}' and to_id = '#{with_id}') or (to_id = '#{user_id}' and from_id = '#{with_id}')")
     payments.each do |payment|
       if payment.from_id == user_id
-        payment.with = User.find(payment.to_id)
+        payment.with = payment.to
         payment.direction = "from"
       else
-        payment.with = User.find(payment.from_id)
+        payment.with = payment.from
         payment.direction = "to"
       end
     end
@@ -87,11 +86,7 @@ class Payment < ActiveRecord::Base
   private
     # 振込の実行
     def account_transfer
-      Account.transfer(self.from, self.to, self.amount)
-    end
-
-    def balance_must_be_positive
-      errors.add(:amount, :invalid) if User.find(self.from_id).account.balance < self.amount
+      Account.transfer(from, to, amount)
     end
 
     def from_id_not_equal_to_id
