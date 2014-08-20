@@ -27,7 +27,7 @@ class Message < ActiveRecord::Base
   end
 
   def self.list(user_id)
-    messages = self.where("from_id = '#{user_id}' or to_id = '#{user_id}'")
+    messages = self.where("from_id = ? or to_id = ?", user_id, user_id)
     messages.each do |message|
       if message.from_id == user_id
         message.with = message.to
@@ -42,7 +42,7 @@ class Message < ActiveRecord::Base
 
   def self.withs(user_id)
     with_ids = Array.new
-    messages = self.where("from_id = '#{user_id}' or to_id = '#{user_id}'")
+    messages = self.where("from_id = ? or to_id = ?", user_id, user_id)
     messages.each do |message|
       if message.from_id == user_id
         with_ids << message.to_id
@@ -55,7 +55,8 @@ class Message < ActiveRecord::Base
   end
 
   def self.with(user_id, with_id)
-    messages = self.where("(from_id = '#{user_id}' and to_id = '#{with_id}') or (to_id = '#{user_id}' and from_id = '#{with_id}')").order("created_at DESC")
+    messages = self.where("(from_id = ? and to_id = ?) or (to_id = ? and from_id = ?)",
+      user_id, with_id, user_id, with_id).order("created_at DESC")
     messages.each do |message|
       if message.from_id == user_id
         message.with = message.to

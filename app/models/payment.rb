@@ -42,7 +42,7 @@ class Payment < ActiveRecord::Base
   end
 
   def self.list(user_id)
-    payments = self.where("from_id = '#{user_id}' or to_id = '#{user_id}'")
+    payments = self.where("from_id = ? or to_id = ?", user_id, user_id)
     payments.each do |payment|
       if payment.from_id == user_id
         payment.with = payment.to
@@ -57,7 +57,7 @@ class Payment < ActiveRecord::Base
 
   def self.withs(user_id)
     with_ids = Array.new
-    payments = self.where("from_id = '#{user_id}' or to_id = '#{user_id}'")
+    payments = self.where("from_id = ? or to_id = ?", user_id, user_id)
     payments.each do |payment|
       if payment.from_id == user_id
         with_ids << payment.to_id
@@ -70,7 +70,8 @@ class Payment < ActiveRecord::Base
   end
 
   def self.with(user_id, with_id)
-    payments = self.where("(from_id = '#{user_id}' and to_id = '#{with_id}') or (to_id = '#{user_id}' and from_id = '#{with_id}')")
+    payments = self.where("(from_id = ? and to_id = ?) or (to_id = ? and from_id = ?)",
+      user_id, with_id, user_id, with_id)
     payments.each do |payment|
       if payment.from_id == user_id
         payment.with = payment.to
