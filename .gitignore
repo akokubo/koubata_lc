@@ -16,5 +16,5 @@
 /tmp
 
 # パスワードを含むファイルを除外
-/db/seeds/development/users.rb
 /db/seeds/production/users.rb
+
