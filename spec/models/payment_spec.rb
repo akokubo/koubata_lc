@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Payment do
   # from/toの生成
@@ -34,9 +34,9 @@ describe Payment do
   # from/toメソッドに応答する
   describe "from/to methods" do
     it { should respond_to(:from) }
-    its(:from) { should eq from }
+    it { expect(@payment.from).to eq from }
     it { should respond_to(:to) }
-    its(:to) { should eq to }
+    it { expect(@payment.to).to eq to }
   end
 
   # from_idが存在しない場合
@@ -98,7 +98,7 @@ describe Payment do
     before { @payment.amount = 2000 }
 
     it "should raise ActiveRecord::RecordInvalid" do
-      lambda{ @payment.save! }.should raise_error(ActiveRecord::RecordInvalid)
+      expect { @payment.save! }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 

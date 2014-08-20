@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131008174332) do
+ActiveRecord::Schema.define(version: 20140819082702) do
 
   create_table "accounts", force: true do |t|
     t.integer  "user_id"
-    t.integer  "balance",    default: 0
+    t.integer  "balance"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -42,7 +42,22 @@ ActiveRecord::Schema.define(version: 20131008174332) do
   add_index "messages", ["from_id"], name: "index_messages_on_from_id"
   add_index "messages", ["to_id"], name: "index_messages_on_to_id"
 
-  create_table "offerings", force: true do |t|
+  create_table "payments", force: true do |t|
+    t.integer  "from_id"
+    t.integer  "to_id"
+    t.string   "subject"
+    t.integer  "amount"
+    t.integer  "balance"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payments", ["from_id"], name: "index_payments_on_from_id"
+  add_index "payments", ["to_id"], name: "index_payments_on_to_id"
+
+  create_table "tasks", force: true do |t|
+    t.string   "type",        null: false
     t.integer  "user_id"
     t.string   "title"
     t.integer  "category_id"
@@ -53,22 +68,7 @@ ActiveRecord::Schema.define(version: 20131008174332) do
     t.datetime "updated_at"
   end
 
-  add_index "offerings", ["category_id"], name: "index_offerings_on_category_id"
-  add_index "offerings", ["user_id"], name: "index_offerings_on_user_id"
-
-  create_table "payments", force: true do |t|
-    t.integer  "from_id"
-    t.integer  "to_id"
-    t.string   "subject"
-    t.integer  "amount"
-    t.text     "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "balance"
-  end
-
-  add_index "payments", ["from_id"], name: "index_payments_on_from_id"
-  add_index "payments", ["to_id"], name: "index_payments_on_to_id"
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -97,16 +97,5 @@ ActiveRecord::Schema.define(version: 20131008174332) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
-
-  create_table "wants", force: true do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.text     "description"
-    t.datetime "expired_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "wants", ["user_id"], name: "index_wants_on_user_id"
 
 end

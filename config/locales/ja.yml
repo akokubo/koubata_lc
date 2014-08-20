@@ -69,10 +69,10 @@ ja:
       half_a_minute: 30秒前後
       less_than_x_minutes:
         one: 1分以内
-        other: ! '%{count}分以内'
+        other: ! '%{count}分未満'
       less_than_x_seconds:
         one: 1秒以内
-        other: ! '%{count}秒以内'
+        other: ! '%{count}秒未満'
       over_x_years:
         one: 1年以上
         other: ! '%{count}年以上'
@@ -95,7 +95,7 @@ ja:
       month: 月
       second: 秒
       year: 年
-  errors: &errors
+  errors:
     format: ! '%{attribute}%{message}'
     messages:
       accepted: を受諾してください。
@@ -192,10 +192,3 @@ ja:
       long: ! '%Y年%m月%d日(%a) %H時%M分%S秒 %z'
       short: ! '%y/%m/%d %H:%M'
     pm: 午後
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
-  activemodel:
-    errors:
-      <<: *errors
-  activerecord:
-    errors:
-      <<: *errors

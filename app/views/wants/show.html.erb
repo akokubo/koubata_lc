@@ -6,14 +6,27 @@
     <h2><%= Want.human_attribute_name(:title) %></h2>
     <p><%= @want.title %></p>
   </li>
+
   <li>
     <h2><%= Want.human_attribute_name(:user) %></h2>
     <p><%= @want.user.name %></p>
   </li>
+
+  <li>
+    <h2><%= Want.human_attribute_name(:category) %>:</h2>
+    <p><%= @want.category.name %></p>
+  </li>
+
   <li>
     <h2><%= Want.human_attribute_name(:description) %></h2>
     <div><%= simple_format @want.description %></div>
   </li>
+
+  <li>
+    <h2><%= Want.human_attribute_name(:price) %>:</h2>
+    <p><%= @want.price %></p>
+  </li>
+
   <li>
     <h2><%= Want.human_attribute_name(:expired_at) %></h2>
     <p><%= @want.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></p>

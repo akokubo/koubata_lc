@@ -28,6 +28,8 @@ FactoryGirl.define do
     user
     sequence(:title) { |n| "want_#{n}"}
     sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
+    sequence(:price) { |n| "the current price #{n}"}
     expired_at 1.day.from_now
+    category
   end
 end

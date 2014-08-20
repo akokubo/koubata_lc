@@ -1,4 +1,6 @@
-KoubataLc::Application.routes.draw do
+Rails.application.routes.draw do
+  root to: 'home#index'
+
   match '/need_help', to: 'home#need_help', via: 'get'
   match '/about',     to: 'home#about',     via: 'get'
   match '/contact',   to: 'home#contact',   via: 'get'
@@ -23,8 +25,7 @@ KoubataLc::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root to: 'home#index'
-
+  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -60,7 +61,7 @@ KoubataLc::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

@@ -20,8 +20,18 @@
     </li>
 
     <li class="field" data-role="fieldcontain">
+      <%= f.label :category_id %>
+      <%= f.collection_select :category_id, @categories, :id, :name %>
+    </li>
+
+    <li class="field" data-role="fieldcontain">
       <%= f.label :description %>
       <%= f.text_area :description %>
+    </li>
+
+    <li class="field" data-role="fieldcontain">
+      <%= f.label :price %>
+      <%= f.text_field :price %>
     </li>
 
     <li class="field" data-role="fieldcontain">

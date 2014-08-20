@@ -5,6 +5,7 @@ class CreatePayments < ActiveRecord::Migration
       t.references :to, index: true
       t.string :subject
       t.integer :amount
+      t.integer :balance
       t.text :comment
 
       t.timestamps

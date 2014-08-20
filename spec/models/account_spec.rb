@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Account do
   # :userを作成
@@ -12,7 +12,7 @@ describe Account do
 
   # 属性に反応するか
   it { should respond_to(:user) }
-  its(:user) { should eq user }
+  it { expect(@account.user).to eq user}
 
   it { should respond_to(:balance) }
 
@@ -67,8 +67,7 @@ describe Account do
 
     # 残高がマイナスになる支払いの場合
     it "has invalid amount should raise ActiveRecord::RecordInvalid" do
-      lambda{ Account.transfer(@from, @to, 2000) }.should
-        raise_error(ActiveRecord::RecordInvalid)
+      expect { Account.transfer(@from, @to, 2000) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
     

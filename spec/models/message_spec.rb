@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Message do
 
@@ -24,9 +24,9 @@ describe Message do
   # from/toメソッドに応答する
   describe "from/to methods" do
     it { should respond_to(:from) }
-    its(:from) { should eq from }
+    it { expect(message.from).to eq from }
     it { should respond_to(:to) }
-    its(:to) { should eq to }
+    it { expect(message.to).to eq to }
   end
 
   # from_idが存在しない場合

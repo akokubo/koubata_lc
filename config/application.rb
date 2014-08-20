@@ -4,9 +4,9 @@ require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 
-module KoubataLc
+module Kec
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -23,5 +23,13 @@ module KoubataLc
     config.action_view.field_error_proc = Proc.new { |html_tag, instance|
       "<span class='field_with_errors'>#{html_tag}</span>".html_safe
     }
+
+    config.generators do |g|
+      g.helper false
+      g.assets false
+      g.test_framewordk :rspec
+      g.controller_specs false
+      g.view_specs false
+    end
   end
 end

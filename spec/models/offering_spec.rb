@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Offering do
 
@@ -22,7 +22,7 @@ describe Offering do
 
   # 属性に反応するか
   it { should respond_to(:user) }
-  its(:user) { should eq user }
+  it { expect(@offering.user).to eq user}
 
   it { should respond_to(:title) }
 

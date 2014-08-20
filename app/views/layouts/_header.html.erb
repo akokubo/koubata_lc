@@ -1,8 +1,8 @@
 <div data-role="header" data-position="fixed">
   <% if user_signed_in? %>
-    <%= link_to t("Menu"), "#menu_panel", data: { icon: "bars" } %>
+    <%= link_to t("Menu"), "#menu_panel", class: "ui-btn ui-icon-bars ui-btn-icon-notext" %>
   <% else %>
-    <%= link_to t("Home"), root_path, data: { icon: "home" } %>
+    <%= link_to t("Home"), root_path, class: "ui-btn ui-icon-home ui-btn-icon-notext" %>
   <% end %>
   <h1><%= full_title(yield(:title)) %></h1>
 </div><!-- /header -->

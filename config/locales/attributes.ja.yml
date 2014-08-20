@@ -54,6 +54,11 @@ ja:
       messages:
         created: "%{model}を保存しました。"
         updated: "%{model}を更新しました。"
+    errors:
+      template:
+        header:
+          other: "%{model}に%{count}つのエラーが発生しました。"
   errors:
     messages:
       not_saved: "エラー"
+      expired_at_too_old: "は現時刻より新しい日時にしてください。"
