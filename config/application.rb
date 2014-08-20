@@ -21,7 +21,25 @@ module Koubata_lc
     config.i18n.default_locale = :ja
 
     config.action_view.field_error_proc = Proc.new { |html_tag, instance|
-      "<span class='field_with_errors'>#{html_tag}</span>".html_safe
+      class_attr_index = html_tag.index 'class="'
+
+      if class_attr_index
+        # target only p's and span's with class error already there
+        #error_class = if html_tag =~ /^<(p|span).*error/
+        #  'field_with_errors '
+        #else
+        #  'error '
+        #end
+
+        error_class = 'field_with_errors'
+        html_tag.insert class_attr_index + 7, error_class
+      else
+        unless html_tag.index(' />').nil?
+          html_tag.insert html_tag.index(' />'), ' class="field_with_errors"'
+        else
+          html_tag.insert html_tag.index('>'), ' class="field_with_errors"'
+        end
+      end
     }
 
     config.generators do |g|

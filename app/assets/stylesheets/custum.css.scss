@@ -113,8 +113,22 @@
   @extend .alert-block;
 }
 
-.field_with_errors {
-  @extend .control-group.error
+label.field_with_errors {
+  color: #b94a48;
+}
+input.field_with_errors,
+select.field_with_errors,
+textarea.field_with_errors {
+  color: #b94a48;
+  border-color: #b94a48;
+}
+input:focus .field_with_errors,
+select:focus .field_with_errors,
+textarea:focus .field_with_errors {
+  border-color: #953b39;
+  -webkit-box-shadow: 0 0 6px #d59392;
+  -moz-box-shadow: 0 0 6px #d59392;
+  box-shadow: 0 0 6px #d59392;
 }
 
 table {
