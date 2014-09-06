@@ -54,6 +54,7 @@ ja:
       messages:
         created: "%{model}を保存しました。"
         updated: "%{model}を更新しました。"
+        destroyed: "%{model}を削除しました。"
     errors:
       template:
         header:

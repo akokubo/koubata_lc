@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140824021649) do
+ActiveRecord::Schema.define(version: 20140906123202) do
 
   create_table "accounts", force: true do |t|
     t.integer  "user_id"
@@ -31,21 +31,13 @@ ActiveRecord::Schema.define(version: 20140824021649) do
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true
 
   create_table "messages", force: true do |t|
-    t.string   "subject",    null: false
-    t.text     "body",       null: false
+    t.string   "subject",                  null: false
+    t.text     "body",                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sender_id",    default: 0, null: false
+    t.integer  "recepient_id", default: 0, null: false
   end
-
-  create_table "passings", force: true do |t|
-    t.integer "message_id"
-    t.integer "user_id"
-    t.integer "companion_id", null: false
-    t.string  "direction",    null: false
-  end
-
-  add_index "passings", ["message_id"], name: "index_passings_on_message_id"
-  add_index "passings", ["user_id"], name: "index_passings_on_user_id"
 
   create_table "payments", force: true do |t|
     t.integer  "from_id"

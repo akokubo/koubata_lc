@@ -2,15 +2,21 @@ class MessagesController < ApplicationController
   before_action :set_message, only: [:show]
   before_action :authenticate_user!
 
+  # GET /messages
+  # GET /messages.json
   def index
+    #@messages = Message.all
     @companions = current_user.companions.uniq
   end
 
 =begin
+  # GET /messages/1
+  # GET /messages/1.json
   def show
   end
 =end
 
+  # GET /messages/new
   def new
     @message = Message.new
     @message.sender_id = current_user.id
@@ -28,10 +34,13 @@ class MessagesController < ApplicationController
   end
 
 =begin
+  # GET /messages/1/edit
   def edit
   end
 =end
 
+  # POST /messages
+  # POST /messages.json
   def create
     @message = Message.new(message_params)
     @message.subject ||= "無題"
@@ -43,34 +52,38 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         format.html { redirect_to user_path(@message.recepient_id), notice: t('activerecord.successful.messages.created', :model => Message.model_name.human) }
-        format.json { render action: 'show', status: :created, location: @message }
+        format.json { render :show, status: :created, location: @message }
       else
-        format.html { render action: 'new' }
+        format.html { render :new }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end
   end
 
 =begin
+  # PATCH/PUT /messages/1
+  # PATCH/PUT /messages/1.json
   def update
     respond_to do |format|
       if @message.update(message_params)
         format.html { redirect_to @message, notice: t('activerecord.successful.messages.updated', :model => Message.model_name.human) }
-        format.json { head :no_content }
+        format.json { render :show, status: :ok, location: @message }
       else
-        format.html { render action: 'edit' }
+        format.html { render :edit }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end
   end
 =end
 
+  # DELETE /messages/1
+  # DELETE /messages/1.json
   def destroy
     if @message.sender_id == current_user.id || @message.recepient_id == current_user.id
       @message.destroy
     end
     respond_to do |format|
-      format.html { redirect_to messages_url }
+      format.html { redirect_to messages_url, notice: t('activerecord.successful.messages.destroyed', :model => Message.model_name.human) }
       format.json { head :no_content }
     end
   end

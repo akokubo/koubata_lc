@@ -61,7 +61,7 @@ describe Message do
   # Messageを生成した場合
   describe "when message created" do
     before { message.save }
-    it { expect(message.passings.first.user_id).to eq(recepient.id).or eq(sender.id) }
-    it { expect(message.passings.last.user_id).to eq(recepient.id).or eq(sender.id) }
+    it { expect(message.sender_id).to    eq(sender.id) }
+    it { expect(message.recepient_id).to eq(recepient.id) }
   end
 end

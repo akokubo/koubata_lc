@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def messages
     @user = User.find(params[:id])
-    @passings = @user.passings.where(companion_id: current_user.id)
+    @messages = current_user.messages(@user)
     @message = Message.new
     @message.recepient_id = @user.id
     @message.sender_id = current_user.id

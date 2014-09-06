@@ -21,14 +21,14 @@
 <% end %>
 <hr>
 
-<% if @passings.present? %>
-  <% @passings.each do |passing| %>
-  <% passing.direction == "outgoing" ? float = "left" : float = "right" %>
+<% if @messages.present? %>
+  <% @messages.each do |message| %>
+  <% message.sender_id == current_user.id ? float = "right" : float = "left" %>
   <div class="ui-shadow ui-btn-corner-all ui-btn-up-c message-<%= float %>">
-    <%= passing.user.name %>|<%= passing.companion.name %><br>
-    <strong><%= passing.message.subject %></strong>
-    <p><%= simple_format passing.message.body %></p>
-    <p><%= l(passing.message.created_at) %></p>
+    <%= message.sender.name %> =&gt; <%= message.recepient.name %><br>
+    <strong><%= message.subject %></strong>
+    <p><%= simple_format message.body %></p>
+    <p><%= l(message.created_at) %></p>
   </div>
   <% end %>
   <br style="clear: both;">

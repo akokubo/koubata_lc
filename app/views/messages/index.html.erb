@@ -11,7 +11,7 @@
 <% if @companions.present? %>
   <ul data-role="listview">
     <% @companions.each do |companion| %>
-      <li><a href="/users/<%= companion.id %>/messages"><%= companion.name %><span class="ui-li-count"><%= companion.passings.where(companion_id: current_user.id).count %></span></a></li>
+      <li><a href="/users/<%= companion.id %>/messages"><%= companion.name %></a></li>
     <% end %>
   </ul>
 <% else %>
