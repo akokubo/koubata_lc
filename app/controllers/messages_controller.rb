@@ -3,8 +3,7 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @messages = Message.list(current_user.id)
-    @withs = Message.withs(current_user.id)
+    @companions = current_user.companions.uniq
   end
 
 =begin
@@ -14,16 +13,17 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
-    @tos = User.where("id != '#{current_user.id}'")
+    @message.sender_id = current_user.id
+    @recepients = User.where("id != :id", { id: current_user.id })
     if (params[:offering])
       offering = Offering.find(params[:offering])
       @message.subject = "できること「#{offering.title}」の依頼"
-      @tos = User.where(id: offering.user_id)
+      @recepients = User.where(id: offering.user_id)
     end
     if (params[:want])
       want = Want.find(params[:want])
       @message.subject = "頼みたいこと「#{want.title}」の引き受け"
-      @tos = User.where(id: want.user_id)
+      @recepients = User.where(id: want.user_id)
     end
   end
 
@@ -34,13 +34,15 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.new(message_params)
-    @message.from = current_user
-    @message.subject = "無題" unless @message.subject
-    @tos = User.where("id != '#{current_user.id}'")
+    @message.subject ||= "無題"
+
+    if @message.sender_id != current_user.id
+      redirect_to new_message_url
+    end
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to "/users/#{@message.to_id}/messages", notice: t('activerecord.successful.messages.created', :model => Message.model_name.human) }
+        format.html { redirect_to user_path(@message.recepient_id), notice: t('activerecord.successful.messages.created', :model => Message.model_name.human) }
         format.json { render action: 'show', status: :created, location: @message }
       else
         format.html { render action: 'new' }
@@ -61,15 +63,17 @@ class MessagesController < ApplicationController
       end
     end
   end
+=end
 
   def destroy
-    @message.destroy
+    if @message.sender_id == current_user.id || @message.recepient_id == current_user.id
+      @message.destroy
+    end
     respond_to do |format|
       format.html { redirect_to messages_url }
       format.json { head :no_content }
     end
   end
-=end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -80,7 +84,7 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:from_id, :to_id, :subject, :body)
+      params.require(:message).permit(:subject, :body, :sender_id, :recepient_id)
     end
 
 end

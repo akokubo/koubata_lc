@@ -31,10 +31,10 @@ ja:
         expired_at: '表示期限'
         no_expiration: '表示期限を設定しない'
       message:
-        from: '送信者'
-        to: '受信者'
-        from_id: '送信者ID'
-        to_id: '受信者ID'
+        sender: '送信者'
+        recepient: '受信者'
+        sender_id: '送信者ID'
+        recepient_id: '受信者ID'
         subject: '件名'
         body: '本文'
       account:

@@ -21,4 +21,8 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def current_user?(user)
+    current_user == user
+  end
+
 end

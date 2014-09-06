@@ -4,9 +4,8 @@ class Account < ActiveRecord::Base
 
   # 必須属性の検証
   validates :user_id, presence: true
-  validates :balance, presence: true
-  # 残高は整数
-  validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :balance, presence: true,
+                      numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   # 支出
   def withdraw(amount)

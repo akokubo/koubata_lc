@@ -10,10 +10,10 @@ class Task < ActiveRecord::Base
   }
 
   # 必須属性の検証
-  validates :user_id, presence: true
+  validates :user_id,     presence: true
   validates :category_id, presence: true
-  validates :title, presence: true
-  validates :price, presence: true
+  validates :title,       presence: true
+  validates :price,       presence: true
 
   def no_expiration
     expired_at.blank?

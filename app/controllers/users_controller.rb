@@ -10,11 +10,11 @@ class UsersController < ApplicationController
   end
 
   def messages
-    with_id = params[:id]
-    @with = User.find(with_id)
-    @messages = Message.with(current_user.id, with_id)
+    @user = User.find(params[:id])
+    @passings = @user.passings.where(companion_id: current_user.id)
     @message = Message.new
-    @message.to_id = with_id
+    @message.recepient_id = @user.id
+    @message.sender_id = current_user.id
   end
 
   def offerings

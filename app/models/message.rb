@@ -1,76 +1,31 @@
 class Message < ActiveRecord::Base
-  belongs_to :from, class_name: "User"
-  belongs_to :to, class_name: "User"
+  has_many :passings, dependent: :destroy
+
+  attr_accessor :sender_id
+  attr_accessor :recepient_id
 
   # 必須属性の検証
-  validates :from_id, presence: true
-  validates :to_id, presence: true
-  validates :subject, presence: true
-  validates :body, presence: true
+  validates :subject,      presence: true
+  validates :body,         presence: true
+  validates :sender_id,    presence: true
+  validates :recepient_id, presence: true
 
-  validate :from_id_not_equal_to_id
+  def save
+    ActiveRecord::Base.transaction do
+      super
 
-  def with
-    @with
-  end
+      self.passings.create(
+        user_id:      sender_id,
+        companion_id: recepient_id,
+        direction:    "outgoing"
+      )
 
-  def with=(value)
-    @with = value
-  end
-
-  def direction
-    @direction
-  end
-
-  def direction=(value)
-    @direction = value
-  end
-
-  def self.list(user_id)
-    messages = self.where("from_id = ? or to_id = ?", user_id, user_id)
-    messages.each do |message|
-      if message.from_id == user_id
-        message.with = message.to
-        message.direction = "from"
-      else
-        message.with = message.from
-        message.direction = "to"
-      end
+      self.passings.create(
+        user_id:      recepient_id,
+        companion_id: sender_id,
+        direction:    "incoming"
+      )
     end
-    messages
   end
 
-  def self.withs(user_id)
-    with_ids = Array.new
-    messages = self.where("from_id = ? or to_id = ?", user_id, user_id)
-    messages.each do |message|
-      if message.from_id == user_id
-        with_ids << message.to_id
-      else
-        with_ids << message.from_id
-      end
-    end  
-    with_ids.uniq
-    withs = User.find(with_ids)    
-  end
-
-  def self.with(user_id, with_id)
-    messages = self.where("(from_id = ? and to_id = ?) or (to_id = ? and from_id = ?)",
-      user_id, with_id, user_id, with_id).order("created_at DESC")
-    messages.each do |message|
-      if message.from_id == user_id
-        message.with = message.to
-        message.direction = "from"
-      else
-        message.with = message.from
-        message.direction = "to"
-      end
-    end
-    messages 
-  end
-
-  private
-    def from_id_not_equal_to_id
-      errors.add(:to_id, :invalid) if from_id == to_id
-    end
 end

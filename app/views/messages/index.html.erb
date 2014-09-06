@@ -8,50 +8,12 @@
 <br>
 <br>
 
-<% if @withs.present? %>
+<% if @companions.present? %>
   <ul data-role="listview">
-    <% @withs.each do |with| %>
-      <li><a href="/users/<%= with.id %>/messages"><%= with.name %><span class="ui-li-count"><%= Message.with(current_user.id, with.id).count %></span></a></li>
-      <!-- <li><%= link_to "#{with.name} <span class=\"ui-li-count\">12</span>", messages_user_path(with) %></li> -->
+    <% @companions.each do |companion| %>
+      <li><a href="/users/<%= companion.id %>/messages"><%= companion.name %><span class="ui-li-count"><%= companion.passings.where(companion_id: current_user.id).count %></span></a></li>
     <% end %>
   </ul>
 <% else %>
   <%= t("No message.") %>
 <% end %>
-<!--
-<br>
-<br>
-<br>
-<br>
-<table>
-  <thead>
-    <tr>
-      <th><%= t("From") %></th>
-      <th><%= t("To") %></th>
-      <th><%= t("With") %></th>
-      <th><%= t("Direction") %></th>
-      <th><%= t("Subject") %></th>
-      <th><%= t("Body") %></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @messages.each do |message| %>
-      <tr>
-        <td><%= message.from.name %></td>
-        <td><%= message.to.name %></td>
-        <td><%= message.with.name %></td>
-        <td><%= message.direction %></td>
-        <td><%= message.subject %></td>
-        <td><%= message.body %></td>
-        <td><%= link_to t('Show'), message %></td>
-        <td><%= link_to t('Edit'), edit_message_path(message) %></td>
-        <td><%= link_to t('Destroy'), message, method: :delete, data: { confirm: t('Are you sure?') } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
--->
