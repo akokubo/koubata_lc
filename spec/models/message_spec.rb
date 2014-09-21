@@ -11,8 +11,8 @@ describe Message do
     message = Message.new(
       subject: "Lorem ipsum",
       body: "Lorem ipsum" * 5,
-      sender_id: sender.id,
-      recepient_id: recepient.id
+      sender: sender,
+      recepient: recepient
     )
   end
 
@@ -24,25 +24,25 @@ describe Message do
 
   # sender/recepientメソッドに応答する
   describe "sender/recepient methods" do
-    it { should respond_to(:sender_id) }
-    it { expect(message.sender_id).to eq sender.id }
-    it { should respond_to(:recepient_id) }
-    it { expect(message.recepient_id).to eq recepient.id }
+    it { should respond_to(:sender) }
+    it { expect(message.sender).to eq sender }
+    it { should respond_to(:recepient) }
+    it { expect(message.recepient).to eq recepient }
     it { should respond_to(:subject) }
     it { expect(message.subject).to eq "Lorem ipsum" }
     it { should respond_to(:body) }
     it { expect(message.body).to eq "Lorem ipsum" * 5 }
   end
 
-  # sender_idが存在しない場合
-  describe "when sender_id is not present" do
-    before { message.sender_id = nil }
+  # senderが存在しない場合
+  describe "when sender is not present" do
+    before { message.sender = nil }
     it { should_not be_valid }
   end
 
-  # recepient_idが存在しない場合
-  describe "when recepient_id is not present" do
-    before { message.recepient_id = nil }
+  # recepientが存在しない場合
+  describe "when recepient is not present" do
+    before { message.recepient = nil }
     it { should_not be_valid }
   end
 
@@ -61,7 +61,7 @@ describe Message do
   # Messageを生成した場合
   describe "when message created" do
     before { message.save }
-    it { expect(message.sender_id).to    eq(sender.id) }
-    it { expect(message.recepient_id).to eq(recepient.id) }
+    it { expect(message.sender).to    eq(sender) }
+    it { expect(message.recepient).to eq(recepient) }
   end
 end
