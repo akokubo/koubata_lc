@@ -2,7 +2,7 @@
 <% provide :title,  t("Listing ", model: t('activerecord.models.payment').pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
-<%= link_to t('New ', model: t('activerecord.models.payment')), new_payment_path, data: { role: :button } %>
+<%= link_to t('New ', model: t('activerecord.models.payment')), new_payment_path, class: "ui-btn" %>
 
 <% if @payments.present? %>
   <table>

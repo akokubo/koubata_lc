@@ -14,17 +14,17 @@
     </li>
   <% end %>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :recepient_id %>
       <%= f.collection_select :recepient_id, @recepients, :id, :name %>
     </li>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :subject %>
       <%= f.text_field :subject %>
     </li>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :body %>
       <%= f.text_area :body %>
     </li>

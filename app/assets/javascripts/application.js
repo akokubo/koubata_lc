@@ -13,5 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.mobile.preload
-//= require jquery.mobile-1.4.3.min
+//= require jquery.mobile-1.4.5.min
 //= require_tree .

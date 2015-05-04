@@ -2,11 +2,11 @@
 <h1><%= yield(:title) %></h1>
 
 <% if @user.id != current_user.id %>
-<%= link_to t('activerecord.models.message').pluralize(:locale), messages_user_path(@user), data: { role: :button } %>
+<%= link_to t('activerecord.models.message').pluralize(:locale), messages_user_path(@user), class: "ui-btn" %>
 <% else %>
-<%= link_to t("Settings"), edit_user_registration_path, data: { role: :button } %>
+<%= link_to t("Settings"), edit_user_registration_path, class: "ui-btn" %>
 <% end %>
 
-<%= link_to t('activerecord.models.offering').pluralize(:locale), offerings_user_path(@user), data: { role: :button } %>
+<%= link_to t('activerecord.models.offering').pluralize(:locale), offerings_user_path(@user), class: "ui-btn" %>
 
-<%= link_to t('activerecord.models.want').pluralize(:locale), wants_user_path(@user), data: { role: :button } %>
+<%= link_to t('activerecord.models.want').pluralize(:locale), wants_user_path(@user), class: "ui-btn" %>

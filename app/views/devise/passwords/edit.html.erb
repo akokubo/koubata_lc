@@ -5,17 +5,17 @@
   <%= devise_error_messages! %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div data-role="fieldcontain">
+  <div class="ui-field-contain">
     <%= f.label :password, t("New password") %>
-    <%= f.password_field :password, :autofocus => true %>
+    <%= f.password_field :password, autofocus: true %>
   </div>
 
-  <div data-role="fieldcontain">
+  <div class="ui-field-contain">
     <%= f.label :password_confirmation, t("Confirm new password") %>
     <%= f.password_field :password_confirmation %>
   </div>
 
-  <div><%= f.submit t("Change my password"), data: { inline: true } %></div>
+  <div><%= f.submit t("Change my password"), class: "ui-inline" %></div>
 <% end %>
 
 <%= render "devise/shared/links" %>

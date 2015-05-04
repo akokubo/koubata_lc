@@ -9,7 +9,7 @@
     <%= f.email_field :email, autofocus: true %>
   </div>
 
-  <div><%= f.submit t("Resend confirmation instructions"), data: { inline: true } %></div>
+  <div><%= f.submit t("Resend confirmation instructions"), class: "ui-inline" %></div>
 <% end %>
 
 <%= render "devise/shared/links" %>

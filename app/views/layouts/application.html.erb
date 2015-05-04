@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= javascript_include_tag "application" %>
@@ -12,11 +12,11 @@
   <div data-role="page">
     <% if user_signed_in? %><%= render 'layouts/menu_panel' %><% end %>
     <%= render 'layouts/header' %>
-    <div data-role="content">
+    <div data-role="main" class="ui-content">
       <% if notice %><p class="alert alert-success"><%= notice %></p><% end %>
       <% if alert %><p class="alert alert-error"><%= alert %></p><% end %>
 <%= yield %>
-    </div><!-- /content -->
+    </div><!-- /main -->
   </div><!-- /page -->
 </body>
 </html>

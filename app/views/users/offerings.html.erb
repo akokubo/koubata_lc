@@ -2,7 +2,7 @@
 <% provide :title,  @user.name + ":" + t("Listing ", model: t('activerecord.models.offering').pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
-<%= link_to t('New ', model: t('activerecord.models.offering')), new_offering_path, data: { role: :button } %>
+<%= link_to t('New ', model: t('activerecord.models.offering')), new_offering_path, class: "ui-btn" %>
 <br>
 <br>
 <% if @offerings.present? %>

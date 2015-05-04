@@ -14,30 +14,30 @@
     </li>
     <% end %>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :title %>
       <%= f.text_field :title %>
     </li>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :category_id %>
       <%= f.collection_select :category_id, @categories, :id, :name %>
     </li>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :description %>
       <%= f.text_area :description %>
     </li>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :price %>
       <%= f.text_field :price %>
     </li>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :no_expiration %>
       <%= check_box_tag 'want[no_expiration]' %>
-      <div class="field" data-role="fieldcontain" id="want_expired_at_div">
+      <div class="field ui-field-contain" id="want_expired_at_div">
         <%= f.label :expired_at %>
         <%= f.datetime_local_field :expired_at, placeholder: t("Remain blank if no expiration") %>
       </div>

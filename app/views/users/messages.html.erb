@@ -4,13 +4,13 @@
 <p><%= t('New ', model: t('activerecord.models.message')) %></p>
 <%= form_for(@message) do |f| %>
   <ul data-role="listview" data-inset="true">
-    <li data-role="fieldcontaion">
+    <li class="ui-field-contain">
       <%= f.hidden_field :sender_id %>
       <%= f.hidden_field :recepient_id %>
       <%= f.label :subject %>
       <%= f.text_field :subject %>
     </li>
-    <li data-role="fieldcontaion">
+    <li class="ui-field-contain">
       <%= f.label :body %>
       <%= f.text_area :body %>
     </li>

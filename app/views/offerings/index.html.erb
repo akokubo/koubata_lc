@@ -3,7 +3,7 @@
 <h1><%= yield(:title) %></h1>
 
 <% if @categories.present? %>
-  <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
+  <div data-role="collapsibleset" data-theme="b" data-content-theme="d">
     <% @categories.each do |category| %>
       <% if category.offerings.readable.present? %>
         <div data-role="collapsible">

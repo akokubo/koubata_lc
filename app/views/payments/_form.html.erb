@@ -14,22 +14,22 @@
     </li>
   <% end %>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :to_id %>
       <%= f.collection_select :to_id, @tos, :id, :name %>
     </li>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :subject %>
       <%= f.text_field :subject %>
     </li>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :amount %>
       <%= f.number_field :amount %>
     </li>
 
-    <li class="field" data-role="fieldcontain">
+    <li class="field ui-field-contain">
       <%= f.label :comment %>
       <%= f.text_area :comment %>
     </li>

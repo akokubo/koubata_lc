@@ -4,12 +4,12 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, data: { ajax: false } }) do |f| %>
   <%= devise_error_messages! %>
 <ul data-role="listview" data-inset="true">
-  <li data-role="fieldcontain">
+  <li class="ui-field-contain">
     <%= f.label :name %>
     <%= f.text_field :name, autofocus: true %>
   </li>
 
-  <li data-role="fieldcontain">
+  <li class="ui-field-contain">
     <%= f.label :email %>
     <%= f.email_field :email %>
   </li>
@@ -18,17 +18,17 @@
     <li><%= t("Currently waiting confirmation for") %>: <%= resource.unconfirmed_email %></li>
   <% end %>
 
-  <li data-role="fieldcontain">
+  <li class="ui-field-contain">
     <%= f.label :password %>
     <%= f.password_field :password, autocomplete: "off", placeholder: t("leave blank if you don't want to change it") %>
   </li>
 
-  <li data-role="fieldcontain">
+  <li class="ui-field-contain">
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
   </li>
 
-  <li data-role="fieldcontain">
+  <li class="ui-field-contain">
     <%= f.label :current_password %>
     <%= f.password_field :current_password, placeholder: t("we need your current password to confirm your changes") %>
   </li>
@@ -40,10 +40,10 @@
 <br>
 <h3><%= t("Cancel my account") %></h3>
 <ul data-role="listview" data-inset="true">
-  <li data-role="fieldcontain">
+  <li class="ui-field-contain">
     <%= t("Unhappy?") %>
-    <%= button_to t("Cancel my account"), registration_path(resource_name), data: { confirm: t("Are you sure?"), inline: true }, method: :delete %></p>
+    <%= button_to t("Cancel my account"), registration_path(resource_name), data: { confirm: t("Are you sure?") }, class: "ui-inline", method: :delete %></p>
   </li>
 </ul>
 
-<%= link_to t("Back"), :back, data: { role: :button, inline: true } %>
+<%= link_to t("Back"), :back, class: "ui-btn ui-inline" %>
