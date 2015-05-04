@@ -1,4 +1,26 @@
 Rails.application.routes.draw do
+  root to: 'home#index'
+
+  match '/need_help', to: 'home#need_help', via: 'get'
+  match '/about',     to: 'home#about',     via: 'get'
+  match '/contact',   to: 'home#contact',   via: 'get'
+
+  devise_for :users, controllers: { registrations: 'user/registrations' }
+  resources :users do
+    member do
+      get 'messages'
+      get 'offerings'
+      get 'wants'
+      get 'payments'
+    end
+  end
+
+  resources :offerings
+  resources :wants
+  resources :messages
+  resources :accounts
+  resources :payments
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
