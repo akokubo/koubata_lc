@@ -14,10 +14,3 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
-
-ActiveSupport::Inflector.inflections(:ja) do |inflect|
-  inflect.irregular 'メッセージ', 'メッセージ'
-  inflect.irregular '「できること」', '「できること」'
-  inflect.irregular '「頼みたいこと」', '「頼みたいこと」'
-  inflect.irregular '振込', '振込'
-end
