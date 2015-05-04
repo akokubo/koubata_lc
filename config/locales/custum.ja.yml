@@ -79,3 +79,6 @@ ja:
   "You cannot edit!": あなたは編集できません
   "You cannot delete!": あなたは削除できません
   "Other": その他
+  will_paginate:
+    previous_label: "←前へ"
+    next_label: "次へ→"

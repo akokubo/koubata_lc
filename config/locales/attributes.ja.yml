@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       user: 'ユーザー'
+      category: 'カテゴリー'
       offering: '「できること」'
       want: '「頼みたいこと」'
       message: 'メッセージ'
@@ -15,6 +16,8 @@ ja:
         password_confirmation: 'パスワード(確認)'
         remember_me: 'パスワードを記憶'
         current_password: '現在のパスワード'
+      category:
+        name: '名前'
       offering:
         title: '件名'
         user: '提供者'
@@ -28,8 +31,11 @@ ja:
         title: '件名'
         user: '依頼者'
         description: '内容'
+        price: '価格'
         expired_at: '表示期限'
         no_expiration: '表示期限を設定しない'
+        category: 'カテゴリー'
+        category_id: 'カテゴリー'
       message:
         sender: '送信者'
         recepient: '受信者'
