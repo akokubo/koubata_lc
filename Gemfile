@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.5'
+gem 'rails', '4.2.1'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
@@ -14,18 +14,27 @@ group :development, :test do
 
   # create UML
   gem 'railroady'
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'rspec-rails'
+
+  gem 'faker'
+  gem 'faker-japanese'
 end
 
 group :development do
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
+  gem 'spring-commands-rspec'
+  gem 'rubocop', require: false
 end
 
 group :test do
-  gem 'rspec-rails'
-  gem 'spring-commands-rspec'
+  gem 'selenium-webdriver'
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
 end
 
 group :production do
@@ -38,13 +47,13 @@ group :production do
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer',  platforms: :ruby
+#gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -64,8 +73,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'faker'
-gem 'will_paginate'
 
+gem 'will_paginate'
 gem 'devise'
 gem 'omniauth'
