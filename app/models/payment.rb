@@ -27,6 +27,21 @@ class Payment < ActiveRecord::Base
     end
   end
 
+  def self.find_by_from_id_or_to_id(user_id)
+    payments = where('from_id = ? or to_id = ?', user_id, user_id)
+    payments.each do |payment|
+      if payment.from_id == user_id
+        payment.with = payment.to
+        payment.direction = 'from'
+      else
+        payment.with = payment.from
+        payment.direction = 'to'
+      end
+    end
+    payments
+  end
+
+=begin
   def self.list(user_id)
     payments = where('from_id = ? or to_id = ?', user_id, user_id)
     payments.each do |payment|
@@ -70,6 +85,7 @@ class Payment < ActiveRecord::Base
     end
     payments
   end
+=end
 
   private
 
