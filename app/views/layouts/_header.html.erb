@@ -1,8 +1,18 @@
 <div data-role="header" data-position="fixed">
   <% if user_signed_in? %>
-    <%= link_to t("Menu"), "#menu_panel", class: "ui-btn ui-icon-bars ui-btn-icon-notext" %>
+    <!-- <%= link_to t("Menu"), "#menu_panel", class: "ui-btn ui-icon-bars ui-btn-icon-notext" %> -->
+    <%= link_to t("Home"), root_path, class: "ui-btn ui-icon-home ui-btn-icon-notext" %>
   <% elsif !home_page? %>
     <%= link_to t("Home"), root_path, class: "ui-btn ui-icon-home ui-btn-icon-notext" %>
   <% end %>
-  <h1><%= yield(:title) %></h1>
+  <h1><%= t('Koubata Project') %></h1>
+  <% if user_signed_in? %>
+    <div data-role="navbar">
+      <ul>
+        <li><%= link_to t('My Status'), status_path %></li>
+        <li><%= link_to t('Watch List'), '#' %></li>
+        <li><%= link_to t('New Display'), new_display_path %></li>
+      </ul>
+    </div>
+  <% end %>
 </div><!-- /header -->
