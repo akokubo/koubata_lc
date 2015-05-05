@@ -1,6 +1,6 @@
 <br>
 <br>
-<ul data-role="listview">
+<ul data-role="listview" data-inset="true">
   <li data-role="list-divider"><%= t('Menu') %></li>
 <%- if controller_name != 'sessions' %>
   <li><%= link_to t("Sign in"), new_session_path(resource_name), data: { ajax: false } %></li>
