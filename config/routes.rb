@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
-  match '/need_help', to: 'home#need_help', via: 'get'
-  match '/about',     to: 'home#about',     via: 'get'
-  match '/contact',   to: 'home#contact',   via: 'get'
+  match '/need_help',   to: 'home#need_help',   via: 'get'
+  match '/about',       to: 'home#about',       via: 'get'
+  match '/contact',     to: 'home#contact',     via: 'get'
+  match '/status',      to: 'home#status',      via: 'get'
+  match '/watch_list',  to: 'home#watch_list',  via: 'get'
+  match '/new_display', to: 'home#new_display', via: 'get'
+  match '/detailed',    to: 'home#detailed',    via: 'get'
 
   devise_for :users, controllers: { registrations: 'user/registrations' }
   resources :users do

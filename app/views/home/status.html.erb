@@ -1,0 +1,18 @@
+<% provide :title, t("My Status") %>
+<h1><%= t(yield(:title)) %></h1>
+<ul data-role="listview" data-inset="true">
+  <li><%= current_user.name %>: <%= current_user.account.balance %><%= t('points') %></li>
+  <li><%= link_to t("activerecord.models.account"), accounts_path %></li>
+  <li><%= link_to t('activerecord.models.offering'), offerings_user_path(current_user) %></li>
+  <li><%= link_to t('activerecord.models.want'), wants_user_path(current_user) %></li>
+  <li><%= link_to t("Settings"), edit_user_registration_path %></li>
+</ul>
+<ul data-role="listview" data-inset="true">
+  <li><a href="#">ウォッチリスト</a></li>
+  <li><a href="#">フォローリスト</a></li>
+  <li><a href="#">交渉中</a></li>
+  <li><a href="#">実施待ち</a></li>
+  <li><a href="#">実施完了分</a></li>
+  <li><a href="#">掲載中</a></li>
+  <li><a href="#">掲載終了分</a></li>
+</ul>

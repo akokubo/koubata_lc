@@ -10,4 +10,16 @@ class HomeController < ApplicationController
 
   def contact
   end
+
+  def status
+  end
+
+  def watch_list
+  end
+
+  def new_display
+  end
+
+  def detailed
+  end
 end
