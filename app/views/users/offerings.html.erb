@@ -2,9 +2,11 @@
 <% provide :title,  @user.name + ":" + t("Listing ", model: t('activerecord.models.offering').pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
-<%= link_to t('New ', model: t('activerecord.models.offering')), new_offering_path, class: "ui-btn" %>
-<br>
-<br>
+<% if @user == current_user %>
+  <%= link_to t('New ', model: t('activerecord.models.offering')), new_offering_path, class: "ui-btn" %>
+  <br>
+  <br>
+<% end %>
 <% if @offerings.present? %>
   <ul data-role="listview"> 
     <% @offerings.each do |offering| %>

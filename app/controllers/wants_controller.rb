@@ -12,10 +12,12 @@ class WantsController < ApplicationController
   def new
     @want = Want.new
     @want.expired_at = Time.zone.now.tomorrow
+    @categories = Category.all
   end
 
   def edit
     @want = Want.find(params[:id])
+    @categories = Category.all
     if @want.user != current_user
       redirect_to @want, alert: t('You cannot edit!')
     end
@@ -24,6 +26,7 @@ class WantsController < ApplicationController
   def create
     @want = Want.new(want_params)
     @want.user = current_user
+    @categories = Category.all
 
     respond_to do |format|
       if @want.save
@@ -38,6 +41,7 @@ class WantsController < ApplicationController
   end
 
   def update
+    @categories = Category.all
     if @want.user == current_user
       respond_to do |format|
         if @want.update(want_params)
@@ -76,6 +80,7 @@ class WantsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_want
     @want = Want.find(params[:id])
+    @categories = Category.all
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
