@@ -59,16 +59,19 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     @message.subject ||= '無題'
+    @message.sender = current_user
 
-    redirect_to new_message_url if @message.sender_id != current_user.id
-
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to user_path(@message.recepient_id), notice: t('activerecord.successful.messages.created', model: Message.model_name.human) }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { render :new }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+    if @message.sender_id != current_user.id
+      redirect_to new_message_url
+    else
+      respond_to do |format|
+        if @message.save
+          format.html { redirect_to user_path(@message.recepient_id), notice: t('activerecord.successful.messages.created', model: Message.model_name.human) }
+          format.json { render :show, status: :created, location: @message }
+        else
+          format.html { render :new }
+          format.json { render json: @message.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

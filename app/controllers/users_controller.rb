@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def messages
     @user = User.find(params[:id])
-    @messages = current_user.messages(@user)
+    @messages = current_user.messages(@user).order('created_at DESC')
     @message = Message.new
     @message.recepient_id = @user.id
     @message.sender_id = current_user.id

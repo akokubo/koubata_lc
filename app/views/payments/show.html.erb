@@ -19,11 +19,11 @@
 
 <li>
   <h2><%= Payment.human_attribute_name(:amount) %>:</h2>
-  <p><%= @payment.amount %></p>
+  <p><%= @payment.amount %><%= t('points') %></p>
 </li>
 <li>
   <h2><%= Payment.human_attribute_name(:balance) %>:</h2>
-  <p><%= @payment.balance %></p>
+  <p><%= @payment.balance %><%= t('points') %></p>
 </li>
 
 <li>

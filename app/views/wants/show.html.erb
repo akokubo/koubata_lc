@@ -38,6 +38,6 @@
 <%= link_to t('Destroy'), @want, method: :delete, data: { confirm: t('Are you sure?')}, class: "ui-btn ui-btn-inline" %>
 <%= link_to t('Back to my wants'), wants_user_path(current_user), class: "ui-btn ui-btn-inline" %>
 <% else %>
-<%= link_to t('Contract'), { controller: :messages, action: :new, want: @want.id }, class: "ui-btn ui-btn-inline" %>
+<%= link_to t('Contract'), { controller: :messages, action: :new, want: @want.id }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
 <% end %>
-<%= link_to t('Back'), wants_path, class: "ui-btn ui-btn-inline" %>
+<%= link_to t('Back'), wants_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left" %>
