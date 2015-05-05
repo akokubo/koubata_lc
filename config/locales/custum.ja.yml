@@ -1,5 +1,7 @@
 ja:
-  "Koubata Project": 幸畑プロジェクト
+  "Koubata Project": ハッピー幸畑たすけあい
+  "Be happy by using eco money!": 「ハッピー幸畑たすけあい」に参加しませんか？
+  "Hi": こんにちは %{name} さん
   "Sign in": ログイン
   "Registration": ユーザー登録
   "Sign up": ユーザー登録する
@@ -46,27 +48,32 @@ ja:
   "Friends": 友だち
   "Settings": ユーザー情報の編集
   "System": システム
+  "My Status": マイ幸
+  "Watch List": お気に入り
+  "Detailed": 詳しいしくみ
+  "New Display": 新しく掲載
+  "Displayed": 掲載済
   "Instructions": 使い方
-  "About": 幸畑プロジェクトとは
+  "About": 「ハッピー幸畑たすけあい」とは
   "Contact": お問い合わせ
   "User": ユーザー
   "Transfer Record": 取引履歴
   "Datetime": 日時
   "Person": 相手
   "Type": 種別
-  "Amount": 振込
+  "Amount": 金額
   "Balance": 残高
   "Subject": 件名
   "Deposit": 入金
   "Withdraw": 送金
-  "points": ポイント
+  "points": 幸
   "Current balance": 現在の残高
-  "Welcome to Koubata Project!": 幸畑プロジェクトへようこそ
-  "If you don't have an account you can sign up!": はじめての方はユーザー登録してください。
+  "Welcome to Koubata Project!": 「ハッピー幸畑たすけあい」へようこそ
+  "If you don't have an account you can sign up!": ユーザー登録してはじめましょう！
   "No transfer record": 取引履歴はありません。
   "No messsage": メッセージはありません。
   "Listing ": "%{model}・リスト"
-  "New ": "新しい%{model}を作成"
+  "New ": "新しく%{model}を作成"
   "Editing ": "%{model}を編集"
   "Search ": "%{model}を検索"
   "There is no ": "%{model}は登録されていません"
@@ -76,6 +83,7 @@ ja:
   "Compose new message": 新しいメッセージを入力...
   "Submit new message": 送信
   "Submit new payment": 振込を実行
+  "New payment": 送金する
   "Back to my offerings": 自分が「できること」へ戻る
   "Back to my wants": 自分が「頼みたいこと」へ戻る
   "You cannot edit!": あなたは編集できません

@@ -46,15 +46,15 @@ ja:
       account:
         user: '名前'
         user_id: '名前'
-        balance: '所持ポイント'
+        balance: '所持'
       payment:
         from: '振込人'
         to: '受取人'
         from_id: '振込人'
         to_id: '受取人'
         subject: '件名'
-        amount: '振込ポイント'
-        balance: '残高ポイント'
+        amount: '振込'
+        balance: '残高'
         comment: '備考'
     successful:
       messages:
