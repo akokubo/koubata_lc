@@ -24,4 +24,8 @@ module ApplicationHelper
   def current_user?(user)
     current_user == user
   end
+
+  def home_page?
+    controller.controller_name == 'home' && controller.action_name == 'index'
+  end
 end

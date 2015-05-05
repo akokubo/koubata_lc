@@ -1,20 +1,18 @@
+<% provide :title, t("Koubata Project") %>
 <% unless user_signed_in? %>
 <p><%= t("Welcome to Koubata Project!") %></p>
 <p><%= t("If you don't have an account you can sign up!") %></p>
 <%= link_to t("Sign in"), new_user_session_path, data: { ajax: false }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
-<br>
-<a href="#" class="ui-btn ui-icon-delete ui-btn-icon-right">右</a>
-<br>
-<br>
-<ul data-role="listview">
-<!--  <li data-role="list-divider"><%= t("Menu") %></li> -->
-  <li><%= link_to t("Sign up"), new_user_registration_path %></li>
+<%= link_to t("Sign up"), new_user_registration_path, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
+<ul data-role="listview" data-inset="true">
+  <li><%= link_to t("About"), about_path %></li>
+  <li><%= link_to t("Contact"), contact_path %></li>
+</ul>
+<ul data-role="listview" data-inset="true">
   <li><%= link_to t("Need help?"), need_help_path %></li>
-<!--  <li><%= link_to t("About"), about_path %></li> -->
-<!--  <li><%= link_to t("Contact"), contact_path %></li> -->
 </ul>
 <% else %>
-  <ul data-role="listview">
+  <ul data-role="listview" data-inset="true">
     <li><%= link_to current_user.name, user_path(current_user) %></li>
     <li data-role="list-divider"><%= t("Favorites") %></li>
     <li><%= link_to t("Home"), root_path %></li>
