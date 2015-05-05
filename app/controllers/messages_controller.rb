@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    #@messages = Message.all
+    # @messages = Message.all
     @companions = current_user.companions.uniq
   end
 
@@ -18,19 +18,34 @@ class MessagesController < ApplicationController
 
   # GET /messages/new
   def new
+    if params.key?(:offering)
+      offering = Offering.find(params[:offering])
+      subject = "できること「#{offering.title}」の依頼"
+      @recepients = User.where(id: offering.user_id)
+    elsif params.key?(:want)
+      want = Want.find(params[:want])
+      subject = "頼みたいこと「#{want.title}」の引き受け"
+      @recepients = User.where(id: want.user_id)
+    else
+      subject = ''
+      @recepients = User.where('id != :id', id: current_user.id)
+    end
+    @message = Message.new(sender: current_user, subject: subject)
+=begin
     @message = Message.new
     @message.sender_id = current_user.id
-    @recepients = User.where("id != :id", { id: current_user.id })
-    if (params[:offering])
+    if params.key?(:offering)
       offering = Offering.find(params[:offering])
       @message.subject = "できること「#{offering.title}」の依頼"
       @recepients = User.where(id: offering.user_id)
-    end
-    if (params[:want])
+    elsif params.key?(:want)
       want = Want.find(params[:want])
       @message.subject = "頼みたいこと「#{want.title}」の引き受け"
       @recepients = User.where(id: want.user_id)
+    else
+      @recepients = User.where('id != :id', id: current_user.id)
     end
+=end
   end
 
 =begin
@@ -43,15 +58,13 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(message_params)
-    @message.subject ||= "無題"
+    @message.subject ||= '無題'
 
-    if @message.sender_id != current_user.id
-      redirect_to new_message_url
-    end
+    redirect_to new_message_url if @message.sender_id != current_user.id
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to user_path(@message.recepient_id), notice: t('activerecord.successful.messages.created', :model => Message.model_name.human) }
+        format.html { redirect_to user_path(@message.recepient_id), notice: t('activerecord.successful.messages.created', model: Message.model_name.human) }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }
@@ -83,21 +96,21 @@ class MessagesController < ApplicationController
       @message.destroy
     end
     respond_to do |format|
-      format.html { redirect_to messages_url, notice: t('activerecord.successful.messages.destroyed', :model => Message.model_name.human) }
+      format.html { redirect_to messages_url, notice: t('activerecord.successful.messages.destroyed', model: Message.model_name.human) }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_message
-      @message = Message.find(params[:id])
-      @categories = Category.all
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def message_params
-      params.require(:message).permit(:subject, :body, :sender_id, :recepient_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_message
+    @message = Message.find(params[:id])
+    @categories = Category.all
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def message_params
+    params.require(:message).permit(:subject, :body, :sender_id, :recepient_id)
+  end
 end

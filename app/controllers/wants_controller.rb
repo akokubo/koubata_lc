@@ -11,7 +11,7 @@ class WantsController < ApplicationController
 
   def new
     @want = Want.new
-    @want.expired_at = Time.now.tomorrow
+    @want.expired_at = Time.zone.now.tomorrow
   end
 
   def edit
@@ -28,7 +28,7 @@ class WantsController < ApplicationController
     respond_to do |format|
       if @want.save
 
-        format.html { redirect_to @want, notice: t('activerecord.successful.messages.created', :model => Want.model_name.human) }
+        format.html { redirect_to @want, notice: t('activerecord.successful.messages.created', model: Want.model_name.human) }
         format.json { render action: 'show', status: :created, location: @want }
       else
         format.html { render action: 'new' }
@@ -41,7 +41,7 @@ class WantsController < ApplicationController
     if @want.user == current_user
       respond_to do |format|
         if @want.update(want_params)
-          format.html { redirect_to @want, notice: t('activerecord.successful.messages.updated', :model => Want.model_name.human) }
+          format.html { redirect_to @want, notice: t('activerecord.successful.messages.updated', model: Want.model_name.human) }
           format.json { head :no_content }
         else
           format.html { render action: 'edit' }
@@ -72,13 +72,14 @@ class WantsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_want
-      @want = Want.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def want_params
-      params.require(:want).permit(:title, :category_id, :description, :price, :expired_at, :no_expiration)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_want
+    @want = Want.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def want_params
+    params.require(:want).permit(:title, :category_id, :description, :price, :expired_at, :no_expiration)
+  end
 end

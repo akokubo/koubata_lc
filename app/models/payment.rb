@@ -1,8 +1,8 @@
 class Payment < ActiveRecord::Base
   before_create :account_transfer
 
-  belongs_to :from, class_name: "Account"
-  belongs_to :to, class_name: "Account"
+  belongs_to :from, class_name: 'Account'
+  belongs_to :to,   class_name: 'Account'
 
   # 必須属性の検証
   validates :from_id, presence: true
@@ -17,24 +17,10 @@ class Payment < ActiveRecord::Base
 
   validate :from_id_not_equal_to_id
 
-  def with
-    @with
-  end
-
-  def with=(value)
-    @with = value
-  end
-
-  def direction
-    @direction
-  end
-
-  def direction=(value)
-    @direction = value
-  end
+  attr_accessor :with, :direction
 
   def payment
-    if direction == "from"
+    if direction == 'from'
       -amount
     else
       amount
@@ -42,56 +28,57 @@ class Payment < ActiveRecord::Base
   end
 
   def self.list(user_id)
-    payments = self.where("from_id = ? or to_id = ?", user_id, user_id)
+    payments = where('from_id = ? or to_id = ?', user_id, user_id)
     payments.each do |payment|
       if payment.from_id == user_id
         payment.with = payment.to
-        payment.direction = "from"
+        payment.direction = 'from'
       else
         payment.with = payment.from
-        payment.direction = "to"
+        payment.direction = 'to'
       end
     end
     payments
   end
 
   def self.withs(user_id)
-    with_ids = Array.new
-    payments = self.where("from_id = ? or to_id = ?", user_id, user_id)
+    with_ids = []
+    payments = where('from_id = ? or to_id = ?', user_id, user_id)
     payments.each do |payment|
       if payment.from_id == user_id
         with_ids << payment.to_id
       else
         with_ids << payment.from_id
       end
-    end  
+    end
     with_ids.uniq
-    withs = User.find(with_ids)    
+    withs = User.find(with_ids)
+    withs
   end
 
   def self.with(user_id, with_id)
-    payments = self.where("(from_id = ? and to_id = ?) or (to_id = ? and from_id = ?)",
-      user_id, with_id, user_id, with_id)
+    payments = where('(from_id = ? and to_id = ?) or (to_id = ? and from_id = ?)',
+                     user_id, with_id, user_id, with_id)
     payments.each do |payment|
       if payment.from_id == user_id
         payment.with = payment.to
-        payment.direction = "from"
+        payment.direction = 'from'
       else
         payment.with = payment.from
-        payment.direction = "to"
+        payment.direction = 'to'
       end
     end
-    payments 
+    payments
   end
 
   private
-    # 振込の実行
-    def account_transfer
-      Account.transfer(from, to, amount)
-    end
 
-    def from_id_not_equal_to_id
-      errors.add(:to_id, :invalid) if from_id == to_id
-    end
+  # 振込の実行
+  def account_transfer
+    Account.transfer(from, to, amount)
+  end
 
+  def from_id_not_equal_to_id
+    errors.add(:to_id, :invalid) if from_id == to_id
+  end
 end

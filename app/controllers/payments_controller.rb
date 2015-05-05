@@ -23,13 +23,13 @@ class PaymentsController < ApplicationController
   def create
     @payment = Payment.new(payment_params)
     @payment.from = current_user.account
-    @payment.subject = "無題" unless @payment.subject
+    @payment.subject = '無題' unless @payment.subject
     @payment.balance = Account.find_by(user_id: current_user.id).balance - @payment.amount
     @tos = User.where("id != '#{current_user.id}'")
 
     respond_to do |format|
       if @payment.save
-        format.html { redirect_to accounts_url, notice: t('activerecord.successful.messages.created', :model => Payment.model_name.human) }
+        format.html { redirect_to accounts_url, notice: t('activerecord.successful.messages.created', model: Payment.model_name.human) }
         format.json { render action: 'show', status: :created, location: @payment }
       else
         format.html { render action: 'new' }
@@ -61,14 +61,14 @@ class PaymentsController < ApplicationController
 =end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_payment
-      @payment = Payment.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def payment_params
-      params.require(:payment).permit(:from_id, :to_id, :subject, :amount, :comment)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_payment
+    @payment = Payment.find(params[:id])
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def payment_params
+    params.require(:payment).permit(:from_id, :to_id, :subject, :amount, :comment)
+  end
 end

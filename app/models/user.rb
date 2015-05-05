@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :received_messages, class_name: 'Message', foreign_key: 'recepient_id'
   has_many :senders,    through: :received_messages, source: :sender
   has_many :recepients, through: :sended_messages,   source: :recepient
-  has_one  :account
+  has_one :account
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -18,10 +18,11 @@ class User < ActiveRecord::Base
 
   def messages(companion = nil)
     if companion.present?
-      messages = Message.where("sender_id = :id and recepient_id = :companion_id or sender_id = :companion_id and recepient_id = :id", id: self.id, companion_id: companion.id)
+      messages = Message.where('sender_id = :id and recepient_id = :companion_id or sender_id = :companion_id and recepient_id = :id', id: id, companion_id: companion.id)
     else
-      messages = Message.where("sender_id = :id or recepient_id = :id", id: self.id)
+      messages = Message.where('sender_id = :id or recepient_id = :id', id: id)
     end
+    messages
   end
 
   def companions
@@ -30,7 +31,7 @@ class User < ActiveRecord::Base
     sql += ' UNION '
     sql += 'SELECT "users".*, "messages"."created_at" AS "mc" FROM "users" INNER JOIN "messages" ON "users"."id" = "messages"."recepient_id" WHERE "messages"."sender_id" = :id'
     sql += ') ORDER BY "mc" DESC'
-    companions = User.find_by_sql([sql, { id: self.id }])
+    companions = User.find_by_sql([sql, { id: id }])
+    companions
   end
-
 end

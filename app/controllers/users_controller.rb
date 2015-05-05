@@ -26,5 +26,4 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @wants = @user.wants
   end
-
 end

@@ -1,6 +1,6 @@
 class Account < ActiveRecord::Base
   belongs_to :user
-  has_many :payments, foreign_key: "from_id", dependent: :destroy
+  has_many :payments, foreign_key: 'from_id', dependent: :destroy
 
   # 必須属性の検証
   validates :user_id, presence: true
@@ -27,9 +27,9 @@ class Account < ActiveRecord::Base
 
   private
 
-    # 残高を変更して保存
-    def adjust_balance_and_save(amount)
-      self.balance += amount
-      save!
-    end
+  # 残高を変更して保存
+  def adjust_balance_and_save(amount)
+    self.balance += amount
+    save!
+  end
 end

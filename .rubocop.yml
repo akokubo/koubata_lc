@@ -1,0 +1,43 @@
+Metrics/AbcSize:
+  Max: 34
+
+# Configuration parameters: AllowURI, URISchemes.
+Metrics/LineLength:
+  Max: 176
+
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 28
+
+Style/AsciiComments:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/BlockComments:
+  Enabled: false
+
+Style/ClassAndModuleCamelCase:
+  Enabled: false
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# Offense count: 28
+Style/Documentation:
+  Enabled: false
+
+# Configuration parameters: MinBodyLength.
+Style/GuardClause:
+  Enabled: false
+
+# Configuration parameters: EnforcedStyle, MinBodyLength, SupportedStyles.
+Style/Next:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - 'bin/**/*'
+    - 'db/migrate/**/*'
+    - config/unicorn.rb

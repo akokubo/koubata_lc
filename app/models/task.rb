@@ -4,9 +4,9 @@ class Task < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
 
-  scope :readable, -> {
+  scope :readable, lambda {
     now = Time.current
-    where("? < expired_at OR expired_at IS NULL", now)
+    where('? < expired_at OR expired_at IS NULL', now)
   }
 
   # 必須属性の検証
@@ -20,12 +20,12 @@ class Task < ActiveRecord::Base
   end
 
   def no_expiration=(val)
-    @no_expiration = val.in?([true, 1, "1"])
+    @no_expiration = val.in?([true, 1, '1'])
   end
 
   private
 
-    def clear_expired_at
-      self.expired_at = nil if @no_expiration
-    end
+  def clear_expired_at
+    self.expired_at = nil if @no_expiration
+  end
 end

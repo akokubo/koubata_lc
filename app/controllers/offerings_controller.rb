@@ -11,7 +11,7 @@ class OfferingsController < ApplicationController
 
   def new
     @offering = Offering.new
-    @offering.expired_at = Time.now
+    @offering.expired_at = Time.zone.now
     @categories = Category.all
   end
 
@@ -30,7 +30,7 @@ class OfferingsController < ApplicationController
 
     respond_to do |format|
       if @offering.save
-        format.html { redirect_to @offering, notice: t('activerecord.successful.messages.created', :model => Offering.model_name.human) }
+        format.html { redirect_to @offering, notice: t('activerecord.successful.messages.created', model: Offering.model_name.human) }
         format.json { render action: 'show', status: :created, location: @offering }
       else
         format.html { render action: 'new' }
@@ -44,7 +44,7 @@ class OfferingsController < ApplicationController
     if @offering.user == current_user
       respond_to do |format|
         if @offering.update(offering_params)
-          format.html { redirect_to @offering, notice: t('activerecord.successful.messages.updated', :model => Offering.model_name.human) }
+          format.html { redirect_to @offering, notice: t('activerecord.successful.messages.updated', model: Offering.model_name.human) }
           format.json { head :no_content }
         else
           format.html { render action: 'edit' }
@@ -75,15 +75,15 @@ class OfferingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_offering
-      @offering = Offering.find(params[:id])
-      @categories = Category.all
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def offering_params
-      params.require(:offering).permit(:title, :category_id, :description, :price, :expired_at, :no_expiration)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_offering
+    @offering = Offering.find(params[:id])
+    @categories = Category.all
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def offering_params
+    params.require(:offering).permit(:title, :category_id, :description, :price, :expired_at, :no_expiration)
+  end
 end

@@ -5,8 +5,8 @@ japanese_names = %w(小久保温 坂井雄介 柏谷至 櫛引素夫 佐々木�
   user = User.create(
     name: japanese_names[idx],
     email: "#{names[idx]}@aomori-u.ac.jp",
-    password: "password",
-    password_confirmation: "password",
+    password: 'password',
+    password_confirmation: 'password',
     confirmed_at: Time.now
   )
   Account.create(
@@ -16,10 +16,10 @@ japanese_names = %w(小久保温 坂井雄介 柏谷至 櫛引素夫 佐々木�
 end
 
 user = User.create(
-  name: "石橋修",
-  email: "ishibashi@hachinohe-u.ac.jp",
-  password: "password",
-  password_confirmation: "password",
+  name: '石橋修',
+  email: 'ishibashi@hachinohe-u.ac.jp',
+  password: 'password',
+  password_confirmation: 'password',
   confirmed_at: Time.now
 )
 Account.create(
