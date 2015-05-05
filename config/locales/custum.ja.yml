@@ -17,10 +17,11 @@ ja:
   "New password": 新しいパスワード
   "Confirm new password": 新しいパスワード(確認)
   "You can confirm your account email through the link below": 以下のリンクをクリックすると、アカウントの登録が完了します。
-  "Someone has requested a link to change your password. You can do this through the link below.": パスワード再設定が申請されました。以下のリンクをクリックするとパスワード再設定ができます。
-  "If you didn't request this, please ignore this email.": もしもあなたがパスワード再設定を申請していない場合、このメールを無視してください。
-  "Your password won't change until you access the link above and create a new one.": 上のリンクをクリックしてパスワードを再設定しない限り、パスワードは変更されません。
-  "Your account has been locked due to an excessive number of unsuccessful sign in attempts.": 何度もログインに失敗したため、アカウントが凍結されました。
+  "Someone has requested a link to change your password": パスワード再設定が申請されました。
+  "You can do this through the link below": 以下のリンクをクリックするとパスワード再設定ができます。
+  "If you didn't request this, please ignore this email": もしもあなたがパスワード再設定を申請していない場合、このメールを無視してください。
+  "Your password won't change until you access the link above and create a new one": 上のリンクをクリックしてパスワードを再設定しない限り、パスワードは変更されません。
+  "Your account has been locked due to an excessive number of unsuccessful sign in attempts": 何度もログインに失敗したため、アカウントが凍結されました。
   "Click the link below to unlock your account": アカウント凍結解除するには以下のリンクをクリックしてください
   "leave blank if you don't want to change it": 変更しない場合は入力しないでください。
   "we need your current password to confirm your changes": 更新には現在のパスワードの入力が必要。
@@ -61,8 +62,8 @@ ja:
   "Current balance": 現在の残高
   "Welcome to Koubata Project!": 幸畑プロジェクトへようこそ
   "If you don't have an account you can sign up!": はじめての方はユーザー登録してください。
-  "No transfer record.": 取引履歴はありません。
-  "No messsage.": メッセージはありません。
+  "No transfer record": 取引履歴はありません。
+  "No messsage": メッセージはありません。
   "Listing ": "%{model}・リスト"
   "New ": "新しい%{model}を作成"
   "Editing ": "%{model}を編集"
