@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20140906123202) do
 
-  create_table "accounts", force: true do |t|
+  create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "balance"
     t.datetime "created_at"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20140906123202) do
 
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id"
 
-  create_table "categories", force: true do |t|
+  create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -30,16 +30,16 @@ ActiveRecord::Schema.define(version: 20140906123202) do
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true
 
-  create_table "messages", force: true do |t|
-    t.string   "subject",                  null: false
-    t.text     "body",                     null: false
+  create_table "messages", force: :cascade do |t|
+    t.string   "subject",      null: false
+    t.text     "body",         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sender_id",    default: 0, null: false
-    t.integer  "recepient_id", default: 0, null: false
+    t.integer  "sender_id"
+    t.integer  "recepient_id"
   end
 
-  create_table "payments", force: true do |t|
+  create_table "payments", force: :cascade do |t|
     t.integer  "from_id"
     t.integer  "to_id"
     t.string   "subject",    null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20140906123202) do
   add_index "payments", ["from_id"], name: "index_payments_on_from_id"
   add_index "payments", ["to_id"], name: "index_payments_on_to_id"
 
-  create_table "tasks", force: true do |t|
+  create_table "tasks", force: :cascade do |t|
     t.string   "type",        null: false
     t.integer  "user_id"
     t.string   "title",       null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20140906123202) do
   add_index "tasks", ["category_id"], name: "index_tasks_on_category_id"
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
