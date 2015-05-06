@@ -1,0 +1,10 @@
+<h2>エントリーしている人</h2>
+<% if @task.entries.present? %>
+<ul data-role="listview" data-inset="true" id="entried_users">
+  <% @task.entries.each do |entry| %>
+    <li><%= entry.user.name %></li>
+  <% end %>
+</ul>
+<% else %>
+  <p>エントリーしている人はまだいません</p>
+<% end %>

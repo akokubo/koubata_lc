@@ -4,6 +4,8 @@ class Task < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
 
+  has_many :entries, dependent: :destroy
+
   scope :readable, lambda {
     now = Time.current
     where('? < expired_at OR expired_at IS NULL', now)

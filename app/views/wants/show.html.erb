@@ -33,11 +33,38 @@
   </li>
 </ul>
 
-<% if @want.user_id == current_user.id %>
-<%= link_to t('Edit'), edit_want_path(@want), class: "ui-btn ui-btn-inline" %>
-<%= link_to t('Destroy'), @want, method: :delete, data: { confirm: t('Are you sure?')}, class: "ui-btn ui-btn-inline" %>
-<%= link_to t('Back to my wants'), wants_user_path(current_user), class: "ui-btn ui-btn-inline" %>
+<!--
+<h2>引き受けている人</h2>
+<% if @want.entries.present? %>
+<ul data-role="listview" data-inset="true">
+  <% @want.entries.each do |entry| %>
+    <li><%= entry.user.name %></li>
+  <% end %>
+</ul>
 <% else %>
-<%= link_to t('Contract'), { controller: :messages, action: :new, want: @want.id }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
+  <p>引き受けている人はまだいません</p>
 <% end %>
+-->
+
+<% if current_user?(@want.user_id) %>
+  <%= link_to t('Edit'), edit_want_path(@want), class: "ui-btn ui-btn-inline" %>
+  <%= link_to t('Destroy'), @want, method: :delete, data: { confirm: t('Are you sure?')}, class: "ui-btn ui-btn-inline" %>
+  <%= link_to t('Back to my wants'), wants_user_path(current_user), class: "ui-btn ui-btn-inline" %>
+  <a href="#">〆切る</a>
+<% else %>
+  <% @task = @want %>
+  <div id="entried">
+    <%= render 'entries/entried' %>
+  </div>
+  <div id="entry_form">
+    <% if current_user.entried?(@task) %>
+      <%= render 'entries/unentry' %>
+    <% else %>
+      <%= render 'entries/entry' %>
+    <% end %>
+  </div>
+  <!-- <%= link_to t('Contract'), { controller: :entries, action: :create, entry: { task_id: @want.id } }, method: :post, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %> -->
+  <!-- <%= link_to t('Contract'), { controller: :messages, action: :new, want: @want.id }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %> -->
+<% end %>
+
 <%= link_to t('Back'), wants_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left" %>

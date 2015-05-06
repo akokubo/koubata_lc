@@ -1,12 +1,14 @@
 class User < ActiveRecord::Base
-  has_many :tasks
-  has_many :offerings
-  has_many :wants
+  has_one  :account,   dependent: :destroy
+  has_many :tasks,     dependent: :destroy
+  has_many :offerings, dependent: :destroy
+  has_many :wants,     dependent: :destroy
+  has_many :entries,   dependent: :destroy
+
   has_many :sended_messages,   class_name: 'Message', foreign_key: 'sender_id'
   has_many :received_messages, class_name: 'Message', foreign_key: 'recepient_id'
   has_many :senders,    through: :received_messages, source: :sender
   has_many :recepients, through: :sended_messages,   source: :recepient
-  has_one :account
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -33,5 +35,17 @@ class User < ActiveRecord::Base
     sql += ') ORDER BY "mc" DESC'
     companions = User.find_by_sql([sql, { id: id }])
     companions
+  end
+
+  def entried?(task)
+    entries.find_by(task_id: task.id)
+  end
+
+  def entry!(task)
+    entries.create!(task_id: task.id)
+  end
+
+  def unentry!(task)
+    entries.find_by(task_id: task.id).destroy
   end
 end

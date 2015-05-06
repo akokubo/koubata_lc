@@ -34,6 +34,11 @@ describe User do
   # account属性を持つ
   it { should respond_to(:account) }
 
+  # entry属性を持つ
+  it { should respond_to(:entries) }
+  it { should respond_to(:entried?) }
+  it { should respond_to(:entry!) }
+
   # 検証に通る
   it { should be_valid }
 

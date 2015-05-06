@@ -33,11 +33,38 @@
   </li>
 </ul>
 
-<% if @offering.user_id == current_user.id %>
-<%= link_to t('Edit'), edit_offering_path(@offering), class: "ui-btn ui-btn-inline" %>
-<%= link_to t('Destroy'), @offering, method: :delete, data: { confirm: t('Are you sure?') }, class: "ui-btn ui-btn-inline" %>
-<%= link_to t('Back to my offerings'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
+<!--
+<h2>依頼している人</h2>
+<% if @offering.entries.present? %>
+<ul data-role="listview" data-inset="true">
+  <% @offering.entries.each do |entry| %>
+    <li><%= entry.user.name %></li>
+  <% end %>
+</ul>
 <% else %>
-<%= link_to t('Entrust'), { controller: :messages, action: :new, offering: @offering.id }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
+  <p>依頼している人はまだいません</p>
 <% end %>
+-->
+
+<% if current_user?(@offering.user_id) %>
+  <%= link_to t('Edit'), edit_offering_path(@offering), class: "ui-btn ui-btn-inline" %>
+  <%= link_to t('Destroy'), @offering, method: :delete, data: { confirm: t('Are you sure?') }, class: "ui-btn ui-btn-inline" %>
+  <%= link_to t('Back to my offerings'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
+  <a href="#">〆切る</a>
+<% else %>
+  <% @task = @offering %>
+  <div id="entried">
+    <%= render 'entries/entried' %>
+  </div>
+  <div id="entry_form">
+    <% if current_user.entried?(@task) %>
+      <%= render 'entries/unentry' %>
+    <% else %>
+      <%= render 'entries/entry' %>
+    <% end %>
+  </div>
+  <!-- <%= link_to t('Entrust'), { controller: :entries, action: :create, entry: { task_id: @offering.id } }, method: :post, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %> -->
+  <!-- <%= link_to t('Entrust'), { controller: :messages, action: :new, offering: @offering.id }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %> -->
+<% end %>
+
 <%= link_to t('Back'), offerings_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>

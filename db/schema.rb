@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140906123202) do
+ActiveRecord::Schema.define(version: 20150506050935) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -29,6 +29,19 @@ ActiveRecord::Schema.define(version: 20140906123202) do
   end
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true
+
+  create_table "entries", force: :cascade do |t|
+    t.integer  "task_id"
+    t.integer  "user_id"
+    t.datetime "hired_at"
+    t.datetime "paid_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "entries", ["task_id", "user_id"], name: "index_entries_on_task_id_and_user_id", unique: true
+  add_index "entries", ["task_id"], name: "index_entries_on_task_id"
+  add_index "entries", ["user_id"], name: "index_entries_on_user_id"
 
   create_table "messages", force: :cascade do |t|
     t.string   "subject",      null: false
@@ -63,6 +76,7 @@ ActiveRecord::Schema.define(version: 20140906123202) do
     t.datetime "expired_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "closed_at"
   end
 
   add_index "tasks", ["category_id"], name: "index_tasks_on_category_id"

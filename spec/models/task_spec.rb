@@ -27,6 +27,8 @@ describe Task do
   it { should respond_to(:category_id) }
   it { should respond_to(:description) }
   it { should respond_to(:expired_at) }
+  it { should respond_to(:entries) }
+  it { should respond_to(:closed_at) }
 
   # 適正なデータが検証に通るか
   it { should be_valid }

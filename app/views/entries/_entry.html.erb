@@ -1,0 +1,4 @@
+<%= form_for(current_user.entries.build(task_id: @task.id), remote: true) do |f| %>
+  <div><%= f.hidden_field :task_id %></div>
+  <%= f.submit "Entry", class: "ui-btn" %>
+<% end %>
