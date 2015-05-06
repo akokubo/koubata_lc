@@ -9,7 +9,6 @@ describe Entry do
   let(:offering) { FactoryGirl.create(:offering) }
 
   describe 'Want' do
-
     # @entryの作成
     before do
       @entry = want.entries.build(
@@ -69,7 +68,6 @@ describe Entry do
   end
 
   describe 'Offering' do
-
     # @entryの作成
     before do
       @entry = offering.entries.build(
