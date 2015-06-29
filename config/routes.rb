@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get 'offerings'
       get 'wants'
       get 'payments'
+      get :following, :followers
     end
   end
 

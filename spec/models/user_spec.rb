@@ -39,6 +39,15 @@ describe User do
   it { should respond_to(:entried?) }
   it { should respond_to(:entry!) }
 
+  # relationship関連の属性を持つ
+  it { should respond_to(:relationships) }
+  it { should respond_to(:followed_users) }
+  it { should respond_to(:reverse_relationships) }
+  it { should respond_to(:followers) }
+  it { should respond_to(:following?) }
+  it { should respond_to(:follow!) }
+  it { should respond_to(:unfollow!) }
+
   # 検証に通る
   it { should be_valid }
 
@@ -109,5 +118,27 @@ describe User do
   describe "with a password that's too short" do
     before { @user.password = @user.password_confirmation = 'a' * 7 }
     it { should be_invalid }
+  end
+
+  describe 'following' do
+    let(:other_user) { FactoryGirl.create(:user) }
+    before do
+      @user.save
+      @user.follow!(other_user)
+    end
+
+    it { should be_following(other_user) }
+    it { expect(@user.followed_users).to include(other_user) }
+
+    describe 'and unfollowing' do
+      before { @user.unfollow!(other_user) }
+
+      it { should_not be_following(other_user) }
+      it { expect(@user.followed_users).not_to include(other_user) }
+    end
+
+    describe 'followed user' do
+      it { expect(other_user.followers).to include(@user) }
+    end
   end
 end
