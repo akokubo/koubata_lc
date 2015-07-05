@@ -1,3 +1,4 @@
+<% submit_message = @task.instance_of?(Offering) ? t('Hire') : t('Take') %>
 <h2>エントリーしている人</h2>
 <% if @task.entries.present? %>
     <% if current_user?(@task.user) %>
@@ -15,7 +16,7 @@
                 <% end %>
                 <input type="hidden" name="<%= @task.class.to_s.underscore %>[submit_hire]" value="1">
                 <input type="reset" value="チェックをはずす" onclick="uncheck();">
-                <%= submit_tag t('Hire') %>
+                <%= submit_tag submit_message %>
             </fieldset>
         <% end %>
     <% else %>
