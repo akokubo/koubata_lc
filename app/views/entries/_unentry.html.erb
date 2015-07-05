@@ -1,3 +1,3 @@
 <%= form_for(current_user.entries.find_by(task_id: @task.id), html: { method: :delete }, remote: true) do |f| %>
-  <%= f.submit "Unentry", class: "ui-btn" %>
+  <%= f.submit t('Unentry'), class: "ui-btn" %>
 <% end %>

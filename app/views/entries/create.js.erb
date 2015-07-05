@@ -1,3 +1,4 @@
-$("#entried").html("<%= escape_javascript(render('entries/entried')) %>")
-$("#entry_form").html("<%= escape_javascript(render('entries/unentry')) %>")
+$("#entried").html("<%= escape_javascript(render('entries/entried')) %>");
+$("#entry_form").html("<%= escape_javascript(render('entries/unentry')) %>");
 $("#entried_users").listview().listview('refresh');
+$("[type='submit']").button('refresh');

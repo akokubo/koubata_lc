@@ -1,10 +1,30 @@
 <h2>エントリーしている人</h2>
 <% if @task.entries.present? %>
-<ul data-role="listview" data-inset="true" id="entried_users">
-  <% @task.entries.each do |entry| %>
-    <li><%= entry.user.name %></li>
-  <% end %>
-</ul>
+    <% if current_user?(@task.user) %>
+        <script>
+         uncheck = function () {
+            jQuery("input[name='<%= @task.class.to_s.underscore %>[hired_id]']").attr("checked", false);
+        };
+        </script>
+        <%= form_for(@task) do |f| %>
+            <fieldset data-role="controlgroup">
+                <% @task.entries.each do |entry| %>
+                    <% name = @task.class.to_s.underscore + "[hired_id]" %>
+                    <%= radio_button_tag :entry, value = entry.id, checked = entry.hired?, {name: name} %>
+                    <label for="entry_<%= entry.id %>"><%= entry.user.name %></label>
+                <% end %>
+                <input type="hidden" name="<%= @task.class.to_s.underscore %>[submit_hire]" value="1">
+                <input type="reset" value="チェックをはずす" onclick="uncheck();">
+                <%= submit_tag t('Hire') %>
+            </fieldset>
+        <% end %>
+    <% else %>
+        <ul data-role="listview" data-inset="true" id="entried_users">
+            <% @task.entries.each do |entry| %>
+              <li><%= entry.user.name %></li>
+            <% end %>
+        </ul>
+    <% end %>
 <% else %>
-  <p>エントリーしている人はまだいません</p>
+    <p>エントリーしている人はまだいません</p>
 <% end %>
