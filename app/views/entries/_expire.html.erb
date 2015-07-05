@@ -1,0 +1,5 @@
+<%= form_for(@task) do |f| %>
+  <% @task.expired_at = Time.now %>
+  <%= f.hidden_field :expired_at %>
+  <%= submit_tag t('Expire') %>
+<% end %>

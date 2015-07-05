@@ -1,0 +1,5 @@
+<%= form_for(@task) do |f| %>
+  <% @task.expired_at = nil %>
+  <%= f.hidden_field :expired_at %>
+  <%= submit_tag t('Unexpire') %>
+<% end %>

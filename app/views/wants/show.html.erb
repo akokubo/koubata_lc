@@ -3,12 +3,12 @@
 
 <ul data-role="listview" data-inset="true">
   <li>
-    <h2><%= Want.human_attribute_name(:title) %></h2>
+    <h2><%= Want.human_attribute_name(:title) %>:</h2>
     <p><%= @want.title %></p>
   </li>
 
   <li>
-    <h2><%= Want.human_attribute_name(:user) %></h2>
+    <h2><%= Want.human_attribute_name(:user) %>:</h2>
     <p><%= @want.user.name %></p>
   </li>
 
@@ -18,8 +18,8 @@
   </li>
 
   <li>
-    <h2><%= Want.human_attribute_name(:description) %></h2>
-    <div><%= simple_format @want.description %></div>
+    <h2><%= Want.human_attribute_name(:description) %>:</h2>
+    <p><%= simple_format @want.description %></p>
   </li>
 
   <li>
@@ -28,13 +28,13 @@
   </li>
 
   <li>
-    <h2><%= Want.human_attribute_name(:expired_at) %></h2>
+    <h2><%= Want.human_attribute_name(:expired_at) %>:</h2>
     <p><%= @want.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></p>
   </li>
 </ul>
 
 <!--
-<h2>引き受けている人</h2>
+<h2>依頼している人</h2>
 <% if @want.entries.present? %>
 <ul data-role="listview" data-inset="true">
   <% @want.entries.each do |entry| %>
@@ -42,15 +42,23 @@
   <% end %>
 </ul>
 <% else %>
-  <p>引き受けている人はまだいません</p>
+  <p>依頼している人はまだいません</p>
 <% end %>
 -->
 
-<% if current_user?(@want.user_id) %>
+<% if current_user?(@want.user) %>
   <%= link_to t('Edit'), edit_want_path(@want), class: "ui-btn ui-btn-inline" %>
-  <%= link_to t('Destroy'), @want, method: :delete, data: { confirm: t('Are you sure?')}, class: "ui-btn ui-btn-inline" %>
-  <%= link_to t('Back to my wants'), wants_user_path(current_user), class: "ui-btn ui-btn-inline" %>
-  <a href="#">〆切る</a>
+  <%= link_to t('Destroy'), @want, method: :delete, data: { confirm: t('Are you sure?') }, class: "ui-btn ui-btn-inline" %>
+  <%= link_to t('Back to my wants'), wants_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
+  <% @task = @want %>
+  <div id="entried">
+    <%= render 'entries/entried' %>
+  </div>
+  <% if @task.expired_at %>
+    <%= render 'entries/unexpire' %>
+  <% else %>
+    <%= render 'entries/expire' %>
+  <% end %>
 <% else %>
   <% @task = @want %>
   <div id="entried">
@@ -63,8 +71,8 @@
       <%= render 'entries/entry' %>
     <% end %>
   </div>
-  <!-- <%= link_to t('Contract'), { controller: :entries, action: :create, entry: { task_id: @want.id } }, method: :post, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %> -->
-  <!-- <%= link_to t('Contract'), { controller: :messages, action: :new, want: @want.id }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %> -->
+  <!-- <%= link_to t('Entrust'), { controller: :entries, action: :create, entry: { task_id: @want.id } }, method: :post, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %> -->
+  <!-- <%= link_to t('Entrust'), { controller: :messages, action: :new, want: @want.id }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %> -->
 <% end %>
 
-<%= link_to t('Back'), wants_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left" %>
+<%= link_to t('Back'), wants_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>

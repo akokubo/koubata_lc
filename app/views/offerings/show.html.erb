@@ -46,11 +46,19 @@
 <% end %>
 -->
 
-<% if current_user?(@offering.user_id) %>
+<% if current_user?(@offering.user) %>
   <%= link_to t('Edit'), edit_offering_path(@offering), class: "ui-btn ui-btn-inline" %>
   <%= link_to t('Destroy'), @offering, method: :delete, data: { confirm: t('Are you sure?') }, class: "ui-btn ui-btn-inline" %>
   <%= link_to t('Back to my offerings'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
-  <a href="#">〆切る</a>
+  <% @task = @offering %>
+  <div id="entried">
+    <%= render 'entries/entried' %>
+  </div>
+  <% if @task.expired_at %>
+    <%= render 'entries/unexpire' %>
+  <% else %>
+    <%= render 'entries/expire' %>
+  <% end %>
 <% else %>
   <% @task = @offering %>
   <div id="entried">
