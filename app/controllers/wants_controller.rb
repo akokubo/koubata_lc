@@ -42,7 +42,7 @@ class WantsController < ApplicationController
 
   def update
     if @want.user == current_user
-      if submit_hire = want_params[:submit_hire]
+      if want_params[:submit_hire]
         update_hire(@want, want_params)
         redirect_to @want
       else

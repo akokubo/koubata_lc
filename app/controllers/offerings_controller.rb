@@ -41,7 +41,7 @@ class OfferingsController < ApplicationController
 
   def update
     if @offering.user == current_user
-      if submit_hire = offering_params[:submit_hire]
+      if offering_params[:submit_hire]
         update_hire(@offering, offering_params)
         redirect_to @offering
       else
