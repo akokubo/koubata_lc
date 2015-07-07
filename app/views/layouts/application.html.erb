@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag "application", media: "all" %>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css">
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div data-role="page">
+  <div data-role="page" data-theme="a">
     <% if user_signed_in? %><%= render 'layouts/menu_panel' %><% end %>
     <%= render 'layouts/header' %>
-    <div data-role="main" class="ui-content">
+    <div data-role="main" class="ui-content" data-theme="a">
       <% if notice %><p class="alert alert-success"><%= notice %></p><% end %>
       <% if alert %><p class="alert alert-error"><%= alert %></p><% end %>
 <%= yield %>

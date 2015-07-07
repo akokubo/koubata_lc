@@ -1,10 +1,12 @@
 <br>
-<ul data-role="listview" data-inset="true">
-	<li><%= link_to t("About"), about_path %></li>
-	<li><%= link_to t("Contact"), contact_path %></li>
-</ul>
-<% if user_signed_in? %>
-  <%= link_to t("Sign out"), destroy_user_session_path, method: :delete, data: { ajax: false }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
-<% else %>
-  <%= link_to t("Need help?"), need_help_path, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
-<% end %>
+<div class="ui-body ui-body-a ui-corner-all">
+  <ul data-role="listview" data-inset="true">
+    <li><%= link_to t("About"), about_path %></li>
+    <li><%= link_to t("Contact"), contact_path %></li>
+  </ul>
+  <% if user_signed_in? %>
+    <%= link_to t("Sign out"), destroy_user_session_path, method: :delete, data: { ajax: false }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
+  <% else %>
+    <%= link_to t("Need help?"), need_help_path, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
+  <% end %>
+</div>

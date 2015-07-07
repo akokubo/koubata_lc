@@ -10,7 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require jquery.mobile-1.4.5.min
+ *= require koubata_lc.min
+ *= require jquery.mobile.icons.min
  *= require_tree .
  *= require_self
  */
