@@ -28,7 +28,7 @@
 
 <li>
   <h2><%= Payment.human_attribute_name(:comment) %>:</h2>
-  <p><%= @payment.comment %></p>
+  <p><%= simple_format @payment.comment %></p>
 </li>
 </ul>
   <%= link_to t('Back'), accounts_path, class: "ui-btn" %>
