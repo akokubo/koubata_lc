@@ -1,0 +1,16 @@
+<% provide :locale, I18n.locale.inspect %>
+<% provide :title,  @user.name + ":" + t("Listing ", model: @class_name.model_name.human.pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<% if @user == current_user %>
+  <%= link_to t('New ', model: @class_name.model_name.human), [:new, @class_name.to_s.downcase], class: "ui-btn" %>
+<% end %>
+<% if @tasks.present? %>
+  <ul data-role="listview" data-inset="true"> 
+    <% @tasks.each do |task| %>
+      <li><%= link_to task.title, task %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><%= t("There is no ", model: @class_name.model_name.human) %></p>
+<% end %>

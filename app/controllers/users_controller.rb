@@ -18,12 +18,16 @@ class UsersController < ApplicationController
   end
 
   def offerings
+    @class_name = Offering
     @user = User.find(params[:id])
-    @offerings = @user.offerings
+    @tasks = @user.offerings
+    render 'tasks'
   end
 
   def wants
+    @class_name = Want
     @user = User.find(params[:id])
-    @wants = @user.wants
+    @tasks = @user.wants
+    render 'tasks'
   end
 end

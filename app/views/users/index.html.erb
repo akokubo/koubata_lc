@@ -2,9 +2,9 @@
 <h1><%= yield(:title) %></h1>
 
 <% if @users.count > 10 %>
-  <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d">
+  <ul data-role="listview" data-filter="true" data-filter-theme="c" data-inset="true" data-divider-theme="d">
 <% else %>
-  <ul data-role="listview" data-divider-theme="d">
+  <ul data-role="listview" data-inset="true" data-divider-theme="d">
 <% end %>
   <% @users.each do |user| %>
     <li><%= link_to user.name, user %></li>

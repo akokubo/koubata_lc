@@ -3,20 +3,27 @@ class WantsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @wants = Want.all
+    @categories = Category.all
+    @class_name = Want
   end
 
   def show
+    @class_name = Want
+    @task = @want
   end
 
   def new
+    @class_name = Want
     @want = Want.new
     @want.expired_at = Time.zone.now.tomorrow
+    @task = @want
     @categories = Category.all
   end
 
   def edit
+    @class_name = Want
     @want = Want.find(params[:id])
+    @task = @want
     @categories = Category.all
     if @want.user != current_user
       redirect_to @want, alert: t('You cannot edit!')

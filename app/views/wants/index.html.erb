@@ -1,17 +1,26 @@
 <% provide :locale, I18n.locale.inspect %>
-<% provide :title,  t("Listing ", model: t('activerecord.models.want').pluralize(:locale)) %>
+<% provide :title,  t("Listing ", model: Want.model_name.human.pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
-<% if @wants.present? %>
-  <% if @wants.readable.count > 10 %>
-    <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d">
-  <% else %>
-    <ul data-role="listview" data-divider-theme="d">
-  <% end %>
-    <% @wants.readable.each do |want| %>
-      <li><%= link_to want.title, want %></li>
+<% if @categories.present? %>
+  <div data-role="collapsibleset">
+    <% @categories.each do |category| %>
+      <% if category.wants.readable.present? %>
+        <div data-role="collapsible" data-theme="b" data-content-theme="a">
+          <h2><%= category.name %>: <span><%= category.wants.readable.count %></span></h2>
+          <% if category.wants.readable.count > 10 %>
+            <ul data-role="listview" data-filter="true">
+          <% else %>
+            <ul data-role="listview">
+          <% end %>
+            <% category.wants.readable.each do |want| %>
+              <li><%= link_to want.title, want %></li>
+            <% end %>
+          </ul>
+       </div>
+      <% end %>
     <% end %>
-  </ul>
+  </div>
 <% else %>
-  <p><%= t("There is no ", model: t('activerecord.models.want')) %></p>
+  <p><%= t("There is no ", model: Category.model_name.human) %></p>
 <% end %>

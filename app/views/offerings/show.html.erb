@@ -1,78 +1,37 @@
-<% provide :title, t('activerecord.models.offering') %>
+<% provide :title, @class_name.model_name.human %>
 <h1><%= yield(:title) %></h1>
 
-<ul data-role="listview" data-inset="true">
-  <li>
-    <h2><%= Offering.human_attribute_name(:title) %>:</h2>
-    <p><%= @offering.title %></p>
-  </li>
+<%= render 'tasks/task' %>
 
-  <li>
-    <h2><%= Offering.human_attribute_name(:user) %>:</h2>
-    <p><%= @offering.user.name %></p>
-  </li>
-
-  <li>
-    <h2><%= Offering.human_attribute_name(:category) %>:</h2>
-    <p><%= @offering.category.name %></p>
-  </li>
-
-  <li>
-    <h2><%= Offering.human_attribute_name(:description) %>:</h2>
-    <p><%= simple_format @offering.description %></p>
-  </li>
-
-  <li>
-    <h2><%= Offering.human_attribute_name(:price) %>:</h2>
-    <p><%= @offering.price %></p>
-  </li>
-
-  <li>
-    <h2><%= Offering.human_attribute_name(:expired_at) %>:</h2>
-    <p><%= @offering.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></p>
-  </li>
-</ul>
-
-<!--
-<h2>依頼している人</h2>
-<% if @offering.entries.present? %>
-<ul data-role="listview" data-inset="true">
-  <% @offering.entries.each do |entry| %>
-    <li><%= entry.user.name %></li>
-  <% end %>
-</ul>
-<% else %>
-  <p>依頼している人はまだいません</p>
+<% if current_user?(@task.user) %>
+    <%= link_to t('Edit'), edit_offering_path(@task), class: "ui-btn ui-btn-inline" %>
+    <%= link_to t('Destroy'), @task, method: :delete, data: { confirm: t('Are you sure?') }, class: "ui-btn ui-btn-inline" %>
+    <%= link_to t('Back to my offerings'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
+  </div>
 <% end %>
--->
 
-<% if current_user?(@offering.user) %>
-  <%= link_to t('Edit'), edit_offering_path(@offering), class: "ui-btn ui-btn-inline" %>
-  <%= link_to t('Destroy'), @offering, method: :delete, data: { confirm: t('Are you sure?') }, class: "ui-btn ui-btn-inline" %>
-  <%= link_to t('Back to my offerings'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
-  <% @task = @offering %>
+<br>
+
+<div class="ui-body ui-body-a ui-corner-all">
   <div id="entried">
     <%= render 'entries/entried' %>
   </div>
-  <% if @task.expired_at %>
-    <%= render 'entries/unexpire' %>
-  <% else %>
-    <%= render 'entries/expire' %>
-  <% end %>
-<% else %>
-  <% @task = @offering %>
-  <div id="entried">
-    <%= render 'entries/entried' %>
-  </div>
-  <div id="entry_form">
-    <% if current_user.entried?(@task) %>
-      <%= render 'entries/unentry' %>
+
+  <% if current_user?(@task.user) %>
+    <% if @task.expired_at %>
+      <%= render 'entries/unexpire' %>
     <% else %>
-      <%= render 'entries/entry' %>
+      <%= render 'entries/expire' %>
     <% end %>
-  </div>
-  <!-- <%= link_to t('Entrust'), { controller: :entries, action: :create, entry: { task_id: @offering.id } }, method: :post, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %> -->
-  <!-- <%= link_to t('Entrust'), { controller: :messages, action: :new, offering: @offering.id }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %> -->
-<% end %>
+  <% else %>
+    <div id="entry_form">
+      <% if current_user.entried?(@task) %>
+        <%= render 'entries/unentry' %>
+      <% else %>
+        <%= render 'entries/entry' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
 <%= link_to t('Back'), offerings_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>

@@ -4,19 +4,26 @@ class OfferingsController < ApplicationController
 
   def index
     @categories = Category.all
+    @class_name = Offering
   end
 
   def show
+    @class_name = Offering
+    @task = @offering
   end
 
   def new
+    @class_name = Offering
     @offering = Offering.new
     @offering.expired_at = Time.zone.now
+    @task = @offering
     @categories = Category.all
   end
 
   def edit
+    @class_name = Offering
     @offering = Offering.find(params[:id])
+    @task = @offering
     @categories = Category.all
     if @offering.user != current_user
       redirect_to @offering, alert: t('You cannot edit!')

@@ -1,6 +1,6 @@
-<% provide :title, t('Editing ', model: t('activerecord.models.want')) %>
+<% provide :title, t('Editing ', model: @class_name.model_name.human) %>
 <h1><%= yield(:title) %></h1>
 
-<%= render 'form' %>
+<%= render 'tasks/form' %>
 
-<%= link_to t('Back'), @want, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left" %>
+<%= link_to t('Back'), @task, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left" %>

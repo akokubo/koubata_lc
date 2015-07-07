@@ -1,17 +1,17 @@
 <% provide :locale, I18n.locale.inspect %>
-<% provide :title,  t("Listing ", model: t('activerecord.models.offering').pluralize(:locale)) %>
+<% provide :title,  t("Listing ", model: @class_name.model_name.human.pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
 <% if @categories.present? %>
-  <div data-role="collapsibleset" data-theme="b" data-content-theme="d">
+  <div data-role="collapsibleset">
     <% @categories.each do |category| %>
       <% if category.offerings.readable.present? %>
-        <div data-role="collapsible">
+        <div data-role="collapsible" data-theme="b" data-content-theme="a">
           <h2><%= category.name %>: <span><%= category.offerings.readable.count %></span></h2>
           <% if category.offerings.readable.count > 10 %>
-            <ul data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d">
+            <ul data-role="listview" data-filter="true">
           <% else %>
-            <ul data-role="listview" data-divider-theme="d">
+            <ul data-role="listview">
           <% end %>
             <% category.offerings.readable.each do |offering| %>
               <li><%= link_to offering.title, offering %></li>
@@ -22,5 +22,5 @@
     <% end %>
   </div>
 <% else %>
-  <p><%= t("There is no ", model: t('activerecord.models.category')) %></p>
+  <p><%= t("There is no ", model: Category.model_name.human) %></p>
 <% end %>
