@@ -24,7 +24,10 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
 
-  # offeringsと属性を持つ
+  # description属性を持つ
+  it { should respond_to(:description) }
+
+  # offerings属性を持つ
   it { should respond_to(:offerings) }
   it { should respond_to(:wants) }
 

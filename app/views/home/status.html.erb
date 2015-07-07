@@ -1,12 +1,19 @@
 <% provide :title, t("My Status") %>
 <h1><%= t(yield(:title)) %></h1>
+
+<div class="ui-body ui-body-a ui-corner-all">
+  <h2><%= current_user.name %></h2>
+  <p><strong><%= t('Current balance') %></strong>: <%= current_user.account.balance %><%= t('points') %></p>
+  <p><strong><%= User.human_attribute_name(:description) %></strong><br><%= simple_format current_user.description %></p>
+
 <ul data-role="listview" data-inset="true">
-  <li><%= current_user.name %>: <%= current_user.account.balance %><%= t('points') %></li>
+  </li>
   <li><%= link_to t("activerecord.models.account"), accounts_path %></li>
   <li><%= link_to t('activerecord.models.offering'), offerings_user_path(current_user) %></li>
   <li><%= link_to t('activerecord.models.want'), wants_user_path(current_user) %></li>
   <li><%= link_to t("Settings"), edit_user_registration_path %></li>
 </ul>
+</div>
 <ul data-role="listview" data-inset="true">
   <li><a href="#">ウォッチリスト</a></li>
   <li><a href="#">フォローリスト</a></li>

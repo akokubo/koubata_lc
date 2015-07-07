@@ -16,6 +16,7 @@ ja:
         password_confirmation: 'パスワード(確認)'
         remember_me: 'パスワードを記憶'
         current_password: '現在のパスワード'
+        description: '自己紹介'
       category:
         name: '名前'
       offering:
