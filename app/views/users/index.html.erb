@@ -1,4 +1,4 @@
-<% provide :title, t("Listing ", model: t('activerecord.models.user').pluralize(:locale)) %>
+<% provide :title, t("Listing ", model: User.model_name.human.pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
 <% if @users.count > 10 %>

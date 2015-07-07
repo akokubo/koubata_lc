@@ -1,7 +1,7 @@
 <% provide :title, @user.name %>
 <h1><%= yield(:title) %></h1>
 
-<p><%= t('New ', model: t('activerecord.models.message')) %></p>
+<p><%= t('New ', model: Message.model_name.human) %></p>
 <%= form_for(@message) do |f| %>
   <ul data-role="listview" data-inset="true">
     <li class="ui-field-contain">
@@ -33,5 +33,5 @@
   <% end %>
   <br style="clear: both;">
 <% else %>
-  <p><%= t("There is no ", model: t('activerecord.models.message')) %></p>
+  <p><%= t("There is no ", model: Message.model_name.human) %></p>
 <% end %>

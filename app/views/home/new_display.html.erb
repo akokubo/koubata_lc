@@ -2,11 +2,11 @@
 
 <ul data-role="listview" data-inset="true">
   <li data-role="list-divider"><%= t("New Display") %></li>
-  <li><%= link_to t('New ', model: t('activerecord.models.offering')), new_offering_path %></li>
-  <li><%= link_to t('New ', model: t('activerecord.models.want')), new_want_path %></li>
+  <li><%= link_to t('New ', model: Offering.model_name.human), new_offering_path %></li>
+  <li><%= link_to t('New ', model: Want.model_name.human), new_want_path %></li>
 </ul>
 <ul data-role="listview" data-inset="true">
   <li data-role="list-divider"><%= t("Displayed") %></li>
-  <li><%= link_to t('activerecord.models.offering'), offerings_user_path(current_user) %></li>
-  <li><%= link_to t('activerecord.models.want'), wants_user_path(current_user) %></li>
+  <li><%= link_to Offering.model_name.human, offerings_user_path(current_user) %></li>
+  <li><%= link_to Want.model_name.human, wants_user_path(current_user) %></li>
 </ul>

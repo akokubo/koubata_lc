@@ -3,16 +3,16 @@
     <li><%= link_to current_user.name, user_path(current_user) %></li>
     <li data-role="list-divider"><%= t("Favorites") %></li>
     <li><%= link_to t("Home"), root_path %></li>
-    <li><%= link_to t("Search ", model: t('activerecord.models.user').pluralize(:locale)), users_path %></li>
-    <li><%= link_to t("Search ", model: t('activerecord.models.offering').pluralize(:locale)), offerings_path %></li>
-    <li><%= link_to t("Search ", model: t('activerecord.models.want').pluralize(:locale)), wants_path %></li>
-    <li><%= link_to t('activerecord.models.message'), messages_path %></li>
+    <li><%= link_to t("Search ", model: User.model_name.human.pluralize(:locale)), users_path %></li>
+    <li><%= link_to t("Search ", model: Offering.model_name.human.pluralize(:locale)), offerings_path %></li>
+    <li><%= link_to t("Search ", model: Want.model_name.human.pluralize(:locale)), wants_path %></li>
+    <li><%= link_to Message.model_name.human, messages_path %></li>
     <!-- <li><%= link_to t("Logs"), "#" %></li> -->
     <li data-role="list-divider"><%= t("Self Informations") %></li>
-    <li><%= link_to t('activerecord.models.offering'), offerings_user_path(current_user) %></li>
-    <li><%= link_to t('activerecord.models.want'), wants_user_path(current_user) %></li>
+    <li><%= link_to Offering.model_name.human, offerings_user_path(current_user) %></li>
+    <li><%= link_to Want.model_name.human, wants_user_path(current_user) %></li>
     <!-- <li><%= link_to t("Friends"), "#" %></li> -->
-    <li><%= link_to t("activerecord.models.account"), accounts_path %></li>
+    <li><%= link_to Account.model_name.human, accounts_path %></li>
     <li><%= link_to t("Settings"), edit_user_registration_path %></li>
     <li data-role="list-divider"><%= t("System") %></li>
     <!-- <li><%= link_to t("Instructions"), "#" %></li> -->

@@ -1,4 +1,4 @@
-<% provide :title, t('Editing ', model: t('activerecord.models.payment')) %>
+<% provide :title, t('Editing ', model: Payment.model_name.human) %>
 <h1><%= yield(:title) %></h1>
 
 <%= render 'form' %>

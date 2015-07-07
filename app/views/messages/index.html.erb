@@ -1,8 +1,8 @@
 <% provide :locale, I18n.locale.inspect %>
-<% provide :title,  t("Listing ", model: t('activerecord.models.message').pluralize(:locale)) %>
+<% provide :title,  t("Listing ", model: Message.model_name.human.pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
-<%= link_to t('New ', model: t('activerecord.models.message')), new_message_path, class: "ui-btn" %>
+<%= link_to t('New ', model: Message.model_name.human), new_message_path, class: "ui-btn" %>
 
 <br>
 <br>

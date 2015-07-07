@@ -1,4 +1,4 @@
-<% provide :title,  t('activerecord.models.account') %>
+<% provide :title, Account.model_name.human %>
 <h1><%= yield(:title) %></h1>
 
 <p><strong><%= Payment.human_attribute_name(:balance) %></strong>: <%= current_user.account.balance %><%= t('points') %></p>

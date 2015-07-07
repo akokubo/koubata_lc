@@ -1,7 +1,7 @@
 <%= t('Hi', name: current_user.name) %>
 <ul data-role="listview" data-inset="true">
-  <li><%= link_to t("Search ", model: t('activerecord.models.user').pluralize(:locale)), users_path %></li>
-  <li><%= link_to t("Search ", model: t('activerecord.models.offering').pluralize(:locale)), offerings_path %></li>
-  <li><%= link_to t("Search ", model: t('activerecord.models.want').pluralize(:locale)), wants_path %></li>
-  <li><%= link_to t('activerecord.models.message'), messages_path %></li>
+  <li><%= link_to t("Search ", model: User.model_name.human.pluralize(:locale)), users_path %></li>
+  <li><%= link_to t("Search ", model: Offering.model_name.human.pluralize(:locale)), offerings_path %></li>
+  <li><%= link_to t("Search ", model: Want.model_name.human.pluralize(:locale)), wants_path %></li>
+  <li><%= link_to Message.model_name.human, messages_path %></li>
 </ul>

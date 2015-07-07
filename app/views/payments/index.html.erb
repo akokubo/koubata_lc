@@ -1,8 +1,8 @@
 <% provide :locale, I18n.locale.inspect %>
-<% provide :title,  t("Listing ", model: t('activerecord.models.payment').pluralize(:locale)) %>
+<% provide :title,  t("Listing ", model: Payment.model_name.human.pluralize(:locale)) %>
 <h1><%= yield(:title) %></h1>
 
-<%= link_to t('New ', model: t('activerecord.models.payment')), new_payment_path, class: "ui-btn" %>
+<%= link_to t('New ', model: Payment.model_name.human), new_payment_path, class: "ui-btn" %>
 
 <% if @payments.present? %>
   <table>
