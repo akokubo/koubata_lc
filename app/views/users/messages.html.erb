@@ -24,7 +24,7 @@
 <% if @messages.present? %>
   <% @messages.each do |message| %>
   <% message.sender_id == current_user.id ? float = "right" : float = "left" %>
-  <div class="ui-shadow ui-btn-corner-all ui-btn-up-c message-<%= float %>">
+  <div class="ui-body ui-body-a ui-corner-all message-<%= float %>">
     <%= message.sender.name %> =&gt; <%= message.recepient.name %><br>
     <strong><%= message.subject %></strong>
     <p><%= simple_format message.body %></p>
