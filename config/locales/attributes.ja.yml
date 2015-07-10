@@ -17,6 +17,8 @@ ja:
         remember_me: 'パスワードを記憶'
         current_password: '現在のパスワード'
         description: '自己紹介'
+        followers: フォロワー
+        followed_users: フォロー
       category:
         name: '名前'
       offering:

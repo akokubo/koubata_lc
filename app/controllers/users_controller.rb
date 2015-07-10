@@ -30,4 +30,20 @@ class UsersController < ApplicationController
     @tasks = @user.wants
     render 'tasks'
   end
+
+  def following
+    @title = "follows"
+    @no_user = "No followed user"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "is followed by"
+    @no_user = "No follower"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
 end

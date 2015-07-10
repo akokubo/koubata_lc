@@ -1,0 +1,9 @@
+<% provide(:title, t(@title)) %>
+<h1><%= @user.name %><%= t(@title) %></h1>
+<% if @users.any? %>
+  <ul data-role="listview" data-inset="true">
+    <%= render @users %>
+  </ul>
+<% else %>
+  <%= t(@no_user) %>
+<% end %>

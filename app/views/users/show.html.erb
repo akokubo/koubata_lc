@@ -1,10 +1,13 @@
 <% provide :title, @user.name %>
-<h1><%= yield(:title) %></h1>
 
 <div class="ui-body ui-body-a ui-corner-all">
-  <h3><%= User.human_attribute_name(:description) %>:</h3>
-  <%= simple_format @user.description %>
+  <h1><%= yield(:title) %></h1>
+  <p><%= gravatar_for @user, size: 50 %></p>
+  <%= render 'users/description' %>
+  <%= render 'layouts/stats' %>
 </div>
+
+<%= render 'follow_form' if signed_in? %>
 
 <% if @user.id != current_user.id %>
   <%= link_to Message.model_name.human.pluralize(:locale), messages_user_path(@user), class: "ui-btn" %>

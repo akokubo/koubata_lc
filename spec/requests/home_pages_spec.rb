@@ -3,10 +3,6 @@ require 'rails_helper'
 describe 'Home Pages' do
   it 'should have the right links on the home page' do
     visit root_path
-    click_link 'お困りですか？'
-    expect(page).to have_title('お困りですか？')
-
-    visit root_path
     click_link 'ユーザー登録する'
     expect(page).to have_title('ユーザー登録する')
 

@@ -1,10 +1,13 @@
 <% provide :title, t("My Status") %>
+<% @user ||= current_user %>
 <h1><%= t(yield(:title)) %></h1>
 
 <div class="ui-body ui-body-a ui-corner-all">
-  <h2><%= current_user.name %></h2>
-  <p><strong><%= t('Current balance') %></strong>: <%= current_user.account.balance %><%= t('points') %></p>
-  <p><strong><%= User.human_attribute_name(:description) %></strong><br><%= simple_format current_user.description %></p>
+  <h2><%= @user.name %></h2>
+  <p><%= gravatar_for @user, size: 50 %></p>
+  <%= render 'users/balance' %>
+  <%= render 'users/description' %>
+  <%= render 'layouts/stats' %>
 
 <ul data-role="listview" data-inset="true">
   </li>

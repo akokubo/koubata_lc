@@ -1,15 +1,19 @@
 <% @user ||= current_user %>
-<div class="stats">
-  <a href="<%= following_user_path(@user) %>">
-    <strong id="following" class="stat">
-      <%= @user.followed_users.count %>
-    </strong>
-    following
-  </a>
-  <a href="<%= followers_user_path(@user) %>">
-    <strong id="followers" class="stat">
-      <%= @user.followers.count %>
-    </strong>
-    followers
-  </a>
-</div>
+<ul class="stats" data-role="listview" data-inset="true">
+  <li>
+    <a href="<%= following_user_path(@user) %>">
+      <%= User.human_attribute_name(:followed_users) %> 
+      <strong id="following" class="stat">
+        <%= @user.followed_users.count %>
+      </strong>
+    </a>
+  </li>
+  <li>
+    <a href="<%= followers_user_path(@user) %>">
+      <%= User.human_attribute_name(:followers) %> 
+      <strong id="followers" class="stat">
+        <%= @user.followers.count %>
+      </strong>
+    </a>
+  </li>
+</ul>

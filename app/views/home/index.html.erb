@@ -6,3 +6,12 @@
     <%= render "index_signed_in" %>
   <% end %>
 </div>
+
+<br>
+
+<div class="ui-body ui-body-a ui-corner-all">
+  <ul data-role="listview" data-inset="true">
+    <li><%= link_to t("About"), about_path %></li>
+    <li><%= link_to t("Contact"), contact_path %></li>
+  </ul>
+</div>
