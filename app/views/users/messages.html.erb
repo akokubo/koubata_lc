@@ -22,16 +22,26 @@
 <hr>
 
 <% if @messages.present? %>
+  <%= will_paginate @messages,
+      renderer: WillPaginate::ActionView::JqueryMobilePaginateLinkRenderer,
+      previous_label: 'Prev',
+      next_label: 'Next'
+  %>
   <% @messages.each do |message| %>
   <% message.sender_id == current_user.id ? float = "right" : float = "left" %>
   <div class="ui-body ui-body-a ui-corner-all message-<%= float %>">
-    <%= message.sender.name %> =&gt; <%= message.recepient.name %><br>
+    <%= gravatar_for message.sender, size: 16 %>&nbsp;<%= message.sender.name %><!-- =&gt; <%= message.recepient.name %> --><br>
     <strong><%= message.subject %></strong>
     <p><%= simple_format message.body %></p>
     <p><%= l(message.created_at) %></p>
   </div>
   <% end %>
   <br style="clear: both;">
+  <%= will_paginate @messages,
+      renderer: WillPaginate::ActionView::JqueryMobilePaginateLinkRenderer,
+      previous_label: 'Prev',
+      next_label: 'Next'
+  %>
 <% else %>
   <p><%= t("There is no ", model: Message.model_name.human) %></p>
 <% end %>
