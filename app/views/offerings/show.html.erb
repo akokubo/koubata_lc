@@ -34,4 +34,6 @@
   <% end %>
 </div>
 
-<%= link_to t('Back'), offerings_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>
+<% if !current_user?(@task.user) %>
+  <%= link_to t('Back'), offerings_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>
+<% end %>
