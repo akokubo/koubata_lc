@@ -10,7 +10,7 @@
 
   <li>
     <h2><%= @class_name.human_attribute_name(:user) %>:</h2>
-    <p><%= @task.user.name %></p>
+    <p><%= gravatar_for @task.user, size: 16 %>&nbsp;<%= @task.user.name %></p>
   </li>
 
   <li>
