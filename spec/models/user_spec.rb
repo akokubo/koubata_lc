@@ -31,8 +31,8 @@ describe User do
   it { should respond_to(:offerings) }
   it { should respond_to(:wants) }
 
-  # messages属性を持つ
-  it { should respond_to(:messages) }
+  # talks属性を持つ
+  it { should respond_to(:talks) }
 
   # account属性を持つ
   it { should respond_to(:account) }

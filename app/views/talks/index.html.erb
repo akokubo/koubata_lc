@@ -1,0 +1,22 @@
+<% provide :locale, I18n.locale.inspect %>
+<% provide :title,  t("Listing ", model: Talk.model_name.human.pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<%= link_to t('New ', model: Talk.model_name.human), new_talk_path, class: "ui-btn" %>
+
+<br>
+<br>
+<br>
+
+<% if @companions.present? %>
+  <ul data-role="listview" data-inset="true">
+    <% @companions.each do |companion| %>
+      <li><a href="/users/<%= companion.id %>/talks">
+        <%= gravatar_for companion, size: 16, class: "ui-li-icon" %>
+        <%= companion.name %>
+      </a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <%= t("No talk.") %>
+<% end %>

@@ -12,17 +12,23 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'user/registrations' }
   resources :users do
     member do
-      get 'messages'
+      get 'talks'
       get 'offerings'
       get 'wants'
       get 'payments'
+      get 'entries'
+      get 'contracts'
+      get 'entrusts'
       get :following, :followers
     end
   end
 
   resources :offerings
   resources :wants
+  resources :contracts
+  resources :entrusts
   resources :messages
+  resources :talks
   resources :accounts
   resources :payments
   resources :entries, only: [:create, :destroy]

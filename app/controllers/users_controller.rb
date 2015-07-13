@@ -9,12 +9,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def messages
+  def talks
     @user = User.find(params[:id])
-    @messages = current_user.messages(@user).order('created_at DESC').paginate(:page => params[:page])
-    @message = Message.new
-    @message.recepient_id = @user.id
-    @message.sender_id = current_user.id
+    @talks = current_user.talks(@user).order('created_at DESC').paginate(:page => params[:page])
+    @talk = Talk.new
+    @talk.recepient_id = @user.id
+    @talk.sender_id = current_user.id
   end
 
   def offerings
@@ -45,5 +45,20 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
+  end
+
+  def entries
+    @user = User.find(params[:id])
+    @contracts = []
+    @entrusts = []
+    entries = @user.entries
+    entries.each do |entry|
+      if entry.task.type == "Offering"
+        @contracts.push(entry)
+      elsif entry.task.type == "Want"
+        @entrusts.push(entry)
+      end
+    end
+    render 'entries'
   end
 end

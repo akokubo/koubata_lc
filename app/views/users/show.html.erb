@@ -10,7 +10,7 @@
 <%= render 'follow_form' if signed_in? %>
 
 <% if @user.id != current_user.id %>
-  <%= link_to Message.model_name.human.pluralize(:locale), messages_user_path(@user), class: "ui-btn" %>
+  <%= link_to Talk.model_name.human.pluralize(:locale), talks_user_path(@user), class: "ui-btn" %>
 <% else %>
   <%= link_to t("Settings"), edit_user_registration_path, class: "ui-btn" %>
 <% end %>

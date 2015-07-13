@@ -1,12 +1,12 @@
-<%= form_for(@message, html: { data: { ajax: false}} ) do |f| %>
+<%= form_for(@talk, html: { data: { ajax: false}} ) do |f| %>
   <ul data-role="listview" data-inset="true">
-  <% if @message.errors.any? %>
+  <% if @talk.errors.any? %>
     <li>
       <div id="error_explanation">
-        <h2><%=t "activerecord.errors.template.header.other", :model => Message.model_name.human, :count => @message.errors.count %></h2>
+        <h2><%=t "activerecord.errors.template.header.other", :model => Talk.model_name.human, :count => @talk.errors.count %></h2>
 
         <ul>
-        <% @message.errors.full_messages.each do |msg| %>
+        <% @talk.errors.full_talks.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
         </ul>
@@ -20,17 +20,12 @@
     </li>
 
     <li class="field ui-field-contain">
-      <%= f.label :subject %>
-      <%= f.text_field :subject %>
-    </li>
-
-    <li class="field ui-field-contain">
       <%= f.label :body %>
       <%= f.text_area :body %>
     </li>
 
     <li class="actions">
-      <%= f.submit t("Submit new message") %>
+      <%= f.submit t("Submit new talk") %>
     </li>
   </ul>
 <% end %>

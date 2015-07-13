@@ -1,6 +1,0 @@
-<% provide :title, t('New ', model: Message.model_name.human) %>
-<h1><%= yield(:title) %></h1>
-
-<%= render 'form' %>
-
-<%= link_to t('Back'), messages_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left" %>

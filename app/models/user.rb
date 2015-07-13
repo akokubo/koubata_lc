@@ -23,20 +23,20 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def messages(companion = nil)
+  def talks(companion = nil)
     if companion.present?
-      messages = Message.where('sender_id = :id and recepient_id = :companion_id or sender_id = :companion_id and recepient_id = :id', id: id, companion_id: companion.id)
+      messages = Talk.where('sender_id = :id and recepient_id = :companion_id or sender_id = :companion_id and recepient_id = :id', id: id, companion_id: companion.id)
     else
-      messages = Message.where('sender_id = :id or recepient_id = :id', id: id)
+      messages = Talk.where('sender_id = :id or recepient_id = :id', id: id)
     end
     messages
   end
 
   def companions
     sql =  'SELECT DISTINCT * FROM ('
-    sql += 'SELECT "users".*, "messages"."created_at" AS "mc" FROM "users" INNER JOIN "messages" ON "users"."id" = "messages"."sender_id" WHERE "messages"."recepient_id" = :id'
+    sql += 'SELECT "users".*, "messages"."created_at" AS "mc" FROM "users" INNER JOIN "messages" ON "users"."id" = "messages"."sender_id" WHERE "messages"."type" = "Talk" AND "messages"."recepient_id" = :id'
     sql += ' UNION '
-    sql += 'SELECT "users".*, "messages"."created_at" AS "mc" FROM "users" INNER JOIN "messages" ON "users"."id" = "messages"."recepient_id" WHERE "messages"."sender_id" = :id'
+    sql += 'SELECT "users".*, "messages"."created_at" AS "mc" FROM "users" INNER JOIN "messages" ON "users"."id" = "messages"."recepient_id" WHERE "messages"."type" = "Talk" AND "messages"."sender_id" = :id'
     sql += ') ORDER BY "mc" DESC'
     companions = User.find_by_sql([sql, { id: id }])
     companions

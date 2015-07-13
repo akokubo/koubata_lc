@@ -1,0 +1,7 @@
+<% provide :title, t('Editing ', model: Talk.model_name.human) %>
+<h1><%= yield(:title) %></h1>
+
+<%= render 'form' %>
+
+<%= link_to t('Show'), @talk %> |
+<%= link_to t('Back'), talks_path %>

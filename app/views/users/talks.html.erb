@@ -1,0 +1,36 @@
+<% provide :title, t("talk with", companion: @user.name) %>
+<h1><%= yield(:title) %></h1>
+
+<div class="ui-body ui-body-a ui-corner-all">
+  <%= form_for(@talk) do |f| %>
+    <%= f.hidden_field :sender_id %>
+    <%= f.hidden_field :recepient_id %>
+    <%= f.text_area :body %>
+    <%= f.submit t("Submit new talk") %>
+  <% end %>
+</div>
+<hr>
+
+<% if @talks.present? %>
+  <%= will_paginate @talks,
+      renderer: WillPaginate::ActionView::JqueryMobilePaginateLinkRenderer,
+      previous_label: t('Prev'),
+      next_label: t('Next')
+  %>
+  <% @talks.each do |talk| %>
+  <% talk.sender_id == current_user.id ? float = "right" : float = "left" %>
+  <div class="ui-body ui-body-a ui-corner-all talk-<%= float %>">
+    <p><%= gravatar_for talk.sender, size: 16 %>&nbsp;<%= talk.sender.name %></p>
+    <p><%= simple_format talk.body %></p>
+    <p><%= l(talk.created_at) %></p>
+  </div>
+  <% end %>
+  <br style="clear: both;">
+  <%= will_paginate @talks,
+      renderer: WillPaginate::ActionView::JqueryMobilePaginateLinkRenderer,
+      previous_label: t('Prev'),
+      next_label: t('Next')
+  %>
+<% else %>
+  <p><%= t("There is no ", model: Talk.model_name.human) %></p>
+<% end %>

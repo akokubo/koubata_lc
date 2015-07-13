@@ -1,0 +1,25 @@
+<% provide :title, Talk.model_name.human %>
+<h1><%= yield(:title) %></h1>
+
+<p>
+  <strong><%= t('Sender_id') %>:</strong>
+  <%= @talk.sender_id %>
+</p==>
+
+<p>
+  <strong><%= t('Recepicent_id') %>:</strong>
+  <%= @talk.recepient_id %>
+</p==>
+
+<p>
+  <strong><%= t('Subject') %>:</strong>
+  <%= @talk.subject %>
+</p==>
+
+<p>
+  <strong><%= t('Body') %>:</strong>
+  <%= simple_format @talk.body %>
+</p==>
+
+<%= link_to t('Edit'), edit_talk_path(@talk) %> |
+<%= link_to t('Back'), talks_path %==>

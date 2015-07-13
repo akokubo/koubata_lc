@@ -139,18 +139,18 @@ table {
   }
 }
 
-.message-right, .message-left {
+.talk-right, .talk-left {
   width: 80%;
   font-weight: normal !important;
   text-align: left;
   padding: 10px 10px 0 10px;
   margin: 5px 0px;
 }
-.message-right {
+.talk-right {
   float: right;
   background-color: powderblue;
 }
-.message-left {
+.talk-left {
   float: left;
 }
 /* テキストを省略せずに表示する */

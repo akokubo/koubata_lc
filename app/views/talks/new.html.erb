@@ -1,0 +1,6 @@
+<% provide :title, t('New ', model:Talk.model_name.human) %>
+<h1><%= yield(:title) %></h1>
+
+<%= render 'form' %>
+
+<%= link_to t('Back'), talks_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left" %>

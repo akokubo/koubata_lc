@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707092623) do
+ActiveRecord::Schema.define(version: 20150713091017) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -33,23 +33,29 @@ ActiveRecord::Schema.define(version: 20150707092623) do
   create_table "entries", force: :cascade do |t|
     t.integer  "task_id"
     t.integer  "user_id"
-    t.datetime "hired_at"
+    t.datetime "contracted_at"
     t.datetime "paid_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "type"
+    t.datetime "expected_at"
+    t.datetime "performed_at"
+    t.datetime "owner_canceled_at"
+    t.datetime "user_canceled_at"
+    t.text     "note"
   end
 
-  add_index "entries", ["task_id", "user_id"], name: "index_entries_on_task_id_and_user_id", unique: true
   add_index "entries", ["task_id"], name: "index_entries_on_task_id"
   add_index "entries", ["user_id"], name: "index_entries_on_user_id"
 
   create_table "messages", force: :cascade do |t|
-    t.string   "subject",      null: false
     t.text     "body",         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sender_id"
     t.integer  "recepient_id"
+    t.integer  "entry_id"
+    t.string   "type"
   end
 
   create_table "payments", force: :cascade do |t|

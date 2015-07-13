@@ -82,6 +82,7 @@ ja:
   "prohibited this want from being saved": つのエラーにより保存しませんでした。
   "Compose new message": 新しいメッセージを入力...
   "Submit new message": 送信
+  "Submit new talk": 送信
   "Submit new payment": 振込を実行
   "New payment": 送金する
   "Back to my offerings": 自分が「できること」へ戻る
@@ -101,6 +102,18 @@ ja:
   "No follower": フォロワーはいません
   "Follow": フォローする
   "Unfollow": フォローをやめる
+  "Contracts": お願いしたこと
+  "Entrusts": 頼まれたこと
+  "No contract": お願いしたことはありません。
+  "No Entrust": 頼まれたことはありません。
+  "paid": 支払済
+  "performed": 支払待
+  "owner canceld": キャンセル
+  "user canceled": キャンセル
+  "contracted": 実施待
+  "to be contracted": 契約待
+  "Prev": 前へ
+  "Next": 次へ
   will_paginate:
     previous_label: "←前へ"
     next_label: "次へ→"
