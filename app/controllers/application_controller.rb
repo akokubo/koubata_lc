@@ -5,8 +5,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  include WillPaginate::ActionView
-
+  # include WillPaginate::ActionView
 
   protected
 
@@ -44,5 +43,43 @@ class ApplicationController < ActionController::Base
 
   def android_request?
     request.user_agent =~ /(Android)/
+  end
+end
+
+module WillPaginate
+  module ActionView
+    class JqueryMobilePaginateLinkRenderer < LinkRenderer
+      def pagination
+        items = [] # NOTE: ignore the :page_links option
+        items.unshift :previous_page
+        items.push :next_page
+      end
+
+      protected
+
+      def html_container(html)
+        tag :div, html, class: 'ui-grid-a'
+      end
+
+      def previous_or_next_page(page, text, classname)
+        div_attr = {}
+        link_attr = {:'data-role' => 'button'}
+
+        unless page
+          link_attr[:class] = 'ui-disabled'
+        end
+
+        case classname
+        when 'previous_page'
+          link_attr[:'data-icon'] = 'arrow-l'
+          div_attr[:class] = 'ui-block-a'
+        when 'next_page'
+          link_attr[:'data-icon'] = 'arrow-r'
+          link_attr[:'data-iconpos'] = 'right'
+          div_attr[:class] = 'ui-block-b'
+        end
+        tag :div, link(text, page || '#', link_attr), div_attr
+      end
+    end
   end
 end

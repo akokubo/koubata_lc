@@ -1,3 +1,4 @@
+=begin
 # Usage:
 #
 #     = will_paginate @entries,
@@ -44,3 +45,4 @@ module WillPaginate
     end
   end
 end
+=end

@@ -1,31 +1,11 @@
-<%= form_for(@talk, html: { data: { ajax: false}} ) do |f| %>
-  <ul data-role="listview" data-inset="true">
-  <% if @talk.errors.any? %>
-    <li>
-      <div id="error_explanation">
-        <h2><%=t "activerecord.errors.template.header.other", :model => Talk.model_name.human, :count => @talk.errors.count %></h2>
-
-        <ul>
-        <% @talk.errors.full_talks.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    </li>
-  <% end %>
-
-    <li class="field ui-field-contain">
-      <%= f.label :recepient_id %>
+<div class="ui-body ui-body-a ui-corner-all">
+  <%= form_for(@talk, html: { data: { ajax: false}} ) do |f| %>
+    <div class="field ui-field-contain">
+      <%= f.label :recepient_id, t('Recepient') %>
       <%= f.collection_select :recepient_id, @recepients, :id, :name %>
-    </li>
-
-    <li class="field ui-field-contain">
-      <%= f.label :body %>
-      <%= f.text_area :body %>
-    </li>
-
-    <li class="actions">
-      <%= f.submit t("Submit new talk") %>
-    </li>
-  </ul>
-<% end %>
+    </div>
+    <%= f.text_area :body %>
+    <%= f.submit t("Submit new talk") %>
+  <% end %>
+</div>
+<br>

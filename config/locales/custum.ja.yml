@@ -114,6 +114,9 @@ ja:
   "to be contracted": 契約待
   "Prev": 前へ
   "Next": 次へ
+  "talk with": "%{companion}とのメッセージ"
+  "Submit new negotiation": 送信
+  "Recepient": 送信相手
   will_paginate:
     previous_label: "←前へ"
     next_label: "次へ→"
