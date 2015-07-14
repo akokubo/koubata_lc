@@ -1,4 +1,5 @@
-<%= form_for(current_user.entries.build(task_id: @task.id), remote: true) do |f| %>
+<% button_label = @task.instance_of?(Offering) ? t('Entrust') : t('Contract') %>
+<%= form_for(current_user.entries.build(task_id: @task.id)) do |f| %>
   <div><%= f.hidden_field :task_id %></div>
-  <%= f.submit t('Entry'), class: "ui-btn" %>
+  <%= f.submit button_label, class: "ui-btn" %>
 <% end %>

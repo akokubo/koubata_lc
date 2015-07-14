@@ -80,6 +80,8 @@ ja:
         task: 件名
         user: 請負者
         expected_at: 実施予定日時
+        owner_contracted_at: 依頼者成約日時
+        user_contracted_at: 請負者成約日時
         contracted_at: 成約日時
         performed_at: 履行日時
         paid_at: 支払日時
@@ -91,6 +93,8 @@ ja:
         task: 件名
         user: 依頼者
         expected_at: 実施予定日時
+        owner_contracted_at: 請負者成約日時
+        user_contracted_at: 依頼者成約日時
         contracted_at: 成約日時
         performed_at: 履行日時
         paid_at: 支払日時

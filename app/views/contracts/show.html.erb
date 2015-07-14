@@ -1,0 +1,38 @@
+<%= render 'tasks/task' %>
+
+<%= render 'contracts/contract' %>
+
+<div class="ui-body ui-body-a ui-corner-all">
+  <%= form_for(@negotiation) do |f| %>
+    <%= f.hidden_field :entry_id %>
+    <%= f.hidden_field :sender_id %>
+    <%= f.hidden_field :recepient_id %>
+    <%= f.text_area :body %>
+    <%= f.submit t("Submit new negotiation") %>
+  <% end %>
+</div>
+<hr>
+
+<% if @negotiations.present? %>
+  <%= will_paginate @negotiations,
+      renderer: WillPaginate::ActionView::JqueryMobilePaginateLinkRenderer,
+      previous_label: t('Prev'),
+      next_label: t('Next')
+  %>
+  <% @negotiations.each do |negotiation| %>
+  <% negotiation.sender_id == current_user.id ? float = "right" : float = "left" %>
+  <div class="ui-body ui-body-a ui-corner-all negotiation-<%= float %>">
+    <p><%= gravatar_for negotiation.sender, size: 16 %>&nbsp;<%= negotiation.sender.name %></p>
+    <p><%= simple_format negotiation.body %></p>
+    <p><%= l(negotiation.created_at) %></p>
+  </div>
+  <% end %>
+  <br style="clear: both;">
+  <%= will_paginate @negotiations,
+      renderer: WillPaginate::ActionView::JqueryMobilePaginateLinkRenderer,
+      previous_label: t('Prev'),
+      next_label: t('Next')
+  %>
+<% else %>
+  <p><%= t("There is no ", model: Talk.model_name.human) %></p>
+<% end %>

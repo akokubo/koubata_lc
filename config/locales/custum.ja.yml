@@ -111,12 +111,15 @@ ja:
   "owner canceld": キャンセル
   "user canceled": キャンセル
   "contracted": 実施待
+  "owner_contracted": 契約待
+  "user_contracted": 契約待
   "to be contracted": 契約待
   "Prev": 前へ
   "Next": 次へ
   "talk with": "%{companion}とのメッセージ"
   "Submit new negotiation": 送信
   "Recepient": 送信相手
+  "Must be written": 必ず記入し、互いに確認
   will_paginate:
     previous_label: "←前へ"
     next_label: "次へ→"

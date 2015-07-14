@@ -1,35 +1,42 @@
+<%
+if @task.instance_of?(Offering)
+  class_name = Offering
+else
+  class_name = Want
+end
+%>
 <% if current_user?(@task.user) %>
   <div class="ui-body ui-body-a ui-corner-all">
 <% end %>
 
 <ul data-role="listview" data-inset="true">
   <li>
-    <h2><%= @class_name.human_attribute_name(:title) %>:</h2>
+    <h2><%= class_name.human_attribute_name(:title) %>:</h2>
     <p><%= @task.title %></p>
   </li>
 
   <li>
-    <h2><%= @class_name.human_attribute_name(:user) %>:</h2>
+    <h2><%= class_name.human_attribute_name(:user) %>:</h2>
     <p><%= gravatar_for @task.user, size: 16 %>&nbsp;<%= @task.user.name %></p>
   </li>
 
   <li>
-    <h2><%= @class_name.human_attribute_name(:category) %>:</h2>
+    <h2><%= class_name.human_attribute_name(:category) %>:</h2>
     <p><%= @task.category.name %></p>
   </li>
 
   <li>
-    <h2><%= @class_name.human_attribute_name(:description) %>:</h2>
+    <h2><%= class_name.human_attribute_name(:description) %>:</h2>
     <p><%= simple_format @task.description %></p>
   </li>
 
   <li>
-    <h2><%= @class_name.human_attribute_name(:price) %>:</h2>
+    <h2><%= class_name.human_attribute_name(:price) %>:</h2>
     <p><%= @task.price %></p>
   </li>
 
   <li>
-    <h2><%= @class_name.human_attribute_name(:expired_at) %>:</h2>
+    <h2><%= class_name.human_attribute_name(:expired_at) %>:</h2>
     <p><%= @task.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></p>
   </li>
 </ul>

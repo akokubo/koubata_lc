@@ -1,0 +1,40 @@
+<% if @entries.any? %>
+  <table>
+    <tr>
+      <th><%= @class_name.human_attribute_name(:title) %></th>
+      <th><%= @class_name.human_attribute_name(:user) %></th>
+<!--
+      <th><%= @class_name.human_attribute_name(:note) %></th>
+-->
+       <th><%= @class_name.human_attribute_name(:status) %></th>
+      <th><%= @class_name.human_attribute_name(:expected_at) %></th>
+<!--
+      <th><%= @class_name.human_attribute_name(:contracted_at) %></th>
+      <th><%= @class_name.human_attribute_name(:performed_at) %></th>
+      <th><%= @class_name.human_attribute_name(:paid_at) %></th>
+      <th><%= @class_name.human_attribute_name(:owner_canceled_at) %></th>
+      <th><%= @class_name.human_attribute_name(:user_canceled_at) %></th>
+-->
+    </tr>
+    <% @entries.each do |entry| %>
+      <tr>
+        <td><%= entry.task.title %></td>
+        <td><%= entry.task.user.name %></td>
+<!--
+        <td><%= entry.note %></td>
+-->
+        <td><%= link_to entry.status, entry %></td>
+        <td><%= l(entry.expected_at) if entry.expected_at %></td>
+ <!--
+        <td><%= l(entry.contracted_at) if entry.contracted_at %></td>
+        <td><%= l(entry.performed_at) if entry.performed_at %></td>
+        <td><%= l(entry.paid_at) if entry.paid_at %></td>
+        <td><%= l(entry.owner_canceled_at) if entry.owner_canceled_at %></td>
+        <td><%= l(entry.user_canceled_at) if entry.user_canceled_at %></td>
+-->
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  no entries.
+<% end %>

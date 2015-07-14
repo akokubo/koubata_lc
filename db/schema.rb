@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713091017) do
+ActiveRecord::Schema.define(version: 20150713170915) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -33,16 +33,17 @@ ActiveRecord::Schema.define(version: 20150713091017) do
   create_table "entries", force: :cascade do |t|
     t.integer  "task_id"
     t.integer  "user_id"
-    t.datetime "contracted_at"
+    t.datetime "owner_contracted_at"
     t.datetime "paid_at"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "type"
     t.datetime "expected_at"
     t.datetime "performed_at"
     t.datetime "owner_canceled_at"
     t.datetime "user_canceled_at"
     t.text     "note"
+    t.datetime "user_contracted_at"
   end
 
   add_index "entries", ["task_id"], name: "index_entries_on_task_id"

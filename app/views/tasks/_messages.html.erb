@@ -1,0 +1,48 @@
+<% provide :title, @user.name %>
+<h1><%= yield(:title) %></h1>
+
+<p><%= t('New ', model: Message.model_name.human) %></p>
+<%= form_for(@message) do |f| %>
+  <ul data-role="listview" data-inset="true">
+    <li class="ui-field-contain">
+      <%= f.hidden_field :sender_id %>
+      <%= f.hidden_field :recepient_id %>
+      <%= f.hidden_field :entry_id %>
+      <%= f.label :subject %>
+      <%= f.text_field :subject %>
+    </li>
+    <li class="ui-field-contain">
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </li>
+    <li>
+      <%= f.submit t("Submit new message") %>
+    </li>
+  </ul>
+<% end %>
+<hr>
+
+<% if @messages.present? %>
+  <%= will_paginate @messages,
+      renderer: WillPaginate::ActionView::JqueryMobilePaginateLinkRenderer,
+      previous_label: 'Prev',
+      next_label: 'Next'
+  %>
+  <% @messages.each do |message| %>
+  <% message.sender_id == current_user.id ? float = "right" : float = "left" %>
+  <div class="ui-body ui-body-a ui-corner-all message-<%= float %>">
+    <%= gravatar_for message.sender, size: 16 %>&nbsp;<%= message.sender.name %><!-- =&gt; <%= message.recepient.name %> --><br>
+    <strong><%= message.subject %></strong>
+    <p><%= simple_format message.body %></p>
+    <p><%= l(message.created_at) %></p>
+  </div>
+  <% end %>
+  <br style="clear: both;">
+  <%= will_paginate @messages,
+      renderer: WillPaginate::ActionView::JqueryMobilePaginateLinkRenderer,
+      previous_label: 'Prev',
+      next_label: 'Next'
+  %>
+<% else %>
+  <p><%= t("There is no ", model: Message.model_name.human) %></p>
+<% end %>

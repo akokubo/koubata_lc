@@ -10,7 +10,20 @@
   </div>
 <% end %>
 
-<br>
+<% if !current_user?(@task.user) %>
+  <% if @task.instance_of?(Offering) %>
+    <%= form_for(@task.contracts.build) do |f| %>
+      <%= f.hidden_field :task_id %>
+      <%= f.submit t('Entrust') %>
+    <% end %>
+  <% else %>
+    <%= form_for(@task.contracts.build) do |f| %>
+      <%= f.submit t('Contract') %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<hr>
 
 <div class="ui-body ui-body-a ui-corner-all">
   <div id="entried">

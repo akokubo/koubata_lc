@@ -5,6 +5,8 @@ class Task < ActiveRecord::Base
   belongs_to :category
 
   has_many :entries, dependent: :destroy
+  has_many :contracts, dependent: :destroy
+  has_many :entrusts, dependent: :destroy
 
   scope :readable, lambda {
     now = Time.current

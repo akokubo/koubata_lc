@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get 'talks'
+      get 'negotiations'
       get 'offerings'
       get 'wants'
       get 'payments'
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
   resources :entrusts
   resources :messages
   resources :talks
+  resources :negotiations
   resources :accounts
   resources :payments
   resources :entries, only: [:create, :destroy]

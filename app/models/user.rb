@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :offerings, dependent: :destroy
   has_many :wants,     dependent: :destroy
   has_many :entries,   dependent: :destroy
+  has_many :contracts, dependent: :destroy
+  has_many :entrusts, dependent: :destroy
 
   has_many :sended_messages,   class_name: 'Message', foreign_key: 'sender_id'
   has_many :received_messages, class_name: 'Message', foreign_key: 'recepient_id'
