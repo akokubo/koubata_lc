@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root to: 'home#index'
 
   match '/need_help',   to: 'home#need_help',   via: 'get'

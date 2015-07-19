@@ -3,6 +3,7 @@ ja:
     models:
       user: 'ユーザー'
       category: 'カテゴリー'
+      task: 'タスク'
       offering: '「提供できること」'
       want: '「お願いしたいこと」'
       message: 'メッセージ'
@@ -10,8 +11,10 @@ ja:
       negotiation: '相談'
       account: '通帳'
       payment: '振込'
+      entry: 'エントリー'
       contract: '引き受けたこと'
       entrust: 'お願いしたこと'
+      relationship: 'フォロー'
     attributes:
       user:
         name: '名前'

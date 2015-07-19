@@ -39,7 +39,8 @@ end
 
 group :production do
   # Use unicorn as the app server
-  gem 'unicorn'
+  # gem 'unicorn'
+  gem 'puma'
 
   gem 'pg'
 
@@ -76,3 +77,6 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'will_paginate'
 gem 'devise'
 gem 'omniauth'
+gem 'rails_admin'
+gem 'rails_admin-i18n'
+gem 'cancancan'
