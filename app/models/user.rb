@@ -36,10 +36,10 @@ class User < ActiveRecord::Base
 
   def companions
     sql =  'SELECT DISTINCT * FROM ('
-    sql += 'SELECT "users".*, "messages"."created_at" AS "mc" FROM "users" INNER JOIN "messages" ON "users"."id" = "messages"."sender_id" WHERE "messages"."type" = "Talk" AND "messages"."recepient_id" = :id'
+    sql += 'SELECT "users".*, "messages"."created_at" AS "messages_created_at" FROM "users" INNER JOIN "messages" ON "users"."id" = "messages"."sender_id" WHERE "messages"."type" = "Talk" AND "messages"."recepient_id" = :id'
     sql += ' UNION '
-    sql += 'SELECT "users".*, "messages"."created_at" AS "mc" FROM "users" INNER JOIN "messages" ON "users"."id" = "messages"."recepient_id" WHERE "messages"."type" = "Talk" AND "messages"."sender_id" = :id'
-    sql += ') ORDER BY "mc" DESC'
+    sql += 'SELECT "users".*, "messages"."created_at" AS "messages_created_at" FROM "users" INNER JOIN "messages" ON "users"."id" = "messages"."recepient_id" WHERE "messages"."type" = "Talk" AND "messages"."sender_id" = :id'
+    sql += ') AS "companions" ORDER BY "messages_created_at" DESC'
     companions = User.find_by_sql([sql, { id: id }])
     companions
   end
