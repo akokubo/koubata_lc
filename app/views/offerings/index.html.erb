@@ -5,15 +5,16 @@
 <% if @categories.present? %>
   <div data-role="collapsibleset">
     <% @categories.each do |category| %>
-      <% if category.offerings.readable.present? %>
+      <% offerings = category.offerings.readable.where.not(user_id: current_user.id) %>
+      <% if offerings.present? %>
         <div data-role="collapsible" data-theme="b" data-content-theme="a">
-          <h2><%= category.name %>: <span><%= category.offerings.readable.count %></span></h2>
-          <% if category.offerings.readable.count > 10 %>
+          <h2><%= category.name %>: <span><%= offerings.count %></span></h2>
+          <% if offerings.count > 10 %>
             <ul data-role="listview" data-filter="true" data-filter-placeholder="検索キーワード">
           <% else %>
             <ul data-role="listview">
           <% end %>
-            <% category.offerings.readable.each do |offering| %>
+            <% offerings.each do |offering| %>
               <li><%= link_to offering.title, offering %></li>
             <% end %>
           </ul>

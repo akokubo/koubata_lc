@@ -35,10 +35,10 @@
       <%= f.label :price %>
       <%= f.text_field :price %>
     </li>
-
+<!--
     <li class="field ui-field-contain">
       <%= f.label :no_expiration %>
-      <%= check_box_tag "#{@class_name.to_s.downcase}[no_expiration]" %>
+      <%= check_box_tag "#{@class_name.to_s.downcase}[no_expiration]", 1, true %>
       <div class="field ui-field-contain" id="<%= @class_name.to_s.downcase %>_expired_at_div">
         <%= f.label :expired_at %>
         <% if @mobile %>
@@ -48,7 +48,7 @@
         <% end %>
       </div>
     </li>
-
+-->
     <li class="actions">
       <%= f.submit %>
     </li>

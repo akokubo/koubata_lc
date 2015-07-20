@@ -11,18 +11,18 @@ end
 
 <ul data-role="listview" data-inset="true">
   <li>
-    <h2><%= class_name.human_attribute_name(:title) %>:</h2>
-    <p><%= @task.title %></p>
+    <strong><%= class_name.human_attribute_name(:title) %>:</strong>
+    <%= @task.title %>
   </li>
 
   <li>
-    <h2><%= class_name.human_attribute_name(:user) %>:</h2>
-    <p><%= gravatar_for @task.user, size: 16 %>&nbsp;<%= @task.user.name %></p>
+    <strong><%= class_name.human_attribute_name(:user) %>:</strong>&nbsp;
+    <span><%= gravatar_for @task.user, size: 20 %>&nbsp;<%= @task.user.name %></span>
   </li>
 
   <li>
-    <h2><%= class_name.human_attribute_name(:category) %>:</h2>
-    <p><%= @task.category.name %></p>
+    <strong><%= class_name.human_attribute_name(:category) %>:</strong>
+    <%= @task.category.name %>
   </li>
 
   <li>
@@ -31,12 +31,13 @@ end
   </li>
 
   <li>
-    <h2><%= class_name.human_attribute_name(:price) %>:</h2>
-    <p><%= @task.price %></p>
+    <strong><%= class_name.human_attribute_name(:price) %>:</strong>
+    <%= @task.price %>
   </li>
-
+<!--
   <li>
     <h2><%= class_name.human_attribute_name(:expired_at) %>:</h2>
     <p><%= @task.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></p>
   </li>
+-->
 </ul>
