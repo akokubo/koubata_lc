@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
+  attr_accessor :account_id
+
+  scope :active, -> { where.not(confirmed_at: nil) }
+
   def talks(companion = nil)
     if companion.present?
       messages = Talk.where('sender_id = :id and recepient_id = :companion_id or sender_id = :companion_id and recepient_id = :id', id: id, companion_id: companion.id)

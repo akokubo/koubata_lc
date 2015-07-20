@@ -3,8 +3,7 @@ class PaymentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @payments = Payment.find_by_from_id_or_to_id(current_user.id)
-    # @withs = Payment.withs(current_user.id)
+    @payments = Payment.where(user: current_user.account)
   end
 
   def show
@@ -12,7 +11,13 @@ class PaymentsController < ApplicationController
 
   def new
     @payment = Payment.new
-    @tos = User.where("id != '#{current_user.id}'")
+    @partners = User.where.not(id: current_user.id).active
+    partner_accounts = []
+    @partners.each do |partner|
+      partner.account_id = partner.account.id
+      partner_accounts.push(partner.account.id)
+    end
+    @tos = Account.where(id: partner_accounts)
   end
 
 =begin
@@ -22,19 +27,19 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = Payment.new(payment_params)
-    @payment.from = current_user.account
+    @payment.user = current_user.account
     @payment.subject = '無題' unless @payment.subject
-    @payment.balance = Account.find_by(user_id: current_user.id).balance - @payment.amount
-    @tos = User.where("id != '#{current_user.id}'")
-
-    respond_to do |format|
-      if @payment.save
-        format.html { redirect_to accounts_url, notice: t('activerecord.successful.messages.created', model: Payment.model_name.human) }
-        format.json { render action: 'show', status: :created, location: @payment }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
-      end
+    begin
+      Account.transfer(
+        @payment.user,
+        @payment.partner,
+        @payment.amount,
+        @payment.subject,
+        @payment.comment
+      )
+      redirect_to accounts_url, notice: t('activerecord.successful.messages.created', model: Payment.model_name.human)
+    rescue
+      render action: 'new'
     end
   end
 
@@ -69,6 +74,6 @@ class PaymentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def payment_params
-    params.require(:payment).permit(:from_id, :to_id, :subject, :amount, :comment)
+    params.require(:payment).permit(:user_id, :partner_id, :subject, :amount, :comment)
   end
 end

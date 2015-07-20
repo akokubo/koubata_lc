@@ -1,6 +1,6 @@
 class Account < ActiveRecord::Base
   belongs_to :user
-  has_many :payments, foreign_key: 'from_id', dependent: :destroy
+  has_many :payments
 
   # 必須属性の検証
   validates :user_id, presence: true
@@ -9,19 +9,35 @@ class Account < ActiveRecord::Base
 
   # 支出
   def withdraw(amount)
-    adjust_balance_and_save(-amount)
+    adjust_balance_and_save(amount)
   end
 
   # 収入
   def deposit(amount)
-    adjust_balance_and_save(amount)
+    adjust_balance_and_save(-amount)
   end
 
   # 支払い
-  def self.transfer(from, to, amount)
+  def self.transfer(from, to, amount, subject, comment)
     Account.transaction do
-      from.withdraw(amount)
-      to.deposit(amount)
+      from.deposit(amount)
+      to.withdraw(amount)
+      Payment.create(
+        user_id:    from.id,
+        partner_id: to.id,
+        amount:     -amount,
+        subject:    subject,
+        comment:    comment,
+        direction:  'deposit' # 支払
+      )
+      Payment.create(
+        user_id:    to.id,
+        partner_id: from.id,
+        amount:     amount,
+        subject:    subject,
+        comment:    comment,
+        direction:  'withdraw' # 振込
+      )
     end
   end
 

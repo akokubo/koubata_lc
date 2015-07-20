@@ -9,7 +9,7 @@ class TalksController < ApplicationController
 
   # GET /talks/new
   def new
-    @recepients = User.where('id != :id', id: current_user.id)
+    @recepients = User.where.not(id: current_user.id).active
     @talk = Talk.new(sender: current_user)
   end
 

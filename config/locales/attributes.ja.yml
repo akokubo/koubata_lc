@@ -71,12 +71,13 @@ ja:
         user_id: '名前'
         balance: '所持'
       payment:
-        from: '振込人'
-        to: '受取人'
-        from_id: '振込人'
-        to_id: '受取人'
+        user: '本人'
+        partner: '相手'
+        user_id: '本人'
+        partner_id: '相手'
         subject: '件名'
-        amount: '振込'
+        amount: '金額'
+        direction: '種別'
         balance: '残高'
         comment: '備考'
       contract:

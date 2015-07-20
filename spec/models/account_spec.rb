@@ -61,13 +61,13 @@ describe Account do
 
     # 適正な支払いの場合
     it 'has valid amount should change accounts balance' do
-      expect { Account.transfer(@from, @to, 100) }.to change { @from.balance }.by(-100)
-      expect { Account.transfer(@from, @to, 100) }.to change { @to.balance   }.by(100)
+      expect { Account.transfer(@from, @to, 100, 'Lorem ipsum', 'Lorem ipsum' * 5) }.to change { @from.balance }.by(-100)
+      expect { Account.transfer(@from, @to, 100, 'Lorem ipsum', 'Lorem ipsum' * 5) }.to change { @to.balance   }.by(100)
     end
 
     # 残高がマイナスになる支払いの場合
     it 'has invalid amount should raise ActiveRecord::RecordInvalid' do
-      expect { Account.transfer(@from, @to, 2000) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { Account.transfer(@from, @to, 2000, 'Lorem ipsum', 'Lorem ipsum' * 5) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 end

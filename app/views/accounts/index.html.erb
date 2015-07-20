@@ -6,26 +6,30 @@
 
 <h2><%= t('Transfer Record') %></h2>
 <% if @payments.present? %>
-  <table>
-    <tr>
+  <table class="ui-body-a">
+    <thead>
+    <tr class="ui-bar-d">
       <th><%= t('Datetime') %></th>
-      <th><%= t('Person') %></th>
-      <th><%= t('Type') %></th>
+      <th><%= t('Partner') %></th>
+      <th><%= t('Direction') %></th>
       <th><%= t('Amount') %></th>
       <th><%= t('Balance') %></th>
       <th><%= t('Subject') %></th>
     </tr>
+    </thead>
+    <tbody>
     <% @payments.each do |payment| %>
     <tr>
       <td><%= l(payment.created_at) %></td>
-      <td><%= payment.with.user.name %></td>
-      <td><%= payment.direction == "from" ? t('Withdraw') : t('Deposite') %></td>
-      <td style="text-align: right;"><%= payment.payment.abs %></td>
+      <td><%= payment.partner.user.name %></td>
+      <td><%= t(payment.direction) %></td>
+      <td style="text-align: right;"><%= payment.amount %></td>
       <td style="text-align: right;"><%= payment.balance %></td>
       <td><%= link_to payment.subject, payment %></td>
     </tr>
     <% end %>
+    </tbody>
   </table>
 <% else %>
-  <%= t('No transfer record.') %>
+  <%= t('No transfer record') %>
 <% end %>
