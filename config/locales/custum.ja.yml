@@ -106,8 +106,8 @@ ja:
   "Unfollow": フォローをやめる
   "Contracts": お願いしたこと
   "Entrusts": 頼まれたこと
-  "No contract": お願いしたことはありません。
-  "No Entrust": 頼まれたことはありません。
+  "No contract": 「お願いしたこと」はありません。
+  "No entrust": 「頼まれたこと」はありません。
   "paid": 支払済
   "performed": 支払待
   "owner canceld": キャンセル
