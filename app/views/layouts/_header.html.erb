@@ -9,9 +9,12 @@
   <% if user_signed_in? %>
     <div data-role="navbar">
       <ul>
+        <li><%= link_to t('Home'), root_path %></li>
         <li><%= link_to t('My Status'), status_path %></li>
+<!--
         <li><%= link_to t('Watch List'), '#' %></li>
         <li><%= link_to t('New Display'), new_display_path %></li>
+-->
       </ul>
     </div>
   <% end %>
