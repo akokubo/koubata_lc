@@ -1,5 +1,28 @@
-<% button_label = @task.instance_of?(Offering) ? t('Entrust') : t('Contract') %>
-<%= form_for(current_user.entries.build(task_id: @task.id)) do |f| %>
-  <div><%= f.hidden_field :task_id %></div>
-  <%= f.submit button_label, class: "ui-btn" %>
+<div class="ui-body ui-body-a ui-corner-all">
+<% if @entry.instance_of?(Entrust) %>
+請負者: <%= @entry.user.name %>
 <% end %>
+<% if @entry.instance_of?(Contract) %>
+依頼者: <%= @entry.user.name %>
+<% end %>
+<br>
+状態: <%= t(@entry.status) %>
+<% if @entry.status == "contracted" %>
+  <% if (@entry.instance_of?(Contract) && @entry.task.user == current_user) ||  (@entry.instance_of?(Entrust) && @entry.user == current_user) %>
+    <p>実施したら、「実施完了を押してください」</p>
+    <%= form_for(@entry) do |f| %>
+      <%= f.hidden_field :performed_at, value: Time.now %>
+      <%= f.submit "実施完了" %>
+    <% end %>
+  <% end %>
+<% elsif @entry.status == "performed" %>
+  <% if (@entry.instance_of?(Contract) && @entry.user == current_user) ||  (@entry.instance_of?(Entrust) && @entry.task.user == current_user) %>
+    <% if @entry.instance_of?(Contract) %>
+      <%= link_to '支払いへ', { controller: :payments, action: :new, contract: @entry.id }, data: { role: :button } %>
+    <% else %>
+      <%= link_to '支払いへ', { controller: :payments, action: :new, entrust: @entry.id }, data: { role: :button } %>
+    <% end %>
+  <% end %>
+<% elsif @entry.status == "paid" %>
+<% end %>
+</div>

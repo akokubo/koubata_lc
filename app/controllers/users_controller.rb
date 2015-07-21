@@ -31,6 +31,39 @@ class UsersController < ApplicationController
     render 'tasks'
   end
 
+  def contracts
+    @class_name = Contract
+    @user = User.find(params[:id])
+    @entries = []
+    entries_all = Entry.all.order('updated_at DESC')
+    entries_all.each do |entry|
+      if entry.type == "Contract" && entry.user == @user
+        @entries.push(entry)
+      end
+      if entry.type == "Entrust" && entry.task.user == @user
+        @entries.push(entry)
+      end
+    end
+    render 'contracts'
+  end
+
+  def entrusts
+    @class_name = Entrust
+    @user = User.find(params[:id])
+    @entries = []
+    entries_all = Entry.all.order('updated_at DESC')
+    entries_all.each do |entry|
+      if entry.type == "Entrust" && entry.user == @user
+        @entries.push(entry)
+      end
+      if entry.type == "Contract" && entry.task.user == @user
+        @entries.push(entry)
+      end
+    end
+    #@entries = @user.entrusts
+    render 'entrusts'
+  end
+
   def following
     @title = "follows"
     @no_user = "No followed user"

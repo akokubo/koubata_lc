@@ -1,16 +1,9 @@
-<% provide :title, @class_name.model_name.human %>
-<h1><%= yield(:title) %></h1>
-
 <%= render 'tasks/task' %>
-<%= render 'tasks/messages' %>
 
-<% if current_user?(@entry.user) %>
-    <%= link_to t('Edit'), edit_entrust_path(@entry), class: "ui-btn ui-btn-inline" %>
-    <%= link_to t('Destroy'), @task, method: :delete, data: { confirm: t('Are you sure?') }, class: "ui-btn ui-btn-inline" %>
-    <%= link_to t('Back to my entrusts'), entrusts_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
-  </div>
-<% end %>
+<hr>
 
-<% if !current_user?(@entry.user) %>
-  <%= link_to t('Back'), entrusts_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>
-<% end %>
+<%= render 'entries/entry' %>
+
+<hr>
+
+<%= render 'entries/negotiation' %>

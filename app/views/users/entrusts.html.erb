@@ -1,0 +1,35 @@
+<h1><%= @class_name.model_name.human %></h1>
+<% if @entries.any? %>
+  <ul data-role="listview" data-inset="true">
+    <% @entries.each do |entry| %>
+      <% if entry.instance_of?(Contract) %>
+        <li><%= link_to "#{entry.task.title}: #{entry.task.user.name} / " + t(entry.status), contract_path(entry) %></li>
+      <% elsif entry.instance_of?(Entrust) %>
+        <li><%= link_to "#{entry.task.title}: #{entry.task.user.name} / " + t(entry.status), entrust_path(entry) %></li>
+      <% end %>
+    <% end %>
+  </ul>
+<!--
+  <table>
+    <tr>
+      <th><%= @class_name.human_attribute_name(:expected_at) %></th>
+      <th><%= Task.human_attribute_name(:title) %></th>
+      <th><%= @class_name.human_attribute_name(:user) %></th>
+      <th><%= @class_name.human_attribute_name(:status) %></th>
+    </tr>
+    <% @entries.each do |entry| %>
+      <tr>
+        <td><%= l(entry.expected_at) if entry.expected_at %></td>
+        <td><%= link_to entry.task.title, offering_path(entry.task) %></td>
+        <td>
+          <%= gravatar_for entry.task.user, size: 16 %>
+          <%= link_to entry.task.user.name, entry %>
+        </td>
+        <td><%= t(entry.status) %></td>
+      </tr>
+    <% end %>
+  </table>
+-->
+<% else %>
+  <%= t('No entrust') %>
+<% end %>

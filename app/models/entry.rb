@@ -55,6 +55,7 @@ class Entry < ActiveRecord::Base
       "paid"
     elsif performed?
       "performed"
+=begin
     elsif owner_canceled?
       "owner canceld"
     elsif user_canceled?
@@ -67,6 +68,9 @@ class Entry < ActiveRecord::Base
       "user_contracted"
     else
       "to be contracted"
+=end
+    else
+      "contracted"
     end
   end
 

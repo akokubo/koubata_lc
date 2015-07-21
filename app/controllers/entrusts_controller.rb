@@ -11,9 +11,11 @@ class EntrustsController < ApplicationController
     @class_name = Entrust
     @task = @entry.task
     @user = @task.user
-#    @messages = current_user.messages(@user).where(entry_id: @entry.id).order('created_at DESC').paginate(:page => params[:page])
-    @messages = @entry.messages.order('created_at DESC').paginate(:page => params[:page])
-    @message = @entry.messages.build(recepient_id: @user.id, sender_id: current_user.id)
+    @negotiations = @entry.negotiations(@user).order('created_at DESC').paginate(:page => params[:page])
+    @negotiation = @entry.negotiations.build(
+      sender_id: current_user.id,
+      recepient_id: @task.user.id
+    )
   end
 
   def new
@@ -32,10 +34,11 @@ class EntrustsController < ApplicationController
   # POST /entries.json
   def create
     @entry = Entrust.new(entry_params)
- 
+    @entry.user = current_user
+
     respond_to do |format|
-      if @entry.user == current_user && @entry.save
-        format.html { redirect_to @entry, notice: 'Entrust was was successfully created.' }
+      if @entry.save
+        format.html { redirect_to @entry, notice: t('activerecord.successful.messages.created', model: Entrust.model_name.human) }
         format.json { render :show, status: :created, location: @cantract }
       else
         format.html { render :new }
@@ -45,9 +48,12 @@ class EntrustsController < ApplicationController
   end
 
   def update
+    if params[:entrust][:performed_at]
+      @entry.performed_at = Time.now
+    end
     respond_to do |format|
-      if @entry.user == current_user && @entry.update(entry_params)
-        format.html { redirect_to @contact, notice: 'Entrust was successfully updated.' }
+      if @entry.save
+        format.html { redirect_to @entry, notice: t('activerecord.successful.messages.updated', model: Entrust.model_name.human) }
         format.json { render :show, status: :ok, location: @entry }
       else
         format.html { render :edit }
@@ -80,6 +86,6 @@ class EntrustsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def entry_params
-    params.require(:entrust).permit(:task_id, :user_id, :entrusted_at, :paid_at, :created_at, :updated_at, :expected_at, :performed_at, :owner_canceled_at, :user_canceled_at, :note)
+    params.require(:entrust).permit(:task_id, :user_id, :owner_contrctted_at, :user_contrctted_at, :paid_at, :created_at, :updated_at, :expected_at, :performed_at, :owner_canceled_at, :user_canceled_at, :note)
   end
 end
