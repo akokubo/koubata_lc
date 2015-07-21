@@ -3,7 +3,7 @@
   <ul data-role="listview" data-inset="true">
     <% @entries.each do |entry| %>
       <% if entry.instance_of?(Contract) %>
-        <li><%= link_to "#{entry.task.title}: #{entry.task.user.name} / " + t(entry.status), contract_path(entry) %></li>
+        <li><%= link_to "#{entry.task.title}: #{entry.user.name} / " + t(entry.status), contract_path(entry) %></li>
       <% elsif entry.instance_of?(Entrust) %>
         <li><%= link_to "#{entry.task.title}: #{entry.task.user.name} / " + t(entry.status), entrust_path(entry) %></li>
       <% end %>
