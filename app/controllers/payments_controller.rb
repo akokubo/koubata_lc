@@ -12,6 +12,23 @@ class PaymentsController < ApplicationController
   def new
     @payment = Payment.new
     @partners = User.where.not(id: current_user.id).active
+
+    if (params[:contract])
+      contract = Contract.find(params[:contract])
+      contract.paid_at = Time.now
+      contract.save
+      @payment.subject = "「#{contract.task.title}」の支払い"
+      @partners = User.where(id: contract.task.user_id)
+    end
+
+    if (params[:entrust])
+      entrust = Entrust.find(params[:entrust])
+      entrust.paid_at = Time.now
+      entrust.save
+      @payment.subject = "「#{entrust.task.title}」の支払い"
+      @partners = User.where(id: entrust.user_id)
+    end
+
     partner_accounts = []
     @partners.each do |partner|
       partner.account_id = partner.account.id
