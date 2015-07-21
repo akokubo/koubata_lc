@@ -1,45 +1,34 @@
 <% provide :title, @class_name.model_name.human %>
 <h1><%= yield(:title) %></h1>
 
+<% if current_user?(@task.user) %>
+  <div class="ui-body ui-body-a ui-corner-all">
+<% end %>
+
 <%= render 'tasks/task' %>
 
 <% if current_user?(@task.user) %>
     <%= link_to t('Edit'), edit_want_path(@task), class: "ui-btn ui-btn-inline" %>
     <%= link_to t('Destroy'), @task, method: :delete, data: { confirm: t('Are you sure?') }, class: "ui-btn ui-btn-inline" %>
-    <%= link_to t('Back to my wants'), wants_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
   </div>
+  <%= link_to t('Back to my wants'), wants_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
 <% end %>
 
 <br>
 
 <% if !current_user?(@task.user) %>
-  <%= render 'entries/entry' %>
-<% end %>
-<!--
-<hr>
-
-<div class="ui-body ui-body-a ui-corner-all">
-  <div id="entried">
-    <%= render 'entries/entried' %>
-  </div>
-
-  <% if current_user?(@task.user) %>
-    <% if @task.expired_at %>
-      <%= render 'entries/unexpire' %>
-    <% else %>
-      <%= render 'entries/expire' %>
+  <% if @task.instance_of?(Want) %>
+    <%= form_for(@task.entrusts.build) do |f| %>
+      <%= f.hidden_field :task_id %>
+      <%= f.submit t('Contract') %>
     <% end %>
   <% else %>
-    <div id="entry_form">
-      <% if current_user.entried?(@task) %>
-        <%= render 'entries/unentry' %>
-      <% else %>
-        <%= render 'entries/entry' %>
-      <% end %>
-    </div>
+    <%= form_for(@task.entrusts.build) do |f| %>
+      <%= f.submit t('Entrust') %>
+    <% end %>
   <% end %>
-</div>
--->
+<% end %>
+
 <% if !current_user?(@task.user) %>
   <%= link_to t('Back'), wants_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>
 <% end %>
