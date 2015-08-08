@@ -1,5 +1,5 @@
-names = %w(sakai kasiwaya kushibiki kokubo tsasaki kuji t-sachiko ksuga)
-japanese_names = %w(坂井雄介 柏谷至 櫛引素夫 小久保温 佐々木てる 久慈きみ代 田中志子 菅勝彦)
+names = %w(sakai kasiwaya kushibiki kokubo tsasaki kuji t-sachiko ksuga tsunoda wajima haship kurebayashi)
+japanese_names = %w(坂井雄介 柏谷至 櫛引素夫 小久保温 佐々木てる 久慈きみ代 田中志子 菅勝彦 角田均 和島茂 橋本恭能 紅林亘)
 
 0.upto(names.length - 1) do |idx|
   user = User.create(
