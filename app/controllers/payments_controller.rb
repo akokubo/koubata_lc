@@ -29,12 +29,14 @@ class PaymentsController < ApplicationController
       @partners = User.where(id: entrust.user_id)
     end
 
-    partner_accounts = []
+=begin
+    @partner_account_ids = []
     @partners.each do |partner|
-      partner.account_id = partner.account.id
-      partner_accounts.push(partner.account.id)
+      #partner.account_id = partner.account.id
+      @partner_account_ids.push(partner.account.id)
     end
-    @tos = Account.where(id: partner_accounts)
+    #@tos = Account.where(id: partner_accounts)
+=end
   end
 
 =begin
@@ -44,7 +46,7 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = Payment.new(payment_params)
-    @payment.user = current_user.account
+    @payment.user = current_user
     @payment.subject = '無題' unless @payment.subject
     begin
       Account.transfer(
@@ -56,6 +58,7 @@ class PaymentsController < ApplicationController
       )
       redirect_to accounts_url, notice: t('activerecord.successful.messages.created', model: Payment.model_name.human)
     rescue
+      @partners = User.where.not(id: current_user.id).active
       render action: 'new'
     end
   end

@@ -1,8 +1,8 @@
 class Payment < ActiveRecord::Base
   before_validation :set_balance
 
-  belongs_to :user,    class_name: 'Account', foreign_key: 'user_id'
-  belongs_to :partner, class_name: 'Account', foreign_key: 'partner_id'
+  belongs_to :user,    class_name: 'User'
+  belongs_to :partner, class_name: 'User'
 
   # 必須属性の検証
   validates :user_id, presence: true
@@ -24,7 +24,7 @@ class Payment < ActiveRecord::Base
   # 残高の設定
   def set_balance
     if user
-      self.balance = user.balance
+      self.balance = user.account.balance
     else
       self.balance = 0
     end

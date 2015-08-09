@@ -1,6 +1,34 @@
 names = %w(sakai kasiwaya kushibiki kokubo tsasaki kuji t-sachiko ksuga tsunoda wajima haship kurebayashi)
 japanese_names = %w(坂井雄介 柏谷至 櫛引素夫 小久保温 佐々木てる 久慈きみ代 田中志子 菅勝彦 角田均 和島茂 橋本恭能 紅林亘)
 
+account_dummy = Account.create(
+  user_id: 1,
+  balance: 0
+)
+account_dummy.destroy
+
+account_dummy = Account.create(
+  user_id: 1,
+  balance: 0
+)
+account_dummy.destroy
+
+account_dummy = Account.create(
+  user_id: 1,
+  balance: 0
+)
+account_dummy.destroy
+
+user_dummy = User.create(
+    name: 'hau hau',
+    email: "hauhau@aomori-u.ac.jp",
+    password: 'password',
+    password_confirmation: 'password',
+    confirmed_at: Time.now
+)
+
+user_dummy.destroy
+
 0.upto(names.length - 1) do |idx|
   user = User.create(
     name: japanese_names[idx],

@@ -25,8 +25,6 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
-  attr_accessor :account_id
-
   scope :active, -> { where.not(confirmed_at: nil) }
 
   def talks(companion = nil)

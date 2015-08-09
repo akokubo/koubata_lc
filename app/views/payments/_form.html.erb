@@ -15,8 +15,8 @@
   <% end %>
 
     <li class="field ui-field-contain">
-      <%= f.label :partner_id %>
-      <%= f.collection_select :partner_id, @partners, :account_id, :name %>
+      <%= label :payment, :partner_id %>
+      <%= collection_select :payment, :partner_id, @partners, :id, :name %>
     </li>
 
     <li class="field ui-field-contain">
@@ -35,7 +35,9 @@
     </li>
 
     <li class="actions">
+<!--
       <%= f.hidden_field :direction, value: 'deposit' %>
+-->
       <%= f.submit t("Submit new payment") %>
     </li>
   </ul>

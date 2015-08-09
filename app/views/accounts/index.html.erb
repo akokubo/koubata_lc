@@ -21,7 +21,7 @@
     <% @payments.each do |payment| %>
     <tr>
       <td><%= l(payment.created_at) %></td>
-      <td><%= payment.partner.user.name %></td>
+      <td><%= payment.partner.name %></td>
       <td><%= t(payment.direction) %></td>
       <td style="text-align: right;"><%= payment.amount %></td>
       <td style="text-align: right;"><%= payment.balance %></td>

@@ -11,22 +11,22 @@
 <% if @payment.direction == "withdraw" %>
 <li>
   <strong>支払人:</strong>
-  <%= @payment.partner.user.name %>
+  <%= @payment.partner.name %>
 </li>
 
 <li>
   <strong>受取人:</strong>
-  <%= @payment.user.user.name %>
+  <%= @payment.user.name %>
 </li>
 <% else %>
 <li>
   <strong>支払人:</strong>
-  <%= @payment.user.user.name %>
+  <%= @payment.user.name %>
 </li>
 
 <li>
   <strong>受取人:</strong>
-  <%= @payment.partner.user.name %>
+  <%= @payment.partner.name %>
 </li>
 <% end %>
 
