@@ -12,6 +12,7 @@
  *
  *= require koubata_lc.min
  *= require jquery.mobile.icons.min
+ *= require jquery.mobile.structure-1.4.5.min
  *= require_tree .
  *= require_self
  */
