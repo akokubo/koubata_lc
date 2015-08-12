@@ -4,12 +4,14 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.all
+    @notifications = Notification.where(user: current_user).order('created_at DESC').paginate(:page => params[:page])
   end
 
   # GET /notifications/1
   # GET /notifications/1.json
   def show
+    @notification.read!
+    redirect_to @notification.url
   end
 
   # GET /notifications/new
