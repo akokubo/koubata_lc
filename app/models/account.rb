@@ -68,7 +68,7 @@ class Account < ActiveRecord::Base
         Notification.create!(
           user: recepient,
           body: "#{sender.name}さんが、#{amount}幸を振り込みました。",
-          url: "/payments/#{payment.id}"
+          url:  "/payments/#{payment.id}"
         )
       end
     end
