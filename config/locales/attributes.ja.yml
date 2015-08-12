@@ -71,14 +71,16 @@ ja:
         user_id: '名前'
         balance: '所持'
       payment:
-        user: '本人'
-        partner: '相手'
-        user_id: '本人'
-        partner_id: '相手'
+        sender: '支払人'
+        recepient: '受取人'
+        sender_id: '支払人'
+        recepient_id: '受取人'
         subject: '件名'
         amount: '金額'
-        direction: '種別'
-        balance: '残高'
+        sender_balance_before: '送金前残高'
+        sender_balance_after: '送金後残高'
+        recepient_balance_before: '入金前残高'
+        recepient_balance_after: '入金後残高'
         comment: '備考'
       contract:
         task: 件名
