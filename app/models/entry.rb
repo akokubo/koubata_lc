@@ -74,6 +74,20 @@ class Entry < ActiveRecord::Base
     end
   end
 
+  def owner
+    task.user
+  end
+
+  def partner_of(target_user)
+    if user == target_user
+      task.user
+    elsif owner == target_user
+      user
+    else
+      nil
+    end
+  end
+
   private
 
     def set_entry_type

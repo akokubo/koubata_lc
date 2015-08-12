@@ -6,6 +6,7 @@ class NegotiationsController < ApplicationController
   def create
     @negotiation = Negotiation.new(negotiation_params)
     @negotiation.sender = current_user
+    @negotiation.recepient = @negotiation.entry.partner_of(current_user)
 
     if @negotiation.entry.type == "Contract"
       respond_to do |format|
@@ -34,6 +35,6 @@ class NegotiationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def negotiation_params
-    params.require(:negotiation).permit(:body, :sender_id, :recepient_id, :entry_id)
+    params.require(:negotiation).permit(:body, :entry_id)
   end
 end
