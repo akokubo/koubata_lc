@@ -58,12 +58,21 @@ class Payment < ActiveRecord::Base
     if sender == user
       sender_balance_after
     elsif recepient == user
-      reciever_balance_after
+      recepient_balance_after
     else
       nil
     end
   end
 
+  def amount_for(user)
+    if sender == user
+      -amount
+    elsif recepient == user
+      amount
+    else
+      nil
+    end
+  end
 
   private
 
