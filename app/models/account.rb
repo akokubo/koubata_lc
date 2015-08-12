@@ -52,7 +52,7 @@ class Account < ActiveRecord::Base
         recepient_balance_after = recepient_account.balance
 
         # 取引履歴を記録
-        Payment.create!(
+        payment = Payment.create!(
           sender:    sender,
           recepient: recepient,
           amount:    amount,
@@ -62,6 +62,13 @@ class Account < ActiveRecord::Base
           recepient_balance_before: recepient_balance_before,
           sender_balance_after:     sender_balance_after,
           recepient_balance_after:  recepient_balance_after
+        )
+
+        # 通知の作成
+        Notification.create!(
+          user: recepient,
+          body: "#{sender.name}さんが、#{amount}幸を振り込みました。",
+          url: "/payments/#{payment.id}"
         )
       end
     end
