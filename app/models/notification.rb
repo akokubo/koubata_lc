@@ -3,6 +3,7 @@ class Notification < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :body, presence: true
+  validates :url,  presence: true
 
   self.per_page = 10
 
@@ -16,5 +17,9 @@ class Notification < ActiveRecord::Base
 
   def read!
     self.update!(read_at: Time.now)
+  end
+
+  def unread!
+    self.update!(read_at: nil)
   end
 end

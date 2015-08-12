@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812051658) do
+ActiveRecord::Schema.define(version: 20150812102037) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 20150812051658) do
     t.datetime "updated_at",               null: false
   end
 
+  add_index "notifications", ["url"], name: "index_notifications_on_url"
+  add_index "notifications", ["user_id", "url"], name: "index_notifications_on_user_id_and_url", unique: true
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
   create_table "payments", force: :cascade do |t|

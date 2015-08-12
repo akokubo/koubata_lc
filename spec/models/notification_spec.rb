@@ -36,4 +36,10 @@ describe Notification do
     before { @notification.body = nil }
     it { should_not be_valid }
   end
+
+  # bodyが存在しない場合
+  describe 'when url is not present' do
+    before { @notification.url = nil }
+    it { should_not be_valid }
+  end
 end
