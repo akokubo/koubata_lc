@@ -2,6 +2,6 @@ class AccountsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @payments = Payment.where(user: current_user)
+    @payments = Payment.where('sender_id = :current_user OR recepient_id = :current_user', current_user: current_user).order('created_at DESC')
   end
 end

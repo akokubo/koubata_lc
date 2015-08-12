@@ -51,23 +51,29 @@ describe Account do
 
   # 支払いの実行
   describe 'when transfer' do
-    let(:payer) { FactoryGirl.create(:user) }
-    let(:recipient) { FactoryGirl.create(:user) }
+    let(:sender) { FactoryGirl.create(:user) }
+    let(:recepient) { FactoryGirl.create(:user) }
 
     before do
-      @from = payer.create_account(balance: 1000)
-      @to = recipient.create_account(balance: 1000)
+      sender.create_account(balance: 1000)
+      recepient.create_account(balance: 1000)
     end
 
     # 適正な支払いの場合
     it 'has valid amount should change accounts balance' do
-      expect { Account.transfer(@from, @to, 100, 'Lorem ipsum', 'Lorem ipsum' * 5) }.to change { @from.balance }.by(-100)
-      expect { Account.transfer(@from, @to, 100, 'Lorem ipsum', 'Lorem ipsum' * 5) }.to change { @to.balance   }.by(100)
+      expect {
+        Account.transfer(sender: sender, recepient: recepient, amount: 100, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
+      }.to change { sender.account.balance }.by(-100)
+      expect {
+        Account.transfer(sender: sender, recepient: recepient, amount: 100, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
+      }.to change { recepient.account.balance }.by(100)
     end
 
     # 残高がマイナスになる支払いの場合
     it 'has invalid amount should raise ActiveRecord::RecordInvalid' do
-      expect { Account.transfer(@from, @to, 2000, 'Lorem ipsum', 'Lorem ipsum' * 5) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect {
+        Account.transfer(sender: sender, recepient: recepient, amount: 2000, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
+      }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 end

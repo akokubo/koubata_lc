@@ -63,11 +63,10 @@ ja:
   "Type": 種別
   "Amount": 金額
   "Balance": 残高
+  "Balance Before": 取引前残高
   "Subject": 件名
-  "Deposit": 送金
-  "Withdraw": 入金
-  "deposit": 送金
-  "withdraw": 入金
+  "deposit": 入金
+  "withdraw": 送金
   "points": 幸
   "Current balance": 現在の残高
   "Welcome to Koubata Project!": 「ハッピー幸畑たすけあい」へようこそ

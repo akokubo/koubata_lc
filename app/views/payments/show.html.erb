@@ -8,27 +8,15 @@
   <%= l(@payment.created_at) %>
 </li>
 
-<% if @payment.direction == "withdraw" %>
 <li>
   <strong>支払人:</strong>
-  <%= @payment.partner.name %>
+  <%= @payment.sender.name %>
 </li>
 
 <li>
   <strong>受取人:</strong>
-  <%= @payment.user.name %>
+  <%= @payment.recepient.name %>
 </li>
-<% else %>
-<li>
-  <strong>支払人:</strong>
-  <%= @payment.user.name %>
-</li>
-
-<li>
-  <strong>受取人:</strong>
-  <%= @payment.partner.name %>
-</li>
-<% end %>
 
 <li>
   <strong><%= Payment.human_attribute_name(:subject) %>:</strong>
@@ -36,18 +24,28 @@
 </li>
 
 <li>
-<% if @payment.direction == "withdraw" %>
-  <strong>受取<%= Payment.human_attribute_name(:amount) %>:</strong>
-  <%= @payment.amount %><%= t('points') %>
-<% else %>
-  <strong>支払<%= Payment.human_attribute_name(:amount) %>:</strong>
-  <%= -@payment.amount %><%= t('points') %>
-<% end %>
+  <strong><%= Payment.human_attribute_name(:amount) %>:</strong>
+  <%= @payment.amount %>
 </li>
 
 <li>
-  <strong><%= Payment.human_attribute_name(:balance) %>:</strong>
-  <%= @payment.balance %><%= t('points') %>
+  <strong><%= Payment.human_attribute_name(:sender_balance_before) %>:</strong>
+  <%= @payment.sender_balance_before %>
+</li>
+
+<li>
+  <strong><%= Payment.human_attribute_name(:sender_balance_after) %>:</strong>
+  <%= @payment.sender_balance_after %>
+</li>
+
+<li>
+  <strong><%= Payment.human_attribute_name(:recepient_balance_before) %>:</strong>
+  <%= @payment.recepient_balance_before %>
+</li>
+
+<li>
+  <strong><%= Payment.human_attribute_name(:recepient_balance_after) %>:</strong>
+  <%= @payment.recepient_balance_after %>
 </li>
 
 <li>

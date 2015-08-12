@@ -3,7 +3,7 @@ class PaymentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @payments = Payment.where(user: current_user.account)
+    @payments = Payment.where('sender_id = :current_user OR recepient_id = :current_user', current_user: current_user)
   end
 
   def show
@@ -11,14 +11,14 @@ class PaymentsController < ApplicationController
 
   def new
     @payment = Payment.new
-    @partners = User.where.not(id: current_user.id).active
+    @recepients = User.where.not(id: current_user.id).active
 
     if (params[:contract])
       contract = Contract.find(params[:contract])
       contract.paid_at = Time.now
       contract.save
       @payment.subject = "「#{contract.task.title}」の支払い"
-      @partners = User.where(id: contract.task.user_id)
+      @recepients = User.where(id: contract.task.user_id)
     end
 
     if (params[:entrust])
@@ -26,7 +26,7 @@ class PaymentsController < ApplicationController
       entrust.paid_at = Time.now
       entrust.save
       @payment.subject = "「#{entrust.task.title}」の支払い"
-      @partners = User.where(id: entrust.user_id)
+      @recepients = User.where(id: entrust.user_id)
     end
 
 =begin
@@ -46,19 +46,17 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = Payment.new(payment_params)
-    @payment.user = current_user
-    @payment.subject = '無題' unless @payment.subject
     begin
       Account.transfer(
-        @payment.user,
-        @payment.partner,
-        @payment.amount,
-        @payment.subject,
-        @payment.comment
+        sender: current_user,
+        recepient: @payment.recepient,
+        amount: @payment.amount,
+        subject: @payment.subject,
+        comment: @payment.comment
       )
       redirect_to accounts_url, notice: t('activerecord.successful.messages.created', model: Payment.model_name.human)
     rescue
-      @partners = User.where.not(id: current_user.id).active
+      @recepients = User.where.not(id: current_user.id).active
       render action: 'new'
     end
   end
@@ -94,6 +92,6 @@ class PaymentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def payment_params
-    params.require(:payment).permit(:user_id, :partner_id, :subject, :amount, :comment)
+    params.require(:payment).permit(:recepient_id, :subject, :amount, :comment)
   end
 end

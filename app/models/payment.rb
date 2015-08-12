@@ -1,42 +1,102 @@
 class Payment < ActiveRecord::Base
-  before_validation :set_balance
-
-  belongs_to :user,    class_name: 'User'
-  belongs_to :partner, class_name: 'User'
+  before_validation :set_subject
+  belongs_to :sender,     class_name: 'User'
+  belongs_to :recepient,  class_name: 'User'
 
   # 必須属性の検証
-  validates :user_id, presence: true
-  validates :partner_id, presence: true
+  validates :sender_id,    presence: true
+  validates :recepient_id, presence: true
   validates :subject, presence: true
   validates :amount, presence: true
-  validates :balance, presence: true
-  validates :direction, presence: true
+  validates :sender_balance_before,    presence: true
+  validates :sender_balance_after,     presence: true
+  validates :recepient_balance_before, presence: true
+  validates :recepient_balance_after,  presence: true
 
   # 金額は、0以上の整数
-  validates :amount, numericality: { only_integer: true }
-  validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :amount,                   numericality: { only_integer: true, greater_than: 0 }
+  validates :sender_balance_before,    numericality: { only_integer: true, greater_than: 0 }
+  validates :sender_balance_after,     numericality: { only_integer: true, greater_than: 0 }
+  validates :recepient_balance_before, numericality: { only_integer: true, greater_than: 0 }
+  validates :recepient_balance_after,  numericality: { only_integer: true, greater_than: 0 }
 
-  validate :user_id_not_equal_partner_id
-  validate :payment_must_be_positive
+  validate :sender_id_not_equal_recepient_id
+  validate :sender_balance_after_validity
+  validate :recepient_balance_after_validity
 
-  private
-
-  # 残高の設定
-  def set_balance
-    if user
-      self.balance = user.account.balance
+  def partner_of(user)
+    if sender == user
+      recepient
+    elsif recepient == user
+      sender
     else
-      self.balance = 0
+      nil
     end
   end
 
-  def user_id_not_equal_partner_id
-    errors.add(:partner_id, :invalid) if user_id == partner_id
+  def type_for(user)
+    if sender == user
+      'withdraw'
+    elsif recepient == user
+      'deposit'
+    else
+      nil
+    end
   end
 
-  def payment_must_be_positive
-    if !amount || (amount > 0 && direction == 'deposit') || (amount < 0 && direction == 'withdraw')
-      errors.add(:amount, :invalid)
+  def balance_before_for(user)
+    if sender == user
+      sender_balance_before
+    elsif recepient == user
+      recepient_balance_before
+    else
+      nil
+    end
+  end
+
+  def balance_after_for(user)
+    if sender == user
+      sender_balance_after
+    elsif recepient == user
+      recepient_balance_after
+    else
+      nil
+    end
+  end
+
+  def amount_for(user)
+    if sender == user
+      -amount
+    elsif recepient == user
+      amount
+    else
+      nil
+    end
+  end
+
+  private
+
+  def set_subject
+    self.subject = '無題' unless subject.present?
+  end
+
+  def sender_id_not_equal_recepient_id
+    errors.add(:recepient_id, :invalid) if sender_id == recepient_id
+  end
+
+  def sender_balance_after_validity
+    if amount.is_a?(Integer)
+      unless sender_balance_after == (sender_balance_before - amount)
+        errors.add(:sender_balance_after, :invalid)
+      end
+    end
+  end
+
+  def recepient_balance_after_validity
+    if amount.is_a?(Integer)
+      unless recepient_balance_after == (recepient_balance_before + amount)
+        errors.add(:recepient_balance_after, :invalid)
+      end
     end
   end
 end

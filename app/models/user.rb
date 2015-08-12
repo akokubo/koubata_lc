@@ -1,21 +1,21 @@
 class User < ActiveRecord::Base
-  has_one :account,   dependent: :destroy
+  has_one  :account,   dependent: :destroy
   has_many :tasks,     dependent: :destroy
   has_many :offerings, dependent: :destroy
   has_many :wants,     dependent: :destroy
   has_many :entries,   dependent: :destroy
   has_many :contracts, dependent: :destroy
-  has_many :entrusts, dependent: :destroy
+  has_many :entrusts,  dependent: :destroy
 
   has_many :sended_messages,   class_name: 'Message', foreign_key: 'sender_id'
   has_many :received_messages, class_name: 'Message', foreign_key: 'recepient_id'
   has_many :senders,    through: :received_messages, source: :sender
   has_many :recepients, through: :sended_messages,   source: :recepient
 
-  has_many :relationships, foreign_key: 'follower_id', dependent: :destroy
-  has_many :followed_users, through: :relationships, source: :followed
+  has_many :relationships,         foreign_key: 'follower_id', dependent: :destroy
   has_many :reverse_relationships, foreign_key: 'followed_id', class_name: 'Relationship', dependent: :destroy
-  has_many :followers, through: :reverse_relationships, source: :follower # source:は省略可
+  has_many :followed_users, through: :relationships,         source: :followed
+  has_many :followers,      through: :reverse_relationships, source: :follower # source:は省略可
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

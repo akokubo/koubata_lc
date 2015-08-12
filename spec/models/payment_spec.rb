@@ -2,21 +2,25 @@ require 'rails_helper'
 
 describe Payment do
   # from/toの生成
-  let(:payer) { FactoryGirl.create(:user) }
-  let(:recipient) { FactoryGirl.create(:user) }
+  let(:sender)    { FactoryGirl.create(:user) }
+  let(:recepient) { FactoryGirl.create(:user) }
 
-  let(:user) { payer.create_account(balance: 1000) }
-  let(:partner) { recipient.create_account(balance: 1000) }
+  let(:sender_account)    { sender.create_account(balance: 1000) }
+  let(:recepient_account) { recepient.create_account(balance: 1000) }
 
   # paymentの生成
   before do
+    amount = 100
     @payment = Payment.new(
-      user_id: user.id,
-      partner_id: partner.id,
+      sender: sender,
+      recepient: recepient,
       subject: 'Lorem ipsum',
-      amount: -100,
-      direction: 'deposit',
-      comment: 'Lorem ipsum' * 5
+      amount: amount,
+      comment: 'Lorem ipsum' * 5,
+      sender_balance_before:    sender_account.balance,
+      sender_balance_after:     sender_account.balance - amount,
+      recepient_balance_before: recepient_account.balance,
+      recepient_balance_after:  recepient_account.balance + amount
     )
   end
 
@@ -29,37 +33,43 @@ describe Payment do
   # 属性に反応するか
   it { should respond_to(:subject) }
   it { should respond_to(:amount) }
-  it { should respond_to(:direction) }
   it { should respond_to(:comment) }
+  it { should respond_to(:sender_balance_before) }
+  it { should respond_to(:sender_balance_after) }
+  it { should respond_to(:recepient_balance_before) }
+  it { should respond_to(:recepient_balance_after) }
 
   # userメソッドに応答する
   describe 'user methods' do
-    it { should respond_to(:user) }
-    it { expect(@payment.user).to eq user }
+    it { should respond_to(:sender) }
+    it { expect(@payment.sender).to eq sender }
   end
 
   # partnerメソッドに応答する
   describe 'user methods' do
-    it { should respond_to(:partner) }
-    it { expect(@payment.partner).to eq partner }
+    it { should respond_to(:recepient) }
+    it { expect(@payment.recepient).to eq recepient }
   end
 
   # from_idが存在しない場合
-  describe 'when user_id is not present' do
-    before { @payment.user_id = nil }
+  describe 'when sender_id is not present' do
+    before { @payment.sender_id = nil }
     it { should_not be_valid }
   end
 
   # to_idが存在しない場合
-  describe 'when partner_id is not present' do
-    before { @payment.partner_id = nil }
+  describe 'when recepient_id is not present' do
+    before { @payment.recepient_id = nil }
     it { should_not be_valid }
   end
 
   # subjectが存在しない場合
-  describe 'when subject is not present' do
-    before { @payment.subject = nil }
-    it { should_not be_valid }
+  describe 'when subject is not presentshould set subject "無題"' do
+    before do
+      @payment.subject = nil
+      @payment.save
+    end
+    it { expect(@payment.subject).to eq '無題' }
   end
 
   # amountが存在しない場合
@@ -81,30 +91,20 @@ describe Payment do
   end
 
   # amountが負の数の場合
-  describe 'when amount is plus number' do
-    before { @payment.amount = 1 }
+  describe 'when amount is minus number' do
+    before { @payment.amount = -1 }
     it { should_not be_valid }
   end
 
-  # paymentの正常実行
-  describe 'when valid execute' do
-    it "should decrease payer's balance" do
-      expect { Account.transfer(@payment.user, @payment.partner, @payment.amount, @payment.subject, @payment.comment) }.to change { @payment.user.balance }.by(-@payment.amount)
-    end
-
-    it "should increase recipient's balance" do
-      expect { Account.transfer(@payment.user, @payment.partner, @payment.amount, @payment.subject, @payment.comment) }.to change { @payment.partner.balance }.by(@payment.amount)
-    end
+  # amountが負の数の場合
+  describe 'when sender_balance_after is not valid' do
+    before { @payment.sender_balance_after += 1 }
+    it { should_not be_valid }
   end
 
-  # paymentの異常実行
-  describe 'when invalid execute' do
-    before { @payment.amount = 2000 }
-
-    it 'should raise ActiveRecord::RecordInvalid' do
-      expect { Account.transfer(@payment.user, @payment.partner, @payment.amount, @payment.subject, @payment.comment) }.to raise_error(ActiveRecord::RecordInvalid)
-
-#      expect { @payment.save! }.to raise_error(ActiveRecord::RecordInvalid)
-    end
+  # amountが負の数の場合
+  describe 'when recepient_balance_after is not valid' do
+    before { @payment.recepient_balance_after += 1 }
+    it { should_not be_valid }
   end
 end

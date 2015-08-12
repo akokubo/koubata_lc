@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720160017) do
+ActiveRecord::Schema.define(version: 20150811074846) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -60,19 +60,21 @@ ActiveRecord::Schema.define(version: 20150720160017) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "partner_id"
-    t.string   "subject",    null: false
-    t.integer  "amount",     null: false
-    t.integer  "balance",    null: false
+    t.integer  "sender_id"
+    t.integer  "recepient_id"
+    t.string   "subject",                  null: false
+    t.integer  "amount",                   null: false
+    t.integer  "sender_balance_after",     null: false
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "direction"
+    t.integer  "sender_balance_before"
+    t.integer  "recepient_balance_before"
+    t.integer  "recepient_balance_after"
   end
 
-  add_index "payments", ["partner_id"], name: "index_payments_on_partner_id"
-  add_index "payments", ["user_id"], name: "index_payments_on_user_id"
+  add_index "payments", ["recepient_id"], name: "index_payments_on_recepient_id"
+  add_index "payments", ["sender_id"], name: "index_payments_on_sender_id"
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"
