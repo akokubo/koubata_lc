@@ -1,13 +1,13 @@
-num = User.count
+user_ids = User.pluck(:id)
 words = %w(おはよう こんにちは こんばんは やあ ごきげんよう さようなら はじめまして お元気ですか よろしくお願いいたします)
 
 1000.times do
-  sender_id = Random.rand(num) + 1
-  recepient_id = Random.rand(num) + 1
+  sender_id = user_ids.sample
+  recepient_id = user_ids.sample
   if sender_id != recepient_id
     Talk.create(
-      sender_id: sender_id,
-      recepient_id: recepient_id,
+      sender: User.find(sender_id),
+      recepient: User.find(recepient_id),
       body: words[Random.rand(words.count)] * (Random.rand(10) + 5)
     )
   end
