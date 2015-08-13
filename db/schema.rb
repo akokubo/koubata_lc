@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811074846) do
+ActiveRecord::Schema.define(version: 20150813041559) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -58,6 +58,22 @@ ActiveRecord::Schema.define(version: 20150811074846) do
     t.integer  "entry_id"
     t.string   "type"
   end
+
+  add_index "messages", ["recepient_id"], name: "index_messages_on_recepient_id"
+  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "body"
+    t.string   "url",        default: "#"
+    t.datetime "read_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "notifications", ["url"], name: "index_notifications_on_url"
+  add_index "notifications", ["user_id", "url"], name: "index_notifications_on_user_id_and_url", unique: true
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
   create_table "payments", force: :cascade do |t|
     t.integer  "sender_id"
