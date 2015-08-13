@@ -7,18 +7,13 @@ class Payment < ActiveRecord::Base
   validates :sender_id,    presence: true
   validates :recepient_id, presence: true
   validates :subject, presence: true
-  validates :amount, presence: true
-  validates :sender_balance_before,    presence: true
-  validates :sender_balance_after,     presence: true
-  validates :recepient_balance_before, presence: true
-  validates :recepient_balance_after,  presence: true
 
   # 金額は、0以上の整数
-  validates :amount,                   numericality: { only_integer: true, greater_than: 0 }
-  validates :sender_balance_before,    numericality: { only_integer: true, greater_than: 0 }
-  validates :sender_balance_after,     numericality: { only_integer: true, greater_than: 0 }
-  validates :recepient_balance_before, numericality: { only_integer: true, greater_than: 0 }
-  validates :recepient_balance_after,  numericality: { only_integer: true, greater_than: 0 }
+  validates :amount,                   presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :sender_balance_before,    presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :sender_balance_after,     presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :recepient_balance_before, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :recepient_balance_after,  presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   validate :sender_id_not_equal_recepient_id
   validate :sender_balance_after_validity
