@@ -13,18 +13,19 @@ class Entry < ActiveRecord::Base
   # 必須属性の検証
   validates :task_id, presence: true
   validates :user_id, presence: true
+  validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   # 契約済
-  def contracted?
-    owner_contracted? && user_contracted?
+  def committed?
+    owner_committed? && user_committed?
   end
 
-  def owner_contracted?
-    !owner_contracted_at.blank?
+  def owner_committed?
+    !owner_committed_at.blank?
   end
 
-  def user_contracted?
-    !user_contracted_at.blank?
+  def user_committed?
+    !user_committed_at.blank?
   end
 
   # 履行済
@@ -60,17 +61,17 @@ class Entry < ActiveRecord::Base
       "owner canceld"
     elsif user_canceled?
       "user canceled"
-    elsif contracted?
-      "contracted"
-    elsif owner_contracted?
-      "owner contracted"
-    elsif user_contracted?
-      "user_contracted"
+    elsif committed?
+      "committed"
+    elsif owner_committed?
+      "owner committed"
+    elsif user_committed?
+      "user_committed"
     else
-      "to be contracted"
+      "to be committed"
 =end
     else
-      "contracted"
+      "committed"
     end
   end
 
@@ -94,13 +95,13 @@ class Entry < ActiveRecord::Base
       self.type = self.task.type == "Offering" ? "Contract" : "Entrust"
     end
 
-    def check_contract
+    def check_commit
       old_entry = Entry.find(id)
       if self.expected_at != old_entry.expected_at
-        if !self.user_contracted_at.blank?
-          self.user_contracted_at = nil
+        if !self.user_committed_at.blank?
+          self.user_committed_at = nil
         else
-          self.owner_contracted_at = nil
+          self.owner_committed_at = nil
         end
       end
     end
