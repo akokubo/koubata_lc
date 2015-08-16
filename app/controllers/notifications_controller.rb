@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.where(user: current_user).order('updated_at DESC').paginate(:page => params[:page])
+    @notifications = Notification.where(user: current_user).order('updated_at DESC').paginate(page: params[:page])
   end
 
   # GET /notifications/1
@@ -64,13 +64,14 @@ class NotificationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_notification
-      @notification = Notification.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def notification_params
-      params.require(:notification).permit(:user_id, :body, :url, :read_at)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_notification
+    @notification = Notification.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def notification_params
+    params.require(:notification).permit(:user_id, :body, :url, :read_at)
+  end
 end

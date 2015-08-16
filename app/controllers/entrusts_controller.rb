@@ -10,8 +10,8 @@ class EntrustsController < ApplicationController
   def show
     @class_name = Entrust
     @task = @entry.task
-    @negotiations = @entry.negotiations.order('created_at DESC').paginate(:page => params[:page])
-    @negotiation = @entry.negotiations.build()
+    @negotiations = @entry.negotiations.order('created_at DESC').paginate(page: params[:page])
+    @negotiation = @entry.negotiations.build
   end
 
   def new
@@ -44,9 +44,8 @@ class EntrustsController < ApplicationController
   end
 
   def update
-    if params[:entrust][:performed_at]
-      @entry.performed_at = Time.now
-    end
+    @entry.performed_at = Time.now if params[:entrust][:performed_at].present?
+
     respond_to do |format|
       if @entry.save && notify_update
         format.html { redirect_to @entry, notice: t('activerecord.successful.messages.updated', model: Entrust.model_name.human) }
@@ -82,7 +81,18 @@ class EntrustsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def entry_params
-    params.require(:entrust).permit(:task_id, :user_id, :owner_contrctted_at, :user_contrctted_at, :paid_at, :created_at, :updated_at, :expected_at, :performed_at, :owner_canceled_at, :user_canceled_at, :note)
+    params.require(:entrust).permit(
+      :task_id,
+      :user_id,
+      :owner_contrctted_at,
+      :user_contrctted_at,
+      :paid_at, :created_at,
+      :updated_at, :expected_at,
+      :performed_at,
+      :owner_canceled_at,
+      :user_canceled_at,
+      :note
+    )
   end
 
   def notify_create
@@ -126,4 +136,3 @@ class EntrustsController < ApplicationController
     end
   end
 end
-

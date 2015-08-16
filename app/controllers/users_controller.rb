@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def talks
     @user = User.find(params[:id])
-    @talks = current_user.talks(@user).order('created_at DESC').paginate(:page => params[:page])
+    @talks = current_user.talks(@user).order('created_at DESC').paginate(page: params[:page])
     @talk = Talk.new
     @talk.recepient_id = @user.id
     @talk.sender_id = current_user.id
@@ -37,12 +37,7 @@ class UsersController < ApplicationController
     @entries = []
     entries_all = Entry.all.order('updated_at DESC')
     entries_all.each do |entry|
-      if entry.type == "Contract" && entry.user == @user
-        @entries.push(entry)
-      end
-      if entry.type == "Entrust" && entry.task.user == @user
-        @entries.push(entry)
-      end
+      @entries.push(entry) if entry.payer?(self)
     end
     render 'contracts'
   end
@@ -53,28 +48,23 @@ class UsersController < ApplicationController
     @entries = []
     entries_all = Entry.all.order('updated_at DESC')
     entries_all.each do |entry|
-      if entry.type == "Entrust" && entry.user == @user
-        @entries.push(entry)
-      end
-      if entry.type == "Contract" && entry.task.user == @user
-        @entries.push(entry)
-      end
+      @entries.push(entry) if entry.performer?(self)
     end
-    #@entries = @user.entrusts
+    # @entries = @user.entrusts
     render 'entrusts'
   end
 
   def following
-    @title = "follows"
-    @no_user = "No followed user"
+    @title = 'follows'
+    @no_user = 'No followed user'
     @user = User.find(params[:id])
     @users = @user.followed_users.paginate(page: params[:page])
     render 'show_follow'
   end
 
   def followers
-    @title = "is followed by"
-    @no_user = "No follower"
+    @title = 'is followed by'
+    @no_user = 'No follower'
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
@@ -86,9 +76,9 @@ class UsersController < ApplicationController
     @entrusts = []
     entries = @user.entries
     entries.each do |entry|
-      if entry.task.type == "Offering"
+      if entry.task.type == 'Offering'
         @contracts.push(entry)
-      elsif entry.task.type == "Want"
+      elsif entry.task.type == 'Want'
         @entrusts.push(entry)
       end
     end

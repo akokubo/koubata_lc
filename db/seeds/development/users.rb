@@ -20,11 +20,11 @@ account_dummy = Account.create(
 account_dummy.destroy
 
 user_dummy = User.create(
-    name: 'hau hau',
-    email: "hauhau@aomori-u.ac.jp",
-    password: 'password',
-    password_confirmation: 'password',
-    confirmed_at: Time.now
+  name: 'hau hau',
+  email: 'hauhau@aomori-u.ac.jp',
+  password: 'password',
+  password_confirmation: 'password',
+  confirmed_at: Time.now
 )
 
 user_dummy.destroy

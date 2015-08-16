@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Category do
   # 事前に@categoryを作成する
-  before { @category = Category.new(name: '宿泊・賃貸住宅') }
+  before { @category = FactoryGirl.build(:category) }
 
   # @categoryをテストの対象とする
   subject { @category }

@@ -1,6 +1,6 @@
 class Account < ActiveRecord::Base
   belongs_to :user
-#  has_many :payments
+  # has_many :payments
 
   has_many :withdraws, class_name: 'Payment', foreign_key: 'sender_id',    dependent: :destroy
   has_many :deposits,  class_name: 'Payment', foreign_key: 'recepient_id', dependent: :destroy
@@ -13,13 +13,12 @@ class Account < ActiveRecord::Base
                       numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   class << self
-
     # 取引の実行
     def transfer(args = {})
       # sender, recepient, amountの存在チェック
-      raise ArgumentError, "invalid argument sender"    unless args.has_key?(:sender)    && args[:sender].present?
-      raise ArgumentError, "invalid argument recepient" unless args.has_key?(:recepient) && args[:recepient].present?
-      raise ArgumentError, "invalid argument amount"    unless args.has_key?(:amount)    && args[:amount].present?
+      fail 'invalid argument sender'    unless args.key?(:sender) && args[:sender].present?
+      fail 'invalid argument recepient' unless args.key?(:recepient) && args[:recepient].present?
+      fail 'invalid argument amount'    unless args.key?(:amount) && args[:amount].present?
 
       # 変数の用意
       sender    = args[:sender]
@@ -30,7 +29,7 @@ class Account < ActiveRecord::Base
       sender_account    = sender.account
       recepient_account = recepient.account
 
-      self.transaction do
+      transaction do
         # ロックを実行　
         sender_account.lock!
         recepient_account.lock!
@@ -40,7 +39,7 @@ class Account < ActiveRecord::Base
         recepient_balance_before = recepient_account.balance
 
         # 残高の変更
-        sender_account.balance    -= amount
+        sender_account.balance -= amount
         recepient_account.balance += amount
 
         # 残高を記録
@@ -64,13 +63,21 @@ class Account < ActiveRecord::Base
           recepient_balance_after:  recepient_balance_after
         )
 
-        # 通知の作成
-        Notification.create!(
-          user: recepient,
-          body: "#{sender.name}さんが、#{amount}幸を振り込みました。",
-          url:  "/payments/#{payment.id}"
-        )
+        send_notification(recepient: recepient, sender: sender, amount: amount, payment: payment)
+
+        payment
       end
+    end
+
+    private
+
+    def send_notification(args = {})
+      # 通知の作成
+      Notification.create!(
+        user: args[:recepient],
+        body: "#{args[:sender].name}さんが、#{args[:amount]}幸を振り込みました。",
+        url:  "/payments/#{args[:payment].id}"
+      )
     end
   end
 end

@@ -8,25 +8,21 @@ class NegotiationsController < ApplicationController
     @negotiation.sender = current_user
     @negotiation.recepient = @negotiation.entry.partner_of(current_user)
 
-    if @negotiation.entry.type == "Contract"
-      respond_to do |format|
-        if @negotiation.save
-          format.html { redirect_to contract_path(@negotiation.entry) }
-          format.json { render :show, status: :created, location: @negotiation }
-        else
-          format.html { render :new }
-          format.json { render json: @negotiation.errors, status: :unprocessable_entity }
-        end
-      end
-    elsif  @negotiation.entry.type == "Entrust"
-      respond_to do |format|
-        if @negotiation.save
-          format.html { redirect_to entrust_path(@negotiation.entry) }
-          format.json { render :show, status: :created, location: @negotiation }
-        else
-          format.html { render :new }
-          format.json { render json: @negotiation.errors, status: :unprocessable_entity }
-        end
+    if @negotiation.entry.type == 'Contract'
+      path = contract_path(@negotiation.entry)
+    elsif  @negotiation.entry.type == 'Entrust'
+      path entrust_path(@negotiation.entry)
+    else
+      fail 'Entry type is invalid'
+    end
+
+    respond_to do |format|
+      if @negotiation.save
+        format.html { redirect_to path }
+        format.json { render :show, status: :created, location: @negotiation }
+      else
+        format.html { render :new }
+        format.json { render json: @negotiation.errors, status: :unprocessable_entity }
       end
     end
   end

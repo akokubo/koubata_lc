@@ -63,11 +63,9 @@ module WillPaginate
 
       def previous_or_next_page(page, text, classname)
         div_attr = {}
-        link_attr = {:'data-role' => 'button'}
+        link_attr = { 'data-role' => 'button' }
 
-        unless page
-          link_attr[:class] = 'ui-disabled'
-        end
+        link_attr[:class] = 'ui-disabled' unless page
 
         case classname
         when 'previous_page'
