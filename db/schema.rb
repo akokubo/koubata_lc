@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813050242) do
+ActiveRecord::Schema.define(version: 20150813065851) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -45,8 +45,10 @@ ActiveRecord::Schema.define(version: 20150813050242) do
     t.text     "note"
     t.datetime "user_committed_at"
     t.integer  "price",              default: 0
+    t.integer  "payment_id"
   end
 
+  add_index "entries", ["payment_id"], name: "index_entries_on_payment_id"
   add_index "entries", ["task_id"], name: "index_entries_on_task_id"
   add_index "entries", ["user_id"], name: "index_entries_on_user_id"
 
