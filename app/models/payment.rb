@@ -2,6 +2,7 @@ class Payment < ActiveRecord::Base
   before_validation :set_subject
   belongs_to :sender,     class_name: 'User'
   belongs_to :recepient,  class_name: 'User'
+  has_one :entry
 
   # 必須属性の検証
   validates :sender_id,    presence: true
@@ -24,8 +25,6 @@ class Payment < ActiveRecord::Base
       recepient
     elsif recepient == user
       sender
-    else
-      nil
     end
   end
 
@@ -34,8 +33,6 @@ class Payment < ActiveRecord::Base
       'withdraw'
     elsif recepient == user
       'deposit'
-    else
-      nil
     end
   end
 
@@ -44,8 +41,6 @@ class Payment < ActiveRecord::Base
       sender_balance_before
     elsif recepient == user
       recepient_balance_before
-    else
-      nil
     end
   end
 
@@ -54,8 +49,6 @@ class Payment < ActiveRecord::Base
       sender_balance_after
     elsif recepient == user
       recepient_balance_after
-    else
-      nil
     end
   end
 
@@ -64,8 +57,6 @@ class Payment < ActiveRecord::Base
       -amount
     elsif recepient == user
       amount
-    else
-      nil
     end
   end
 
