@@ -37,10 +37,14 @@ describe User do
   # account属性を持つ
   it { should respond_to(:account) }
 
+  it { should respond_to(:pay_to!) }
+
   # entry属性を持つ
-  it { should respond_to(:entries) }
-  it { should respond_to(:entried?) }
   it { should respond_to(:entry!) }
+  it { should respond_to(:commit!) }
+  it { should respond_to(:cancel!) }
+  it { should respond_to(:perform!) }
+  it { should respond_to(:pay_for!) }
 
   # relationship関連の属性を持つ
   it { should respond_to(:relationships) }
