@@ -1,6 +1,5 @@
 class Entry < ActiveRecord::Base
   before_validation :set_entry_type
-  #before_update :check_contract
 
   belongs_to :task
   belongs_to :offering
@@ -10,84 +9,147 @@ class Entry < ActiveRecord::Base
 
   has_many :negotiations
 
+  belongs_to :payment
+
   # 必須属性の検証
   validates :task_id, presence: true
   validates :user_id, presence: true
+  validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :expected_at, presence: true
 
-  # 契約済
-  def contracted?
-    owner_contracted? && user_contracted?
+  def owner
+    task.user
   end
 
-  def owner_contracted?
-    !owner_contracted_at.blank?
+  def owner?(user)
+    task.user == user
   end
 
-  def user_contracted?
-    !user_contracted_at.blank?
+  def user?(user)
+    self.user == user
   end
 
-  # 履行済
-  def performed?
-    !performed_at.blank?
+  def performer?(user)
+    (type == 'Contract' && owner == user) || (type == 'Entrust' && self.user == user)
   end
 
-  # 支払済
-  def paid?
-    !paid_at.blank?
+  def payer?(user)
+    (type == 'Contract' && self.user == user) || (type == 'Entrust' && owner == user)
   end
 
-  def canceled?
-    owner_canceled? || user_canceled?
+  def payee
+    if type == 'Contract'
+      owner
+    elsif type == 'Entrust'
+      user
+    end
   end
 
-  # キャンセル済
-  def owner_canceled?
-    !owner_canceled_at.blank?
+  def partner_of(subject_user)
+    if user == subject_user
+      task.user
+    elsif owner == subject_user
+      user
+    end
   end
 
-  def user_canceled?
-    !user_canceled_at.blank?
+  def commitable?
+    !canceled? && !committed?
+  end
+
+  def performable?
+    status == 'to be performed'
+  end
+
+  def payable?
+    status == 'to be paid'
+  end
+
+  def cancelable?
+    !canceled? && !performed?
   end
 
   def status
     if paid?
-      "paid"
+      'closed'
     elsif performed?
-      "performed"
-=begin
+      'to be paid'
     elsif owner_canceled?
-      "owner canceld"
+      'owner canceled'
     elsif user_canceled?
-      "user canceled"
-    elsif contracted?
-      "contracted"
-    elsif owner_contracted?
-      "owner contracted"
-    elsif user_contracted?
-      "user_contracted"
+      'user canceled'
+    elsif committed?
+      'to be performed'
+    elsif owner_committed?
+      'owner committed'
+    elsif user_committed?
+      'user committed'
     else
-      "to be contracted"
-=end
-    else
-      "contracted"
+      'to be committed'
+    end
+  end
+
+  def conditions_change?(args = {})
+    expected_at != args[:expected_at] || price != args[:price]
+  end
+
+  def url
+    if type == 'Contract'
+      Rails.application.routes.url_helpers.contract_path(self)
+    elsif type == 'Entrust'
+      Rails.application.routes.url_helpers.entrust_path(self)
     end
   end
 
   private
 
-    def set_entry_type
-      self.type = self.task.type == "Offering" ? "Contract" : "Entrust"
-    end
+  # 契約済
+  def committed?
+    owner_committed? && user_committed?
+  end
 
-    def check_contract
-      old_entry = Entry.find(id)
-      if self.expected_at != old_entry.expected_at
-        if !self.user_contracted_at.blank?
-          self.user_contracted_at = nil
-        else
-          self.owner_contracted_at = nil
-        end
+  # オーナーが契約した
+  def owner_committed?
+    owner_committed_at.present?
+  end
+
+  # ユーザーが契約した
+  def user_committed?
+    user_committed_at.present?
+  end
+
+  # 履行済
+  def performed?
+    performed_at.present?
+  end
+
+  # 支払済
+  def paid?
+    paid_at.present?
+  end
+
+  # キャンセル済
+  def canceled?
+    owner_canceled? || user_canceled?
+  end
+
+  # オーナーがキャンセル済
+  def owner_canceled?
+    owner_canceled_at.present?
+  end
+
+  # ユーザーがキャンセル済
+  def user_canceled?
+    user_canceled_at.present?
+  end
+
+  def set_entry_type
+    if task.present?
+      if task.type == 'Offering'
+        self.type = 'Contract'
+      elsif task.type == 'Want'
+        self.type = 'Entrust'
       end
     end
+  end
 end

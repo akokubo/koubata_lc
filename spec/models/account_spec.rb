@@ -5,7 +5,7 @@ describe Account do
   let(:user) { FactoryGirl.create(:user) }
 
   # @accountの作成
-  before { @account = user.build_account(balance: 1000) }
+  before { @account = FactoryGirl.build(:account, user: user) }
 
   # accountを対象としたテストを実施
   subject { @account }
@@ -61,19 +61,19 @@ describe Account do
 
     # 適正な支払いの場合
     it 'has valid amount should change accounts balance' do
-      expect {
+      expect do
         Account.transfer(sender: sender, recepient: recepient, amount: 100, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
-      }.to change { sender.account.balance }.by(-100)
-      expect {
+      end.to change { sender.account.balance }.by(-100)
+      expect do
         Account.transfer(sender: sender, recepient: recepient, amount: 100, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
-      }.to change { recepient.account.balance }.by(100)
+      end.to change { recepient.account.balance }.by(100)
     end
 
     # 残高がマイナスになる支払いの場合
     it 'has invalid amount should raise ActiveRecord::RecordInvalid' do
-      expect {
+      expect do
         Account.transfer(sender: sender, recepient: recepient, amount: 2000, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      end.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 end

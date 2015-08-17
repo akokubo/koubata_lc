@@ -41,3 +41,5 @@ AllCops:
     - 'bin/**/*'
     - 'db/migrate/**/*'
     - config/unicorn.rb
+    - config/puma.rb
+    - config/initializers/rails_admin.rb

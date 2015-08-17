@@ -100,7 +100,6 @@ class WantsController < ApplicationController
     params.require(:want).permit(:title, :category_id, :description, :price, :expired_at, :no_expiration, :hired_id, :submit_hire)
   end
 
-
   def update_hire(want, want_params)
     if want_params[:hired_id]
       hired_id = want_params[:hired_id].to_i

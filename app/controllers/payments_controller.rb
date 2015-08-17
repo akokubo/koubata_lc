@@ -13,7 +13,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.new
     @recepients = User.where.not(id: current_user.id).active
 
-    if (params[:contract])
+    if params[:contract]
       contract = Contract.find(params[:contract])
       contract.paid_at = Time.now
       contract.save
@@ -21,7 +21,7 @@ class PaymentsController < ApplicationController
       @recepients = User.where(id: contract.task.user_id)
     end
 
-    if (params[:entrust])
+    if params[:entrust]
       entrust = Entrust.find(params[:entrust])
       entrust.paid_at = Time.now
       entrust.save

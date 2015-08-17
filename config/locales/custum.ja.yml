@@ -73,6 +73,8 @@ ja:
   "If you don't have an account you can sign up!": ユーザー登録してはじめましょう！
   "No transfer record": 取引履歴はありません。
   "No messsage": メッセージはありません。
+  "No talk": メッセージはありません。
+  "No notification": お知らせはありません。
   "Listing ": "%{model}・リスト"
   "New ": "新しく%{model}を作成"
   "Editing ": "%{model}を編集"

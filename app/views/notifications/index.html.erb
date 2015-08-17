@@ -1,0 +1,25 @@
+<% provide :locale, I18n.locale.inspect %>
+<% provide :title,  t("Listing ", model: Notification.model_name.human.pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
+<% if @notifications.present? %>
+  <%= will_paginate @notifications,
+      renderer: WillPaginate::ActionView::JqueryMobilePaginateLinkRenderer,
+      previous_label: t('Prev'),
+      next_label: t('Next')
+  %>
+
+  <ul data-role="listview" data-inset="true">
+    <% @notifications.each do |notification| %>
+      <li><%= link_to notification.body, notification, data: { read: notification.read? } %></li>
+    <% end %>
+  </ul>
+
+  <%= will_paginate @talks,
+      renderer: WillPaginate::ActionView::JqueryMobilePaginateLinkRenderer,
+      previous_label: t('Prev'),
+      next_label: t('Next')
+  %>
+<% else %>
+  <p><%= t("There is no ", model: Notification.model_name.human) %></p>
+<% end %>

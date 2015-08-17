@@ -37,10 +37,14 @@ describe User do
   # account属性を持つ
   it { should respond_to(:account) }
 
+  it { should respond_to(:pay_to!) }
+
   # entry属性を持つ
-  it { should respond_to(:entries) }
-  it { should respond_to(:entried?) }
   it { should respond_to(:entry!) }
+  it { should respond_to(:commit!) }
+  it { should respond_to(:cancel!) }
+  it { should respond_to(:perform!) }
+  it { should respond_to(:pay_for!) }
 
   # relationship関連の属性を持つ
   it { should respond_to(:relationships) }
@@ -50,6 +54,8 @@ describe User do
   it { should respond_to(:following?) }
   it { should respond_to(:follow!) }
   it { should respond_to(:unfollow!) }
+
+  it { should respond_to(:notifications) }
 
   # 検証に通る
   it { should be_valid }
