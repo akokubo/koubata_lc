@@ -37,6 +37,11 @@ describe Entrust do
   # 適正なデータが検証に通るか
   it { should be_valid }
 
+  it 'url match to entrust_path' do
+    @entrust.save
+    expect(@entrust.url).to eq "/entrusts/#{@entrust.id}"
+  end
+
   describe "with user's method" do
     context 'perform' do
       it 'change status to be paid by user perform' do

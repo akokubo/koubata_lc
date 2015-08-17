@@ -93,6 +93,14 @@ class Entry < ActiveRecord::Base
     expected_at != args[:expected_at] || price != args[:price]
   end
 
+  def url
+    if type == 'Contract'
+      Rails.application.routes.url_helpers.contract_path(self)
+    elsif type == 'Entrust'
+      Rails.application.routes.url_helpers.entrust_path(self)
+    end
+  end
+
   private
 
   # 契約済

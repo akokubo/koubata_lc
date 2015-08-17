@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
       subject: args[:subject],
       comment: args[:commnet]
     )
+    # notificationはAccountで実行
   end
 
   #
@@ -75,10 +76,12 @@ class User < ActiveRecord::Base
 
   def follow!(other_user)
     relationships.create!(followed_id: other_user.id)
+    # TODO: notificationはRelationshipで実行
   end
 
   def unfollow!(other_user)
     relationships.find_by(followed_id: other_user.id).destroy
+    # TODO: notificationはRelationshipで実行
   end
 
   #
@@ -86,7 +89,8 @@ class User < ActiveRecord::Base
   #
   def entry!(task, args = {})
     entry = entries.create!(task: task, expected_at: args[:expected_at], price: args[:price])
-    entry = commit!(entry)
+    entry = commit!(entry, had_nofied: true)
+    notify_entry!(entry)
     entry
   end
 
@@ -107,6 +111,8 @@ class User < ActiveRecord::Base
     else
       fail "Couldn't find Entry with 'id'=#{target_entry.id} and 'user_id'=#{id} or 'task.user_id'=#{id}"
     end
+
+    notify_commit!(entry) unless args.key?(:had_nofied) && args[:had_nofied].present?
     entry
   end
 
@@ -123,7 +129,9 @@ class User < ActiveRecord::Base
     else
       fail "Couldn't find Entry with 'id'=#{target_entry.id} and 'user_id'=#{id} or 'task.user_id'=#{id}"
     end
-    entry.reload
+
+    notify_cancel!(entry.reload)
+    entry
   end
 
   def perform!(entry)
@@ -136,7 +144,8 @@ class User < ActiveRecord::Base
     end
 
     entry.update!(performed_at: Time.now)
-    entry.reload
+    notify_perform!(entry.reload)
+    entry
   end
 
   def pay_for!(entry, args = {})
@@ -156,7 +165,8 @@ class User < ActiveRecord::Base
     payment = pay_to!(recepient, amount: amount, subject: subject, comment: comment)
     entry.update!(paid_at: Time.now, payment: payment)
 
-    entry.reload
+    notify_pay_for!(entry.reload)
+    entry
   end
 
   private
@@ -187,5 +197,62 @@ class User < ActiveRecord::Base
       )
     end
     entry
+  end
+
+  def notify_entry!(entry)
+    if entry.type == 'Contract'
+      body = "#{name}さんが「#{entry.task.title}」を引き受けました。条件を調整してください。"
+    elsif entry.type == 'Entrust'
+      body = "#{name}さんが「#{entry.task.title}」を依頼しました。条件を調整してください。"
+    end
+
+    Notification.create!(
+      user: entry.owner,
+      body: body,
+      url:  entry.url
+    )
+  end
+
+  def notify_commit!(entry)
+    recepient = entry.partner_of(self)
+
+    if entry.commitable?
+      body = "#{name}さんが「#{entry.task.title}」の条件を変更しました。条件を調整してください。"
+    else
+      body = "#{name}さんと「#{entry.task.title}」の契約が成立しました。"
+    end
+
+    notification = recepient.notifications.find_by(url: entry.url)
+    if notification.present?
+      notification.update!(user: recepient, body: body, url:  entry.url)
+    else
+      Notification.create!(user: recepient, body: body, url:  entry.url)
+    end
+  end
+
+  def notify_cancel!(entry)
+    recepient = entry.partner_of(self)
+    body = "#{name}さんが「#{entry.task.title}」をキャンセルしました。"
+
+    notification = recepient.notifications.find_by(url: entry.url)
+    if notification.present?
+      notification.update!(user: recepient, body: body, url:  entry.url)
+    else
+      Notification.create!(user: recepient, body: body, url:  entry.url)
+    end
+  end
+
+  def notify_perform!(entry)
+    recepient = entry.partner_of(self)
+    body = "#{name}が「#{entry.task.title}」を実施しました。"
+    notification = recepient.notifications.find_by(url: entry.url)
+    notification.update!(user: recepient, body: body, url:  entry.url)
+  end
+
+  def notify_pay_for!(entry)
+    recepient = entry.partner_of(self)
+    body = "#{name}が「#{entry.task.title}」に支払いました。"
+    notification = recepient.notifications.find_by(url: entry.url)
+    notification.update!(user: recepient, body: body, url:  entry.url)
   end
 end

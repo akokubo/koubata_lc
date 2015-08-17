@@ -37,6 +37,11 @@ describe Contract do
   # 適正なデータが検証に通るか
   it { should be_valid }
 
+  it 'url match to contract_path' do
+    @contract.save
+    expect(@contract.url).to eq "/contracts/#{@contract.id}"
+  end
+
   describe "with user's method" do
     context 'perform' do
       it 'change status to be paid by owner perform' do

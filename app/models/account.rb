@@ -76,7 +76,7 @@ class Account < ActiveRecord::Base
       Notification.create!(
         user: args[:recepient],
         body: "#{args[:sender].name}さんが、#{args[:amount]}幸を振り込みました。",
-        url:  "/payments/#{args[:payment].id}"
+        url: Rails.application.routes.url_helpers.payment_path(args[:payment])
       )
     end
   end

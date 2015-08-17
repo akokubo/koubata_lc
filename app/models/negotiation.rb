@@ -4,18 +4,12 @@ class Negotiation < Message
   private
 
   def notify
-    if entry.instance_of?(Contract)
-      url = "/contracts/#{entry.id}"
-    else
-      url = "/entrusts/#{entry.id}"
-    end
-
-    notification = Notification.find_by(user: recepient, url: url)
+    notification = Notification.find_by(user: recepient, url: entry.url)
     if notification.nil?
       Notification.create!(
         user: recepient,
         body: "#{sender.name}さんからの連絡があります。",
-        url:  url
+        url:  entry.url
       )
     else
       notification.update!(

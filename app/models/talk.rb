@@ -4,7 +4,8 @@ class Talk < Message
   private
 
   def notify
-    url = "/users/#{sender.id}/talks"
+    url = Rails.application.routes.url_helpers.talks_user_path(sender)
+
     notification = Notification.find_by(user: recepient, url: url)
     if notification.nil?
       Notification.create!(

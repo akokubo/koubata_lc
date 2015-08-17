@@ -41,6 +41,7 @@ describe Entry do
   it { should respond_to(:partner_of) }
   it { expect(@entry.partner_of(owner)).to eq user }
   it { expect(@entry.partner_of(user)).to eq owner }
+  it { should respond_to(:url) }
 
   # 適正なデータが検証に通るか
   it { should be_valid }
