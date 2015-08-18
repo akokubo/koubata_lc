@@ -45,6 +45,19 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryGirl.reload
+
+    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+ end
+ 
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 
   # Capybaraを使用する設定
