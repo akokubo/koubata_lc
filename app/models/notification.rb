@@ -16,6 +16,7 @@ class Notification < ActiveRecord::Base
   end
 
   def read!
+    self.record_timestamps = false
     self.update!(read_at: Time.now)
   end
 
