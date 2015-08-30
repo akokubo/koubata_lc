@@ -96,6 +96,7 @@ ja:
         user_canceled_at: 請負者キャンセル日時
         status: 状態
         note: 備考
+        price: 価格
       entrust:
         task: 件名
         user: 請負者
@@ -109,6 +110,7 @@ ja:
         user_canceled_at: 依頼者キャンセル日時
         status: 状態
         note: 備考
+        price: 価格
       notification:
         user: ユーザー
         body: 本文

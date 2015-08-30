@@ -1,9 +1,21 @@
-<% if controller.controller_name == "home" && controller.action_name == "index" %>
-  <% if user_signed_in? %>
-    <br>
-    <%= link_to t("Sign out"), destroy_user_session_path, method: :delete, data: { ajax: false }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
-  <% end %>
+<% if user_signed_in? %>
+  <div data-role="footer" data-position="fixed" data-theme="b">
+    <div data-role="navbar" data-grid="b">
+      <ul>
+        <li>
+          <%= link_to talks_path, data: { icon: 'phone' } do %>
+            <%= Talk.model_name.human %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to notifications_path, data: { icon: 'info' } do %>
+            <%= Notification.model_name.human %>
+            <span class="count-icon"><%= @notifications_count %></span>
+          <% end %>
+        </li>
+        <li><a href="#" data-icon="calendar">スケジュール<span class="count-icon">200</span></a></li>
+      </ul>
+    </div>
+  </div>
 <% else %>
-  <br>
-  <%= link_to t("Home"), root_path, class: "ui-btn ui-icon-home ui-btn-icon-left" %>
 <% end %>

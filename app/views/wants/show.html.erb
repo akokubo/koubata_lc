@@ -14,20 +14,7 @@
   <%= link_to t('Back to my wants'), wants_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
 <% end %>
 
-<br>
-
-<% if !current_user?(@task.user) %>
-  <% if @task.instance_of?(Want) %>
-    <%= form_for(@task.entrusts.build) do |f| %>
-      <%= f.hidden_field :task_id %>
-      <%= f.submit t('Contract') %>
-    <% end %>
-  <% else %>
-    <%= form_for(@task.entrusts.build) do |f| %>
-      <%= f.submit t('Entrust') %>
-    <% end %>
-  <% end %>
-<% end %>
+<%= render 'entrusts/commit' if !current_user?(@task.user) %>
 
 <% if !current_user?(@task.user) %>
   <%= link_to t('Back'), wants_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>

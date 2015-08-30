@@ -1,11 +1,13 @@
 class Account < ActiveRecord::Base
   belongs_to :user
-  # has_many :payments
+  # has_many :payments, dependent: :destroy
 
-  has_many :withdraws, class_name: 'Payment', foreign_key: 'sender_id',    dependent: :destroy
-  has_many :deposits,  class_name: 'Payment', foreign_key: 'recepient_id', dependent: :destroy
-  has_many :sender,    through: :deposits,  source: :user
-  has_many :recepient, through: :withdraws, source: :recepient
+  has_many :withdraws,  class_name: 'Payment', foreign_key: 'sender_id',    dependent: :destroy
+  has_many :deposits,   class_name: 'Payment', foreign_key: 'recepient_id', dependent: :destroy
+=begin
+  has_many :senders,    through: :deposits,  source: :user
+  has_many :recepients, through: :withdraws, source: :recepient
+=end
 
   # 必須属性の検証
   validates :user_id, presence: true

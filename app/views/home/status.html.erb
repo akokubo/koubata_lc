@@ -3,29 +3,61 @@
 <h1><%= t(yield(:title)) %></h1>
 
 <div class="ui-body ui-body-a ui-corner-all">
-  <h2><%= @user.name %></h2>
-  <p><%= gravatar_for @user, size: 50 %></p>
-  <%= render 'users/balance' %>
-  <%= render 'users/description' %>
+  <div class="ui-grid-a">
+    <div class="ui-block-a">
+      <h2><%= @user.name %></h2>
+      <p><%= gravatar_for @user, size: 50 %></p>
+    </div>
+    <div class="ui-block-b">
+      <div class="ui-body ui-body-a ui-corner-all">
+        <%= render 'users/balance' %>
+        <%= render 'users/description' %>
+      </div>
+    </div>
+  </div>
+  <ul data-role="listview" data-inset="true">
+    <li><%= link_to t("Settings"), edit_user_registration_path %></li>
+  </ul>
+  <ul data-role="listview" data-inset="true">
+    <li><%= link_to Account.model_name.human, account_path %></li>
+  </ul>
   <%= render 'layouts/stats' %>
-
-<ul data-role="listview" data-inset="true">
-  </li>
-  <li>
-    <%= link_to notifications_path do %>
-      <%= Notification.model_name.human %>
-      <span class="ui-li-count"><%= @notifications_count %></span>
-    <% end %>
-  </li>
-  <li><%= link_to Talk.model_name.human, talks_path %></li>
-  <li><%= link_to Account.model_name.human, accounts_path %></li>
-  <li><%= link_to Offering.model_name.human, offerings_user_path(current_user) %></li>
-  <li><%= link_to Want.model_name.human, wants_user_path(current_user) %></li>
-  <li><%= link_to Contract.model_name.human, contracts_user_path(current_user) %></li>
-  <li><%= link_to Entrust.model_name.human, entrusts_user_path(current_user) %></li>
-  <li><%= link_to t("Settings"), edit_user_registration_path %></li>
-</ul>
 </div>
+<br>
+<div class="ui-body ui-body-a ui-corner-all">
+  <ul data-role="listview" data-inset="true">
+    </li>
+    <li>
+      <%= link_to notifications_path do %>
+        <%= Notification.model_name.human %>
+        <span class="ui-li-count"><%= @notifications_count %></span>
+      <% end %>
+    </li>
+  </ul>
+  <ul data-role="listview" data-inset="true">
+    <li><%= link_to Talk.model_name.human, talks_path %></li>
+  </ul>
+  </ul>
+</div>
+<br>
+<div class="ui-body ui-body-a ui-corner-all">
+  <h2>進行中のもの</h2>
+  <ul data-role="listview" data-inset="true">
+    <li><%= link_to Contract.model_name.human, contracts_user_path(current_user) %></li>
+    <li><%= link_to Entrust.model_name.human, entrusts_user_path(current_user) %></li>
+  </ul>
+  <ul data-role="listview" data-inset="true">
+  </ul>
+</div>
+<br>
+<div class="ui-body ui-body-a ui-corner-all">
+  <h2>公開しているもの</h2>
+  <ul data-role="listview" data-inset="true">
+    <li><%= link_to Offering.model_name.human, offerings_user_path(current_user) %></li>
+    <li><%= link_to Want.model_name.human, wants_user_path(current_user) %></li>
+  </ul>
+</div>
+
 <!--
 <ul data-role="listview" data-inset="true">
   <li><a href="#">ウォッチリスト</a></li>

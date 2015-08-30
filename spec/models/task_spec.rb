@@ -7,7 +7,8 @@ describe Task do
 
   # @taskの作成
   before do
-    @task = user.tasks.build(
+    @task = Task.new(
+      user: user,
       title: 'Lorem ipsum',
       category_id: category.id,
       description: 'Lorem ipsum' * 5,

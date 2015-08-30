@@ -30,24 +30,24 @@ class ContractsController < ApplicationController
   # POST /entries.json
   def create
     @entry = Contract.new(entry_params)
-    @entry.user = current_user
 
     respond_to do |format|
-      if @entry.save && notify_create
+      if @entry = current_user.entry!(@entry)
         format.html { redirect_to @entry, notice: t('activerecord.successful.messages.created', model: Contract.model_name.human) }
-        format.json { render :show, status: :created, location: @cantract }
+        format.json { render :show, status: :created, location: @entry }
       else
         format.html { render :new }
-        format.json { render json: @cantract.errors, status: :unprocessable_entity }
+        format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def update
-    @entry.performed_at = Time.now if params[:contract][:performed_at].present?
+    # @entry.performed_at = Time.now if params[:contract][:performed_at].present?
+    @entry = current_user.commit!(@entry, entry_params) if params[:commit].present?
 
     respond_to do |format|
-      if @entry.save && notify_update
+      if @entry
         format.html { redirect_to @entry, notice: t('activerecord.successful.messages.updated', model: Contract.model_name.human) }
         format.json { render :show, status: :ok, location: @entry }
       else
@@ -83,56 +83,8 @@ class ContractsController < ApplicationController
   def entry_params
     params.require(:contract).permit(
       :task_id,
-      :user_id,
-      :owner_contracted_at,
-      :user_contracted_at,
-      :paid_at,
       :expected_at,
-      :performed_at,
-      :owner_canceled_at,
-      :user_canceled_at,
-      :note
+      :price
     )
-  end
-
-  def notify_create
-    Notification.create!(
-      user: @entry.owner,
-      body: "#{@entry.user.name}さんからの依頼があります。",
-      url:  "/contracts/#{@entry.id}"
-    )
-  end
-
-  def notify_update
-    url = "/contracts/#{@entry.id}"
-    if current_user == @entry.owner
-      notification = Notification.find_by(user: @entry.user, url: url)
-      if notification.nil?
-        Notification.create!(
-          user: @entry.user,
-          body: "#{@entry.owner.name}さんからの連絡があります。",
-          url:  url
-        )
-      else
-        notification.update!(
-          body: "#{@entry.owner.name}さんからの連絡があります。",
-          read_at: nil
-        )
-      end
-    elsif current_user == user
-      notification = Notification.find_by(user: @entry.owner, url: url)
-      if notification.nil?
-        Notification.create!(
-          user: @entry.owner,
-          body: "#{@entry.user.name}さんからの連絡があります。",
-          url:  url
-        )
-      else
-        notification.update!(
-          body: "#{@entry.user.name}さんからの連絡があります。",
-          read_at: nil
-        )
-      end
-    end
   end
 end

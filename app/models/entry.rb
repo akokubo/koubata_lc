@@ -2,8 +2,8 @@ class Entry < ActiveRecord::Base
   before_validation :set_entry_type
 
   belongs_to :task
-  belongs_to :offering
-  belongs_to :want
+  # belongs_to :offering
+  # belongs_to :want
 
   belongs_to :user
 
@@ -53,20 +53,20 @@ class Entry < ActiveRecord::Base
     end
   end
 
-  def commitable?
-    !canceled? && !committed?
+  def commitable?(user)
+    !canceled? && !committed? && (owner?(user) || user?(user))
   end
 
-  def performable?
-    status == 'to be performed'
+  def performable?(user)
+    status == 'to be performed' && performer?(user)
   end
 
-  def payable?
-    status == 'to be paid'
+  def payable?(user)
+    status == 'to be paid' && payer?(user)
   end
 
-  def cancelable?
-    !canceled? && !performed?
+  def cancelable?(user)
+    !canceled? && !performed? && (owner?(user) || user?(user))
   end
 
   def status
@@ -90,7 +90,7 @@ class Entry < ActiveRecord::Base
   end
 
   def conditions_change?(args = {})
-    expected_at != args[:expected_at] || price != args[:price]
+    expected_at != args[:expected_at] || price != args[:price].to_i
   end
 
   def url

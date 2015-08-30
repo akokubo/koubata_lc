@@ -45,7 +45,7 @@ describe Entrust do
   describe "with user's method" do
     context 'perform' do
       it 'change status to be paid by user perform' do
-        @entrust = user.entry!(want, expected_at: Time.now, price: 10)
+        @entrust = user.entry!(@entrust)
         @entrust = @entrust.owner.commit!(@entrust)
         expect do
           @entrust = @entrust.user.perform!(@entrust)
@@ -55,7 +55,7 @@ describe Entrust do
 
     context 'pay_for' do
       it 'change status to closed by owner paid' do
-        @entrust = user.entry!(want, expected_at: Time.now, price: 10)
+        @entrust = user.entry!(@entrust)
         @entrust = @entrust.owner.commit!(@entrust)
         @entrust = @entrust.user.perform!(@entrust)
         expect do
@@ -67,7 +67,7 @@ describe Entrust do
     context 'cancel' do
       context 'on performed' do
         before do
-          @entrust = user.entry!(want, expected_at: Time.now, price: 10)
+          @entrust = user.entry!(@entrust)
           @entrust = owner.commit!(@entrust)
           @entrust = user.perform!(@entrust)
         end
@@ -86,7 +86,7 @@ describe Entrust do
       end
       context 'on closed' do
         before do
-          @entrust = user.entry!(want, expected_at: Time.now, price: 10)
+          @entrust = user.entry!(@entrust)
           @entrust = owner.commit!(@entrust)
           @entrust = user.perform!(@entrust)
           @entrust = owner.pay_for!(@entrust)

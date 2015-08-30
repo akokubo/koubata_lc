@@ -45,7 +45,7 @@ describe Contract do
   describe "with user's method" do
     context 'perform' do
       it 'change status to be paid by owner perform' do
-        @contract = user.entry!(offering, expected_at: Time.now, price: 10)
+        @contract = user.entry!(@contract)
         @contract = owner.commit!(@contract)
         expect do
           @contract = owner.perform!(@contract)
@@ -55,7 +55,7 @@ describe Contract do
 
     context 'pay_for' do
       it 'change status to closed by user paid' do
-        @contract = user.entry!(offering, expected_at: Time.now, price: 10)
+        @contract = user.entry!(@contract)
         @contract = owner.commit!(@contract)
         @contract = owner.perform!(@contract)
         expect do
@@ -67,7 +67,7 @@ describe Contract do
     context 'cancel' do
       context 'on performed' do
         before do
-          @contract = user.entry!(offering, expected_at: Time.now, price: 10)
+          @contract = user.entry!(@contract)
           @contract = owner.commit!(@contract)
           @contract = owner.perform!(@contract)
         end
@@ -86,7 +86,7 @@ describe Contract do
       end
       context 'on closed' do
         before do
-          @contract = user.entry!(offering, expected_at: Time.now, price: 10)
+          @contract = user.entry!(@contract)
           @contract = owner.commit!(@contract)
           @contract = owner.perform!(@contract)
           @contract = user.pay_for!(@contract)

@@ -6,8 +6,8 @@ ja:
   "Registration": ユーザー登録
   "Sign up": ユーザー登録する
   "Forgot your password?": パスワード忘れはこちら
-  "Send me reset password instructions": パスワード再発行
-  "Resend confirmation instructions": パスワード再発行
+  "Send me reset password instructions": パスワード再設定
+  "Resend confirmation instructions": パスワード再
   "Update": 更新
   "Need help?": お困りですか？
   "Didn't receive confirmation instructions?": パスワード再発行のメールが届かない
@@ -109,14 +109,14 @@ ja:
   "Entrusts": 頼まれたこと
   "No contract": 「お願いしたこと」はありません。
   "No entrust": 「頼まれたこと」はありません。
-  "paid": 支払済
-  "performed": 支払待
-  "owner canceld": キャンセル
-  "user canceled": キャンセル
-  "contracted": 実施待
-  "owner_contracted": 契約待
-  "user_contracted": 契約待
-  "to be contracted": 契約待
+  "closed": 終了
+  "to be paid": 支払待
+  "owner canceld": オーナーキャンセル
+  "user canceled": ユーザーキャンセル
+  "to be performed": 実施待
+  "owner committed": オーナー条件提示
+  "user committed": ユーザー条件提示
+  "to be committed": 条件提示待
   "Prev": 前へ
   "Next": 次へ
   "talk with": "%{companion}とのメッセージ"
@@ -125,6 +125,9 @@ ja:
   "Must be written": 必ず記入し、互いに確認
   "Partner": 相手
   "Direction": 種別
+  "Perform": 実施
+  "Cancel": キャンセル
+  "Pay": 支払う
   will_paginate:
     previous_label: "←前へ"
     next_label: "次へ→"

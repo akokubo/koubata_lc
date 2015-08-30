@@ -10,6 +10,7 @@ class OfferingsController < ApplicationController
   def show
     @class_name = Offering
     @task = @offering
+    @entry = @offering.contracts.build
   end
 
   def new

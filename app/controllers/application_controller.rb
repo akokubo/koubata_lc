@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_device
+  before_action :set_notifications_count, if: :user_signed_in?
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -43,6 +44,13 @@ class ApplicationController < ActionController::Base
 
   def android_request?
     request.user_agent =~ /(Android)/
+  end
+
+  def set_notifications_count
+    @notifications_count = Notification.where(
+      'user_id = :current_user_id AND read_at IS NULL',
+      current_user_id: current_user.id
+    ).count
   end
 end
 

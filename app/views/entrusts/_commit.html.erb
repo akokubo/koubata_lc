@@ -1,0 +1,18 @@
+<div class="ui-body ui-body-a ui-corner-all">
+  <%= form_for(@task.entrusts.build) do |f| %>
+    <%= f.hidden_field :task_id %>
+    <div class="field ui-field-contain">
+      <%= f.label :expected_at %>
+      <% if @mobile %>
+        <%= f.datetime_local_field :expected_at %>
+      <% else %>
+        <%= f.datetime_select :expected_at, {}, data: { role: "none"} %>
+      <% end %>
+    </div>
+    <div class="field ui-field-contain">
+      <%= f.label :price %>
+      <%= f.number_field :price %>
+    </div>
+    <%= f.submit t('Contract') %>
+  <% end %>
+</div>

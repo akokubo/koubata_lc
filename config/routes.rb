@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   match '/watch_list',  to: 'home#watch_list',  via: 'get'
   match '/new_display', to: 'home#new_display', via: 'get'
   match '/detailed',    to: 'home#detailed',    via: 'get'
+  match '/search',      to: 'home#search',      via: 'get'
 
   devise_for :users, controllers: { registrations: 'user/registrations' }
+
   resources :users do
     member do
       get 'talks'
@@ -33,7 +35,7 @@ Rails.application.routes.draw do
   resources :messages
   resources :talks
   resources :negotiations
-  resources :accounts
+  resource :account
   resources :payments
   resources :entries, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]

@@ -54,7 +54,7 @@ class PaymentsController < ApplicationController
         subject: @payment.subject,
         comment: @payment.comment
       )
-      redirect_to accounts_url, notice: t('activerecord.successful.messages.created', model: Payment.model_name.human)
+      redirect_to account_url, notice: t('activerecord.successful.messages.created', model: Payment.model_name.human)
     rescue
       @recepients = User.where.not(id: current_user.id).active
       render action: 'new'

@@ -16,8 +16,9 @@
       <% if notice %><p class="alert alert-success"><%= notice %></p><% end %>
       <% if alert %><p class="alert alert-error"><%= alert %></p><% end %>
 <%= yield %>
-      <%= render 'layouts/footer' %>
+      <%= render 'layouts/nav_bottom' %>
     </div><!-- /main -->
+    <%= render 'layouts/footer' %>
   </div><!-- /page -->
 </body>
 </html>

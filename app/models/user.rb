@@ -3,9 +3,9 @@ class User < ActiveRecord::Base
   has_many :tasks,     dependent: :destroy
   has_many :offerings, dependent: :destroy
   has_many :wants,     dependent: :destroy
-  has_many :entries,   dependent: :destroy
-  has_many :contracts, dependent: :destroy
-  has_many :entrusts,  dependent: :destroy
+  has_many :entries#,   dependent: :destroy
+  has_many :contracts#, dependent: :destroy
+  has_many :entrusts#,  dependent: :destroy
 
   has_many :sended_messages,   class_name: 'Message', foreign_key: 'sender_id'
   has_many :received_messages, class_name: 'Message', foreign_key: 'recepient_id'
@@ -44,10 +44,10 @@ class User < ActiveRecord::Base
   def companions
     sql =  'SELECT DISTINCT * FROM ('
     sql += 'SELECT users.*, messages.created_at AS messages_created_at FROM users'
-    sql += "INNER JOIN messages ON users.id = messages.sender_id WHERE messages.type = 'Talk' AND messages.recepient_id = :id"
+    sql += " INNER JOIN messages ON users.id = messages.sender_id WHERE messages.type = 'Talk' AND messages.recepient_id = :id"
     sql += ' UNION '
     sql += 'SELECT users.*, messages.created_at AS messages_created_at FROM users'
-    sql += "INNER JOIN messages ON users.id = messages.recepient_id WHERE messages.type = 'Talk' AND messages.sender_id = :id"
+    sql += " INNER JOIN messages ON users.id = messages.recepient_id WHERE messages.type = 'Talk' AND messages.sender_id = :id"
     sql += ') AS companions ORDER BY messages_created_at DESC'
     companions = User.find_by_sql([sql, { id: id }])
     companions
@@ -87,8 +87,13 @@ class User < ActiveRecord::Base
   #
   # Entry関係メソッド
   #
-  def entry!(task, args = {})
-    entry = entries.create!(task: task, expected_at: args[:expected_at], price: args[:price])
+  def entry!(entry)
+    if entry.task.type == 'Offering'
+      entry = contracts.create!(task: entry.task, expected_at: entry.expected_at, price: entry.price)
+    elsif entry.task.type == 'Want'
+      entry = entrusts.create!(task: entry.task, expected_at: entry.expected_at, price: entry.price)
+    end
+    # entry = entries.create!(task: entry.task, expected_at: entry.expected_at, price: entry.price)
     entry = commit!(entry, had_nofied: true)
     notify_entry!(entry)
     entry
@@ -96,8 +101,8 @@ class User < ActiveRecord::Base
 
   def commit!(entry, args = {})
     # 状態のチェック
-    unless entry.commitable?
-      fail "Couldn't find Entry with 'id'=#{target_entry.id} and it's status be able to commit'}"
+    unless entry.commitable?(self)
+      fail "Couldn't find Entry with 'id'=#{entry.id} and it's status be able to commit'}"
     end
 
     # 引数の設定
@@ -118,7 +123,7 @@ class User < ActiveRecord::Base
 
   def cancel!(entry)
     # 状態のチェック
-    unless entry.cancelable?
+    unless entry.cancelable?(self)
       fail "Couldn't find Entry with 'id'=#{entry.id} and it's status be able to cancel'}"
     end
 
@@ -135,7 +140,7 @@ class User < ActiveRecord::Base
   end
 
   def perform!(entry)
-    unless entry.performable?
+    unless entry.performable?(self)
       fail "Couldn't find Entry with 'id'=#{entry.id} and it's status be able to perform'}"
     end
 
@@ -149,7 +154,7 @@ class User < ActiveRecord::Base
   end
 
   def pay_for!(entry, args = {})
-    unless entry.payable?
+    unless entry.payable?(self)
       fail "Couldn't find Entry with 'id'=#{entry.id} and it's status be able to pay'}"
     end
 
@@ -160,7 +165,7 @@ class User < ActiveRecord::Base
     recepient = entry.payee
     amount  = (args.key?(:amount) && args[:amount].present?) ? args[:amount] : entry.price
     subject = "#{entry.task.title}の支払"
-    comment  = args[:comment]
+    comment = args[:comment]
 
     payment = pay_to!(recepient, amount: amount, subject: subject, comment: comment)
     entry.update!(paid_at: Time.now, payment: payment)
@@ -209,14 +214,14 @@ class User < ActiveRecord::Base
     Notification.create!(
       user: entry.owner,
       body: body,
-      url:  entry.url
+      url: entry.url
     )
   end
 
   def notify_commit!(entry)
     recepient = entry.partner_of(self)
 
-    if entry.commitable?
+    if entry.commitable?(self)
       body = "#{name}さんが「#{entry.task.title}」の条件を変更しました。条件を調整してください。"
     else
       body = "#{name}さんと「#{entry.task.title}」の契約が成立しました。"
@@ -224,9 +229,9 @@ class User < ActiveRecord::Base
 
     notification = recepient.notifications.find_by(url: entry.url)
     if notification.present?
-      notification.update!(user: recepient, body: body, url:  entry.url)
+      notification.update!(user: recepient, body: body, url: entry.url)
     else
-      Notification.create!(user: recepient, body: body, url:  entry.url)
+      Notification.create!(user: recepient, body: body, url: entry.url)
     end
   end
 
@@ -236,9 +241,9 @@ class User < ActiveRecord::Base
 
     notification = recepient.notifications.find_by(url: entry.url)
     if notification.present?
-      notification.update!(user: recepient, body: body, url:  entry.url)
+      notification.update!(user: recepient, body: body, url: entry.url)
     else
-      Notification.create!(user: recepient, body: body, url:  entry.url)
+      Notification.create!(user: recepient, body: body, url: entry.url)
     end
   end
 
@@ -246,13 +251,13 @@ class User < ActiveRecord::Base
     recepient = entry.partner_of(self)
     body = "#{name}が「#{entry.task.title}」を実施しました。"
     notification = recepient.notifications.find_by(url: entry.url)
-    notification.update!(user: recepient, body: body, url:  entry.url)
+    notification.update!(user: recepient, body: body, url: entry.url)
   end
 
   def notify_pay_for!(entry)
     recepient = entry.partner_of(self)
     body = "#{name}が「#{entry.task.title}」に支払いました。"
     notification = recepient.notifications.find_by(url: entry.url)
-    notification.update!(user: recepient, body: body, url:  entry.url)
+    notification.update!(user: recepient, body: body, url: entry.url)
   end
 end

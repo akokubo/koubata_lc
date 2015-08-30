@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     @entries = []
     entries_all = Entry.all.order('updated_at DESC')
     entries_all.each do |entry|
-      @entries.push(entry) if entry.payer?(self)
+      @entries.push(entry) if entry.payer?(current_user)
     end
     render 'contracts'
   end
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     @entries = []
     entries_all = Entry.all.order('updated_at DESC')
     entries_all.each do |entry|
-      @entries.push(entry) if entry.performer?(self)
+      @entries.push(entry) if entry.performer?(current_user)
     end
     # @entries = @user.entrusts
     render 'entrusts'

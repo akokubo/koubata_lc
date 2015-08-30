@@ -7,6 +7,23 @@
 <% end %>
 <br>
 状態: <%= t(@entry.status) %>
+
+<% if @entry.commitable?(current_user) %>
+commitable
+<% end %>
+
+<% if @entry.cancelable?(current_user) %>
+cancelable
+<% end %>
+
+<% if @entry.performable?(current_user) %>
+performable
+<% end %>
+
+<% if @entry.payable?(current_user) %>
+payable
+<% end %>
+
 <% if @entry.status == "contracted" %>
   <% if (@entry.instance_of?(Contract) && @entry.task.user == current_user) ||  (@entry.instance_of?(Entrust) && @entry.user == current_user) %>
     <p>実施したら、「実施完了を押してください」</p>
@@ -26,3 +43,20 @@
 <% elsif @entry.status == "paid" %>
 <% end %>
 </div>
+
+<% if @entry.commitable?(current_user) %>
+<%= render 'contracts/commit' %>
+<% end %>
+
+<% if @entry.cancelable?(current_user) %>
+<%= render 'contracts/cancel' %>
+<% end %>
+
+<% if @entry.performable?(current_user) %>
+<%= render 'contracts/perform' %>
+<% end %>
+
+<% if @entry.payable?(current_user) %>
+<%= render 'contracts/pay' %>
+<% end %>
+
