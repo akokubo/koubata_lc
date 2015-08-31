@@ -3,9 +3,7 @@ class User < ActiveRecord::Base
   has_many :tasks,     dependent: :destroy
   has_many :offerings, dependent: :destroy
   has_many :wants,     dependent: :destroy
-  has_many :entries#,   dependent: :destroy
-  has_many :contracts#, dependent: :destroy
-  has_many :entrusts#,  dependent: :destroy
+  has_many :entries
 
   has_many :sended_messages,   class_name: 'Message', foreign_key: 'sender_id'
   has_many :received_messages, class_name: 'Message', foreign_key: 'recepient_id'
@@ -88,11 +86,14 @@ class User < ActiveRecord::Base
   # Entry関係メソッド
   #
   def entry!(entry)
+    entry.save!
+=begin
     if entry.task.type == 'Offering'
       entry = contracts.create!(task: entry.task, expected_at: entry.expected_at, price: entry.price)
     elsif entry.task.type == 'Want'
       entry = entrusts.create!(task: entry.task, expected_at: entry.expected_at, price: entry.price)
     end
+=end
     # entry = entries.create!(task: entry.task, expected_at: entry.expected_at, price: entry.price)
     entry = commit!(entry, had_nofied: true)
     notify_entry!(entry)
@@ -102,7 +103,7 @@ class User < ActiveRecord::Base
   def commit!(entry, args = {})
     # 状態のチェック
     unless entry.commitable?(self)
-      fail "Couldn't find Entry with 'id'=#{entry.id} and it's status be able to commit'}"
+      fail "Couldn't find Entry with 'id'=#{entry.id} and it's status be able to commit by #{id}'}"
     end
 
     # 引数の設定
@@ -111,8 +112,8 @@ class User < ActiveRecord::Base
 
     if entry.owner?(self)
       entry = owner_commit!(entry, expected_at: expected_at, price: price)
-    elsif entry.user?(self)
-      entry = user_commit!(entry, expected_at: expected_at, price: price)
+    elsif entry.contractor?(self)
+      entry = contractor_commit!(entry, expected_at: expected_at, price: price)
     else
       fail "Couldn't find Entry with 'id'=#{target_entry.id} and 'user_id'=#{id} or 'task.user_id'=#{id}"
     end
@@ -129,8 +130,8 @@ class User < ActiveRecord::Base
 
     if entry.owner == self
       entry.update!(owner_canceled_at: Time.now)
-    elsif entry.user == self
-      entry.update!(user_canceled_at: Time.now)
+    elsif entry.contractor == self
+      entry.update!(contractor_canceled_at: Time.now)
     else
       fail "Couldn't find Entry with 'id'=#{target_entry.id} and 'user_id'=#{id} or 'task.user_id'=#{id}"
     end
@@ -164,7 +165,7 @@ class User < ActiveRecord::Base
 
     recepient = entry.payee
     amount  = (args.key?(:amount) && args[:amount].present?) ? args[:amount] : entry.price
-    subject = "#{entry.task.title}の支払"
+    subject = "#{entry.title}の支払"
     comment = args[:comment]
 
     payment = pay_to!(recepient, amount: amount, subject: subject, comment: comment)
@@ -182,7 +183,7 @@ class User < ActiveRecord::Base
     else
       entry.update!(
         owner_committed_at: Time.now,
-        user_committed_at: nil,
+        contractor_committed_at: nil,
         expected_at: args[:expected_at],
         price: args[:price]
       )
@@ -190,13 +191,13 @@ class User < ActiveRecord::Base
     entry
   end
 
-  def user_commit!(entry, args = {})
+  def contractor_commit!(entry, args = {})
     if !entry.conditions_change?(expected_at: args[:expected_at], price: args[:price])
-      entry.update!(user_committed_at: Time.now)
+      entry.update!(contractor_committed_at: Time.now)
     else
       entry.update!(
         owner_committed_at: nil,
-        user_committed_at: Time.now,
+        contractor_committed_at: Time.now,
         expected_at: args[:expected_at],
         price: args[:price]
       )
@@ -205,14 +206,16 @@ class User < ActiveRecord::Base
   end
 
   def notify_entry!(entry)
-    if entry.type == 'Contract'
-      body = "#{name}さんが「#{entry.task.title}」を引き受けました。条件を調整してください。"
-    elsif entry.type == 'Entrust'
-      body = "#{name}さんが「#{entry.task.title}」を依頼しました。条件を調整してください。"
+    recepient = entry.partner_of(self)
+
+    if entry.contractor?(self)
+      body = "#{recepient.name}さんが「#{entry.title}」を引き受けました。条件を調整してください。"
+    elsif entry.owner?(self)
+      body = "#{recepient.name}さんが「#{entry.title}」を依頼しました。条件を調整してください。"
     end
 
     Notification.create!(
-      user: entry.owner,
+      user: recepient,
       body: body,
       url: entry.url
     )
@@ -222,9 +225,9 @@ class User < ActiveRecord::Base
     recepient = entry.partner_of(self)
 
     if entry.commitable?(self)
-      body = "#{name}さんが「#{entry.task.title}」の条件を変更しました。条件を調整してください。"
+      body = "#{name}さんが「#{entry.title}」の条件を変更しました。条件を調整してください。"
     else
-      body = "#{name}さんと「#{entry.task.title}」の契約が成立しました。"
+      body = "#{name}さんと「#{entry.title}」の契約が成立しました。"
     end
 
     notification = recepient.notifications.find_by(url: entry.url)
@@ -237,7 +240,7 @@ class User < ActiveRecord::Base
 
   def notify_cancel!(entry)
     recepient = entry.partner_of(self)
-    body = "#{name}さんが「#{entry.task.title}」をキャンセルしました。"
+    body = "#{name}さんが「#{entry.title}」をキャンセルしました。"
 
     notification = recepient.notifications.find_by(url: entry.url)
     if notification.present?
@@ -249,14 +252,14 @@ class User < ActiveRecord::Base
 
   def notify_perform!(entry)
     recepient = entry.partner_of(self)
-    body = "#{name}が「#{entry.task.title}」を実施しました。"
+    body = "#{name}が「#{entry.title}」を実施しました。"
     notification = recepient.notifications.find_by(url: entry.url)
     notification.update!(user: recepient, body: body, url: entry.url)
   end
 
   def notify_pay_for!(entry)
     recepient = entry.partner_of(self)
-    body = "#{name}が「#{entry.task.title}」に支払いました。"
+    body = "#{name}が「#{entry.title}」に支払いました。"
     notification = recepient.notifications.find_by(url: entry.url)
     notification.update!(user: recepient, body: body, url: entry.url)
   end

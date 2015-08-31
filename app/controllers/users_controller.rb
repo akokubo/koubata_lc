@@ -32,26 +32,15 @@ class UsersController < ApplicationController
   end
 
   def contracts
-    @class_name = Contract
     @user = User.find(params[:id])
-    @entries = []
-    entries_all = Entry.all.order('updated_at DESC')
-    entries_all.each do |entry|
-      @entries.push(entry) if entry.payer?(current_user)
-    end
-    render 'contracts'
+    @entries = Entry.where(contractor: current_user).order('updated_at DESC')
+    render 'entries'
   end
 
   def entrusts
-    @class_name = Entrust
     @user = User.find(params[:id])
-    @entries = []
-    entries_all = Entry.all.order('updated_at DESC')
-    entries_all.each do |entry|
-      @entries.push(entry) if entry.performer?(current_user)
-    end
-    # @entries = @user.entrusts
-    render 'entrusts'
+    @entries = Entry.where(owner: current_user).order('updated_at DESC')
+    render 'entries'
   end
 
   def following

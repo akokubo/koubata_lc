@@ -43,8 +43,8 @@
 <div class="ui-body ui-body-a ui-corner-all">
   <h2>進行中のもの</h2>
   <ul data-role="listview" data-inset="true">
-    <li><%= link_to Contract.model_name.human, contracts_user_path(current_user) %></li>
-    <li><%= link_to Entrust.model_name.human, entrusts_user_path(current_user) %></li>
+    <li><%= link_to t('Contract'), contracts_user_path(current_user) %></li>
+    <li><%= link_to t('Entrust'), entrusts_user_path(current_user) %></li>
   </ul>
   <ul data-role="listview" data-inset="true">
   </ul>

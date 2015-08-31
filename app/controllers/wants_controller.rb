@@ -10,6 +10,7 @@ class WantsController < ApplicationController
   def show
     @class_name = Want
     @task = @want
+    @entry = Entry.new
   end
 
   def new

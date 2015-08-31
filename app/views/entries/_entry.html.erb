@@ -1,10 +1,6 @@
 <div class="ui-body ui-body-a ui-corner-all">
-<% if @entry.instance_of?(Entrust) %>
-請負者: <%= @entry.user.name %>
-<% end %>
-<% if @entry.instance_of?(Contract) %>
-依頼者: <%= @entry.user.name %>
-<% end %>
+依頼者: <%= @entry.owner.name %>
+請負者: <%= @entry.contractor.name %>
 <br>
 状態: <%= t(@entry.status) %>
 
@@ -45,18 +41,18 @@ payable
 </div>
 
 <% if @entry.commitable?(current_user) %>
-<%= render 'contracts/commit' %>
+<%= render 'entries/commit' %>
 <% end %>
 
 <% if @entry.cancelable?(current_user) %>
-<%= render 'contracts/cancel' %>
+<%= render 'entries/cancel' %>
 <% end %>
 
 <% if @entry.performable?(current_user) %>
-<%= render 'contracts/perform' %>
+<%= render 'entries/perform' %>
 <% end %>
 
 <% if @entry.payable?(current_user) %>
-<%= render 'contracts/pay' %>
+<%= render 'entries/pay' %>
 <% end %>
 

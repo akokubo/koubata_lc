@@ -14,7 +14,7 @@
   <%= link_to t('Back to my offerings'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
 <% end %>
 
-<%= render 'contracts/commit' if !current_user?(@task.user) %>
+<%= render 'offerings/entry' if !current_user?(@task.user) %>
 
 <% if !current_user?(@task.user) %>
   <%= link_to t('Back'), offerings_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>

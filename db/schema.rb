@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813065851) do
+ActiveRecord::Schema.define(version: 20150830162804) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -31,26 +31,30 @@ ActiveRecord::Schema.define(version: 20150813065851) do
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true
 
   create_table "entries", force: :cascade do |t|
-    t.integer  "task_id"
-    t.integer  "user_id"
+    t.integer  "contractor_id"
     t.datetime "owner_committed_at"
     t.datetime "paid_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "type"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.datetime "expected_at"
     t.datetime "performed_at"
     t.datetime "owner_canceled_at"
-    t.datetime "user_canceled_at"
-    t.text     "note"
-    t.datetime "user_committed_at"
-    t.integer  "price",              default: 0
+    t.datetime "contractor_canceled_at"
+    t.datetime "contractor_committed_at"
+    t.integer  "price",                   default: 0
     t.integer  "payment_id"
+    t.integer  "category_id"
+    t.datetime "closed_at"
+    t.text     "description"
+    t.datetime "expired_at"
+    t.string   "prior_price"
+    t.string   "title"
+    t.integer  "owner_id"
   end
 
+  add_index "entries", ["category_id"], name: "index_entries_on_category_id"
+  add_index "entries", ["contractor_id"], name: "index_entries_on_contractor_id"
   add_index "entries", ["payment_id"], name: "index_entries_on_payment_id"
-  add_index "entries", ["task_id"], name: "index_entries_on_task_id"
-  add_index "entries", ["user_id"], name: "index_entries_on_user_id"
 
   create_table "messages", force: :cascade do |t|
     t.text     "body",         null: false

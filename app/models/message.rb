@@ -3,8 +3,6 @@ class Message < ActiveRecord::Base
   belongs_to :recepient, class_name: 'User', foreign_key: 'recepient_id'
 
   belongs_to :entry
-  belongs_to :contract
-  belongs_to :entrust
 
   # 必須属性の検証
   validates :body,         presence: true

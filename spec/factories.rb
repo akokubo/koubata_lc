@@ -51,27 +51,13 @@ FactoryGirl.define do
 
   # エントリー(依頼)の生成
   factory :entry do
-    task
-    user
-    note { Faker::Lorem.sentence }
-    expected_at 1.day.from_now
-    price { [*1..99].sample }
-  end
-
-  # 依頼の生成
-  factory :contract do
-    offering
-    user
-    note { Faker::Lorem.sentence }
-    expected_at 1.day.from_now
-    price { [*1..99].sample }
-  end
-
-  # 請負の生成
-  factory :entrust do
-    want
-    user
-    note { Faker::Lorem.sentence }
+    sequence(:title) { |n| "task_#{n}" }
+    sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
+    sequence(:prior_price) { |n| "the current price #{n}" }
+    expired_at 1.day.from_now
+    category
+    owner { user }
+    contractor { user }
     expected_at 1.day.from_now
     price { [*1..99].sample }
   end

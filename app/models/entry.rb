@@ -1,60 +1,59 @@
 class Entry < ActiveRecord::Base
-  before_validation :set_entry_type
-
-  belongs_to :task
-  # belongs_to :offering
-  # belongs_to :want
-
-  belongs_to :user
+  belongs_to :category
+  belongs_to :owner, class_name: 'User'
+  belongs_to :contractor, class_name: 'User'
+  belongs_to :payment
 
   has_many :negotiations
 
-  belongs_to :payment
-
   # 必須属性の検証
-  validates :task_id, presence: true
-  validates :user_id, presence: true
+  validates :category_id, presence: true
+  validates :owner_id, presence: true
+  validates :title, presence: true
+  validates :prior_price, presence: true
+  validates :contractor_id, presence: true
   validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :expected_at, presence: true
 
-  def owner
-    task.user
+  def task=(task)
+    self.title = task.title
+    self.description = task.description
+    self.prior_price = task.price
+    self.expired_at = task.expired_at
+    self.category = task.category
+    self
   end
 
   def owner?(user)
-    task.user == user
+    owner == user
   end
 
-  def user?(user)
-    self.user == user
+  def contractor?(user)
+    contractor == user
   end
 
   def performer?(user)
-    (type == 'Contract' && owner == user) || (type == 'Entrust' && self.user == user)
+    contractor == user
   end
 
   def payer?(user)
-    (type == 'Contract' && self.user == user) || (type == 'Entrust' && owner == user)
+    owner == user
   end
 
   def payee
-    if type == 'Contract'
-      owner
-    elsif type == 'Entrust'
-      user
-    end
+    contractor
   end
 
   def partner_of(subject_user)
-    if user == subject_user
-      task.user
+    if contractor == subject_user
+      owner
     elsif owner == subject_user
-      user
+      contractor
     end
   end
 
   def commitable?(user)
-    !canceled? && !committed? && (owner?(user) || user?(user))
+    !canceled? && !committed? && (owner?(user) || contractor?(user))
   end
 
   def performable?(user)
@@ -66,7 +65,7 @@ class Entry < ActiveRecord::Base
   end
 
   def cancelable?(user)
-    !canceled? && !performed? && (owner?(user) || user?(user))
+    !canceled? && !performed? && (owner?(user) || contractor?(user))
   end
 
   def status
@@ -76,14 +75,14 @@ class Entry < ActiveRecord::Base
       'to be paid'
     elsif owner_canceled?
       'owner canceled'
-    elsif user_canceled?
-      'user canceled'
+    elsif contractor_canceled?
+      'contractor canceled'
     elsif committed?
       'to be performed'
     elsif owner_committed?
       'owner committed'
-    elsif user_committed?
-      'user committed'
+    elsif contractor_committed?
+      'contractor committed'
     else
       'to be committed'
     end
@@ -94,18 +93,14 @@ class Entry < ActiveRecord::Base
   end
 
   def url
-    if type == 'Contract'
-      Rails.application.routes.url_helpers.contract_path(self)
-    elsif type == 'Entrust'
-      Rails.application.routes.url_helpers.entrust_path(self)
-    end
+    Rails.application.routes.url_helpers.entry_path(self)
   end
 
   private
 
   # 契約済
   def committed?
-    owner_committed? && user_committed?
+    owner_committed? && contractor_committed?
   end
 
   # オーナーが契約した
@@ -114,8 +109,8 @@ class Entry < ActiveRecord::Base
   end
 
   # ユーザーが契約した
-  def user_committed?
-    user_committed_at.present?
+  def contractor_committed?
+    contractor_committed_at.present?
   end
 
   # 履行済
@@ -130,7 +125,7 @@ class Entry < ActiveRecord::Base
 
   # キャンセル済
   def canceled?
-    owner_canceled? || user_canceled?
+    owner_canceled? || contractor_canceled?
   end
 
   # オーナーがキャンセル済
@@ -139,17 +134,7 @@ class Entry < ActiveRecord::Base
   end
 
   # ユーザーがキャンセル済
-  def user_canceled?
-    user_canceled_at.present?
-  end
-
-  def set_entry_type
-    if task.present?
-      if task.type == 'Offering'
-        self.type = 'Contract'
-      elsif task.type == 'Want'
-        self.type = 'Entrust'
-      end
-    end
+  def contractor_canceled?
+    contractor_canceled_at.present?
   end
 end

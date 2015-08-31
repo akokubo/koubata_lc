@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :offerings
   resources :wants
+  resources :entries
   resources :contracts
   resources :entrusts
   resources :messages

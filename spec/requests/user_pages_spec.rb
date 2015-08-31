@@ -24,8 +24,8 @@ describe 'My Status' do
       it { should have_link(Account.model_name.human) }
       it { should have_link(Offering.model_name.human) }
       it { should have_link(Want.model_name.human) }
-      it { should have_link(Contract.model_name.human) }
-      it { should have_link(Entrust.model_name.human) }
+      it { should have_link(I18n.t('Contract')) }
+      it { should have_link(I18n.t('Entrust')) }
       it { should have_link(I18n.t('Settings')) }
       it { should have_link(I18n.t('Home')) }
     end

@@ -1,6 +1,5 @@
 <div class="ui-body ui-body-a ui-corner-all">
   <%= form_for(@entry) do |f| %>
-    <%= f.hidden_field :task_id %>
     <div class="field ui-field-contain">
       <%= f.label :expected_at %>
       <% if @mobile %>
@@ -13,6 +12,7 @@
       <%= f.label :price %>
       <%= f.number_field :price %>
     </div>
+    <%= hidden_field_tag :force_commit, true %>
     <%= f.submit t('Entrust') %>
   <% end %>
 </div>

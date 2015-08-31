@@ -1,6 +1,6 @@
 <div class="ui-body ui-body-a ui-corner-all">
-  <%= form_for(@task.entrusts.build) do |f| %>
-    <%= f.hidden_field :task_id %>
+  <%= form_for(@entry) do |f| %>
+    <%= f.hidden_field :task_id, value: @task.id %>
     <div class="field ui-field-contain">
       <%= f.label :expected_at %>
       <% if @mobile %>
@@ -13,6 +13,6 @@
       <%= f.label :price %>
       <%= f.number_field :price %>
     </div>
-    <%= f.submit t('Contract') %>
+    <%= f.submit t('Entrust') %>
   <% end %>
 </div>
