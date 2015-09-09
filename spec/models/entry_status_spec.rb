@@ -3,24 +3,18 @@ require 'rails_helper'
 describe 'Entry Status' do
   let(:owner) { FactoryGirl.create(:user) }
   let(:contractor) { FactoryGirl.create(:user) }
-  let(:task) { FactoryGirl.create(:task, user: owner) }
+  let(:offering) { FactoryGirl.create(:offering, user: contractor) }
+  let(:want) { FactoryGirl.create(:want, user: owner) }
 
   # @entryの作成
   before do
     FactoryGirl.create(:account, user: contractor)
     FactoryGirl.create(:account, user: owner)
-    @entry = FactoryGirl.build(
-      :entry,
-      title: task.title,
-      description: task.description,
-      prior_price: task.price,
-      expired_at: task.expired_at,
-      category: task.category,
-      owner: owner,
-      contractor: contractor,
-      expected_at: Time.now,
-      price: 10
-    )
+    @entry = Entry.new
+    @entry.task = offering
+    @entry.owner = owner
+    @entry.expected_at = Time.now
+    @entry.price = 10
   end
 
   subject { @entry }

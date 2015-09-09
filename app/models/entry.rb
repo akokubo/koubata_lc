@@ -9,18 +9,22 @@ class Entry < ActiveRecord::Base
   # 必須属性の検証
   validates :category_id, presence: true
   validates :owner_id, presence: true
-  validates :title, presence: true
-  validates :prior_price, presence: true
   validates :contractor_id, presence: true
-  validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :title, presence: true
+  validates :prior_price_description, presence: true
   validates :expected_at, presence: true
+  validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   def task=(task)
+    self.category = task.category
     self.title = task.title
     self.description = task.description
-    self.prior_price = task.price
-    self.expired_at = task.expired_at
-    self.category = task.category
+    self.prior_price_description = task.price_description
+    if task.type == 'Offering'
+      self.contractor = task.user
+    elsif task.type == 'Want'
+      self.owner = task.user
+    end
     self
   end
 

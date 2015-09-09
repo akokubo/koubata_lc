@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908055202) do
+ActiveRecord::Schema.define(version: 20150909010032) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20150908055202) do
     t.integer  "contractor_id"
     t.datetime "owner_committed_at"
     t.datetime "paid_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.datetime "expected_at"
     t.datetime "performed_at"
     t.datetime "owner_canceled_at"
@@ -44,12 +44,11 @@ ActiveRecord::Schema.define(version: 20150908055202) do
     t.integer  "price",                   default: 0
     t.integer  "payment_id"
     t.integer  "category_id"
-    t.datetime "closed_at"
     t.text     "description"
-    t.datetime "expired_at"
-    t.string   "prior_price"
+    t.string   "prior_price_description"
     t.string   "title"
     t.integer  "owner_id"
+    t.boolean  "opened",                  default: true
   end
 
   add_index "entries", ["category_id"], name: "index_entries_on_category_id"
@@ -111,16 +110,15 @@ ActiveRecord::Schema.define(version: 20150908055202) do
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
   create_table "tasks", force: :cascade do |t|
-    t.string   "type",        null: false
+    t.string   "type",                             null: false
     t.integer  "user_id"
-    t.string   "title",       null: false
+    t.string   "title",                            null: false
     t.integer  "category_id"
     t.text     "description"
-    t.string   "price",       null: false
-    t.datetime "expired_at"
+    t.string   "price_description",                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "closed_at"
+    t.boolean  "opened",            default: true
   end
 
   add_index "tasks", ["category_id"], name: "index_tasks_on_category_id"

@@ -7,26 +7,28 @@ describe Want do
 
   # @wantの作成
   before do
-    @want = user.wants.build(
+    @want = user.offerings.build(
+      category: category,
       title: 'Lorem ipsum',
-      category_id: category.id,
       description: 'Lorem ipsum' * 5,
-      price: '5 points',
-      expired_at: 1.day.from_now
+      price_description: '5 points'
     )
   end
 
-  # wantを対象としたテストを実施
+  # @wantを対象としたテストを実施
   subject { @want }
 
   # 属性に反応するか
+  it { should respond_to(:category_id) }
+  it { should respond_to(:category) }
+  it { expect(@want.category).to eq category }
+  it { should respond_to(:user_id) }
   it { should respond_to(:user) }
   it { expect(@want.user).to eq user }
   it { should respond_to(:title) }
-  it { should respond_to(:category_id) }
   it { should respond_to(:description) }
-  it { should respond_to(:expired_at) }
-  it { should respond_to(:closed_at) }
+  it { should respond_to(:price_description) }
+  it { should respond_to(:opened) }
 
   # 適正なデータが検証に通るか
   it { should be_valid }
@@ -51,22 +53,19 @@ describe Want do
 
   # 価格が設定されていない場合
   describe 'when price is not present' do
-    before { @want.price = nil }
+    before { @want.price_description = nil }
     it { should_not be_valid }
   end
 
   # 表示期限が設定されていない場合
-  describe 'when expired_at is not present' do
-    before { @want.expired_at = nil }
-    it { should be_valid }
+  describe 'when opened is not present' do
+    before { @want.opened = nil }
+    it { should_not be_valid }
   end
 
   # 表示期限を解除した場合
-  describe 'when no_expiration is set' do
-    before do
-      @want.no_expiration = 1
-      @want.save
-    end
-    it { expect(@want.expired_at).to eq nil }
+  describe 'when opened is false' do
+    before { @want.opened = false }
+    it { should be_valid }
   end
 end

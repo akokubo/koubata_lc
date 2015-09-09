@@ -5,40 +5,52 @@ describe Entry do
   let(:contractor) { FactoryGirl.create(:user) }
   let(:sender_account)    { FactoryGirl.create(:account, user: contractor) }
   let(:recepient_account) { FactoryGirl.create(:account, user: owner) }
+  let(:offering) { FactoryGirl.create(:offering, user: contractor) }
+  let(:want) { FactoryGirl.create(:want, user: owner) }
 
   # @entryの作成
   before do
-    @entry = FactoryGirl.build(:entry, owner: owner, contractor: contractor)
+    FactoryGirl.create(:account, user: contractor)
+    FactoryGirl.create(:account, user: owner)
+    @entry = Entry.new
+    @entry.task = offering
+    @entry.owner = owner
+    @entry.expected_at = Time.now
+    @entry.price = 10
   end
 
   # entryを対象としたテストを実施
   subject { @entry }
 
   # 属性に反応するか
-  it { should respond_to(:contractor) }
-  it { expect(@entry.contractor).to eq contractor }
-  it { should respond_to(:contractor_id) }
+  it { should respond_to(:category_id) }
+  it { should respond_to(:category) }
+  it { should respond_to(:title) }
+  it { should respond_to(:description) }
+  it { should respond_to(:prior_price_description) }
+  it { should respond_to(:owner_id) }
   it { should respond_to(:owner) }
   it { expect(@entry.owner).to eq owner }
-  it { should respond_to(:owner_id) }
+  it { should respond_to(:contractor_id) }
+  it { should respond_to(:contractor) }
+  it { expect(@entry.contractor).to eq contractor }
+  it { should respond_to(:expected_at) }
   it { should respond_to(:price) }
+
+  # 関連に反応するか
   it { should respond_to(:payment) }
   it { should respond_to(:payment_id) }
-  it { should respond_to(:category) }
-  it { should respond_to(:category_id) }
-  it { should respond_to(:closed_at) }
-  it { should respond_to(:description) }
-  it { should respond_to(:expired_at) }
-  it { should respond_to(:prior_price) }
-  it { should respond_to(:title) }
 
   #  メソッドに反応するか
   it { should respond_to(:contractor?) }
   it { expect(@entry.owner?(@entry.contractor)).to be false }
+
   it { should respond_to(:owner?) }
   it { expect(@entry.owner?(@entry.owner)).to be true }
+
   it { expect(@entry.contractor?(@entry.contractor)).to be true }
   it { expect(@entry.contractor?(@entry.owner)).to be false }
+
   it { should respond_to(:performer?) }
   it { should respond_to(:payer?) }
   it { should respond_to(:payee) }
@@ -102,5 +114,15 @@ describe Entry do
   describe 'when expected_at is not present' do
     before { @entry.expected_at = nil }
     it { should_not be_valid }
+  end
+
+  describe 'when task is want' do
+    before { @entry.task = want }
+    it { expect(@entry.owner).to eq want.user }
+  end
+
+  describe 'when task is offering' do
+    before { @entry.task = offering }
+    it { expect(@entry.contractor).to eq offering.user }
   end
 end

@@ -7,28 +7,30 @@ describe Task do
 
   # @taskの作成
   before do
-    @task = Task.new(
+    @task = user.tasks.build(
+      category: category,
       user: user,
       title: 'Lorem ipsum',
-      category_id: category.id,
       description: 'Lorem ipsum' * 5,
-      price: '5 points',
-      expired_at: 1.day.from_now,
+      price_description: '5 points',
       type: 'Task'
     )
   end
 
-  # taskを対象としたテストを実施
+  # @taskを対象としたテストを実施
   subject { @task }
 
   # 属性に反応するか
+  it { should respond_to(:category_id) }
+  it { should respond_to(:category) }
+  it { expect(@task.category).to eq category }
+  it { should respond_to(:user_id) }
   it { should respond_to(:user) }
   it { expect(@task.user).to eq user }
   it { should respond_to(:title) }
-  it { should respond_to(:category_id) }
   it { should respond_to(:description) }
-  it { should respond_to(:expired_at) }
-  it { should respond_to(:closed_at) }
+  it { should respond_to(:price_description) }
+  it { should respond_to(:opened) }
 
   # 適正なデータが検証に通るか
   it { should be_valid }
@@ -53,22 +55,19 @@ describe Task do
 
   # 価格が設定されていない場合
   describe 'when price is not present' do
-    before { @task.price = nil }
+    before { @task.price_description = nil }
     it { should_not be_valid }
   end
 
   # 表示期限が設定されていない場合
-  describe 'when expired_at is not present' do
-    before { @task.expired_at = nil }
-    it { should be_valid }
+  describe 'when opened is not present' do
+    before { @task.opened = nil }
+    it { should_not be_valid }
   end
 
   # 表示期限を解除した場合
-  describe 'when no_expiration is set' do
-    before do
-      @task.no_expiration = 1
-      @task.save
-    end
-    it { expect(@task.expired_at).to eq nil }
+  describe 'when opened is false' do
+    before { @task.opened = false }
+    it { should be_valid }
   end
 end
