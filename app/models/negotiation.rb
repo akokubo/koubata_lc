@@ -8,12 +8,12 @@ class Negotiation < Message
     if notification.nil?
       Notification.create!(
         user: recepient,
-        body: "#{sender.name}さんからの連絡があります。",
+        body: "#{sender.name}さんからの相談があります。",
         url:  entry.url
       )
     else
       notification.update!(
-        body: "#{sender.name}さんからの連絡があります。",
+        body: "#{sender.name}さんからの相談があります。",
         read_at: nil
       )
     end

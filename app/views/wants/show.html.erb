@@ -14,7 +14,7 @@
   <%= link_to t('Back to my wants'), wants_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
 <% end %>
 
-<%= render 'entrusts/commit' if !current_user?(@task.user) %>
+<%= render 'wants/entry' if !current_user?(@task.user) %>
 
 <% if !current_user?(@task.user) %>
   <%= link_to t('Back'), wants_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>

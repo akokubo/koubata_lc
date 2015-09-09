@@ -32,15 +32,17 @@ class UsersController < ApplicationController
   end
 
   def contracts
+    @class_name = 'Contract'
     @user = User.find(params[:id])
-    @entries = Entry.where(contractor: current_user).order('updated_at DESC')
-    render 'entries'
+    @entries = Entry.where(contractor: @user).order('updated_at DESC')
+    render 'contracts'
   end
 
   def entrusts
+    @class_name = 'Entrust'
     @user = User.find(params[:id])
-    @entries = Entry.where(owner: current_user).order('updated_at DESC')
-    render 'entries'
+    @entries = Entry.where(owner: @user).order('updated_at DESC')
+    render 'entrusts'
   end
 
   def following

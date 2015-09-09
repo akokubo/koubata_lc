@@ -1,10 +1,13 @@
-<h1>お願いしたこと</h1>
+<% provide :locale, I18n.locale.inspect %>
+<% provide :title,  t("Listing ", model: t("activerecord.models.#{@class_name.downcase}").pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
+
 <% if @entries.any? %>
-  <table>
+  <table class="ui-body-a">
     <tr>
       <th><%= Entry.human_attribute_name(:expected_at) %></th>
-      <th><%= Task.human_attribute_name(:title) %></th>
-      <th><%= Task.human_attribute_name(:user) %></th>
+      <th><%= Entry.human_attribute_name(:title) %></th>
+      <th><%= Entry.human_attribute_name(:owner) %></th>
       <th><%= Entry.human_attribute_name(:status) %></th>
     </tr>
     <% @entries.each do |entry| %>
@@ -20,5 +23,5 @@
     <% end %>
   </table>
 <% else %>
-  <%= t('No entry') %>
+  <p><%= t("There is no ", model: t("activerecord.models.#{@class_name.downcase}")) %></p>
 <% end %>

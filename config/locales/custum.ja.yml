@@ -35,7 +35,7 @@ ja:
   "Edit": 編集
   "Destroy": 削除
   "Back": 戻る
-  "Entrust": 依頼する
+  "Entrust": お願いする
   "Contract": 引き受ける
   "Welcome": ようこそ
   "Hello": こんにちは
@@ -106,16 +106,16 @@ ja:
   "Follow": フォローする
   "Unfollow": フォローをやめる
   "Contracts": お願いしたこと
-  "Entrusts": 頼まれたこと
+  "Entrusts": 引き受けたこと
   "No contract": 「お願いしたこと」はありません。
-  "No entrust": 「頼まれたこと」はありません。
+  "No entrust": 「引き受けたこと」はありません。
   "closed": 終了
   "to be paid": 支払待
-  "owner canceld": オーナーキャンセル
-  "user canceled": ユーザーキャンセル
+  "owner canceld": 依頼者キャンセル
+  "contractor canceled": 請負者キャンセル
   "to be performed": 実施待
-  "owner committed": オーナー条件提示
-  "user committed": ユーザー条件提示
+  "owner committed": 依頼者条件提案中
+  "contractor committed": 請負者条件提案中
   "to be committed": 条件提示待
   "Prev": 前へ
   "Next": 次へ
@@ -125,6 +125,7 @@ ja:
   "Must be written": 必ず記入し、互いに確認
   "Partner": 相手
   "Direction": 種別
+  "Commit": 条件を提案/承認
   "Perform": 実施
   "Cancel": キャンセル
   "Pay": 支払う
