@@ -18,18 +18,16 @@ class Account < ActiveRecord::Base
     # 取引の実行
     def transfer(args = {})
       # sender, recepient, amountの存在チェック
-      fail 'invalid argument sender'    unless args.key?(:sender) && args[:sender].present?
-      fail 'invalid argument recepient' unless args.key?(:recepient) && args[:recepient].present?
-      fail 'invalid argument amount'    unless args.key?(:amount) && args[:amount].present?
+      fail 'invalid argument sender_account'    unless args.key?(:sender_account) && args[:sender_account].present?
+      fail 'invalid argument recepient_account' unless args.key?(:recepient_account) && args[:recepient_account].present?
+      fail 'invalid argument amount'            unless args.key?(:amount) && args[:amount].present?
 
       # 変数の用意
-      sender    = args[:sender]
-      recepient = args[:recepient]
+      sender_account    = args[:sender_account]
+      recepient_account = args[:recepient_account]
       amount    = args[:amount]
       subject  = args[:subject]
       comment  = args[:comment]
-      sender_account    = sender.account
-      recepient_account = recepient.account
 
       transaction do
         # ロックを実行　
@@ -41,7 +39,7 @@ class Account < ActiveRecord::Base
         recepient_balance_before = recepient_account.balance
 
         # 残高の変更
-        sender_account.balance -= amount
+        sender_account.balance    -= amount
         recepient_account.balance += amount
 
         # 残高を記録
@@ -54,18 +52,23 @@ class Account < ActiveRecord::Base
 
         # 取引履歴を記録
         payment = Payment.create!(
-          sender:    sender,
-          recepient: recepient,
-          amount:    amount,
-          subject:   subject,
-          comment:   comment,
+          sender_account:    sender_account,
+          recepient_account: recepient_account,
+          amount:  amount,
+          subject: subject,
+          comment: comment,
           sender_balance_before:    sender_balance_before,
           recepient_balance_before: recepient_balance_before,
           sender_balance_after:     sender_balance_after,
           recepient_balance_after:  recepient_balance_after
         )
 
-        send_notification(recepient: recepient, sender: sender, amount: amount, payment: payment)
+        send_notification(
+          recepient: recepient_account.user,
+          sender: sender_account.user,
+          amount: amount,
+          payment: payment
+        )
 
         payment
       end

@@ -62,17 +62,17 @@ describe Account do
     # 適正な支払いの場合
     it 'has valid amount should change accounts balance' do
       expect do
-        Account.transfer(sender: sender, recepient: recepient, amount: 100, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
+        Account.transfer(sender_account: sender.account, recepient_account: recepient.account, amount: 100, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
       end.to change { sender.account.balance }.by(-100)
       expect do
-        Account.transfer(sender: sender, recepient: recepient, amount: 100, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
+        Account.transfer(sender_account: sender.account, recepient_account: recepient.account, amount: 100, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
       end.to change { recepient.account.balance }.by(100)
     end
 
     # 残高がマイナスになる支払いの場合
     it 'has invalid amount should raise ActiveRecord::RecordInvalid' do
       expect do
-        Account.transfer(sender: sender, recepient: recepient, amount: 2000, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
+        Account.transfer(sender_account: sender.account, recepient_account: recepient.account, amount: 2000, subject: 'Lorem ipsum', comment: 'Lorem ipsum' * 5)
       end.to raise_error(ActiveRecord::RecordInvalid)
     end
   end

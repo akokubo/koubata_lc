@@ -3,7 +3,7 @@ class PaymentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @payments = Payment.where('sender_id = :current_user OR recepient_id = :current_user', current_user: current_user)
+    @payments = Payment.where('sender_account_id = :current_user_account OR recepient_account_id = :current_user_account', current_user_account: current_user.account)
   end
 
   def show
@@ -48,8 +48,8 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(payment_params)
     begin
       Account.transfer(
-        sender: current_user,
-        recepient: @payment.recepient,
+        sender_account: current_user.account,
+        recepient_account: @payment.recepient.account,
         amount: @payment.amount,
         subject: @payment.subject,
         comment: @payment.comment

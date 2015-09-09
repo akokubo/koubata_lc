@@ -32,9 +32,11 @@ class User < ActiveRecord::Base
   #
   def talks(companion = nil)
     if companion.present?
-      messages = Talk.where('sender_id = :id and recepient_id = :companion_id or sender_id = :companion_id and recepient_id = :id', id: id, companion_id: companion.id)
+      messages = Talk.between(self, companion)
+      #messages = Talk.where('sender_id = :id and recepient_id = :companion_id or sender_id = :companion_id and recepient_id = :id', id: id, companion_id: companion.id)
     else
-      messages = Talk.where('sender_id = :id or recepient_id = :id', id: id)
+      messages = Talk.with(self)
+      #messages = Talk.where('sender_id = :id or recepient_id = :id', id: id)
     end
     messages
   end
@@ -56,8 +58,8 @@ class User < ActiveRecord::Base
   #
   def pay_to!(recepient, args = {})
     Account.transfer(
-      sender: self,
-      recepient: recepient,
+      sender_account: self.account,
+      recepient_account: recepient.account,
       amount: args[:amount],
       subject: args[:subject],
       comment: args[:commnet]
@@ -209,9 +211,9 @@ class User < ActiveRecord::Base
     recepient = entry.partner_of(self)
 
     if entry.contractor?(self)
-      body = "#{recepient.name}さんが「#{entry.title}」を引き受けました。条件を調整してください。"
+      body = "#{name}さんが「#{entry.title}」を引き受けました。条件を調整してください。"
     elsif entry.owner?(self)
-      body = "#{recepient.name}さんが「#{entry.title}」を依頼しました。条件を調整してください。"
+      body = "#{name}さんが「#{entry.title}」を依頼しました。条件を調整してください。"
     end
 
     Notification.create!(
@@ -232,7 +234,7 @@ class User < ActiveRecord::Base
 
     notification = recepient.notifications.find_by(url: entry.url)
     if notification.present?
-      notification.update!(user: recepient, body: body, url: entry.url)
+      notification.update!(user: recepient, body: body, url: entry.url, read_at: nil)
     else
       Notification.create!(user: recepient, body: body, url: entry.url)
     end
@@ -244,7 +246,7 @@ class User < ActiveRecord::Base
 
     notification = recepient.notifications.find_by(url: entry.url)
     if notification.present?
-      notification.update!(user: recepient, body: body, url: entry.url)
+      notification.update!(user: recepient, body: body, url: entry.url, read_at: nil)
     else
       Notification.create!(user: recepient, body: body, url: entry.url)
     end
@@ -252,15 +254,15 @@ class User < ActiveRecord::Base
 
   def notify_perform!(entry)
     recepient = entry.partner_of(self)
-    body = "#{name}が「#{entry.title}」を実施しました。"
+    body = "#{name}さんが「#{entry.title}」を実施しました。"
     notification = recepient.notifications.find_by(url: entry.url)
-    notification.update!(user: recepient, body: body, url: entry.url)
+    notification.update!(user: recepient, body: body, url: entry.url, read_at: nil)
   end
 
   def notify_pay_for!(entry)
     recepient = entry.partner_of(self)
-    body = "#{name}が「#{entry.title}」に支払いました。"
+    body = "#{name}さんが「#{entry.title}」に支払いました。"
     notification = recepient.notifications.find_by(url: entry.url)
-    notification.update!(user: recepient, body: body, url: entry.url)
+    notification.update!(user: recepient, body: body, url: entry.url, read_at: nil)
   end
 end
