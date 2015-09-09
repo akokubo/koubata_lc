@@ -2,8 +2,8 @@ class Account < ActiveRecord::Base
   belongs_to :user
   # has_many :payments, dependent: :destroy
 
-  has_many :withdraws,  class_name: 'Payment', foreign_key: 'sender_id',    dependent: :destroy
-  has_many :deposits,   class_name: 'Payment', foreign_key: 'recepient_id', dependent: :destroy
+  has_many :withdraws,  class_name: 'Payment', foreign_key: 'sender_account_id',    dependent: :destroy
+  has_many :deposits,   class_name: 'Payment', foreign_key: 'recepient_account_id', dependent: :destroy
 =begin
   has_many :senders,    through: :deposits,  source: :user
   has_many :recepients, through: :withdraws, source: :recepient
@@ -11,8 +11,7 @@ class Account < ActiveRecord::Base
 
   # 必須属性の検証
   validates :user_id, presence: true
-  validates :balance, presence: true,
-                      numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   class << self
     # 取引の実行
