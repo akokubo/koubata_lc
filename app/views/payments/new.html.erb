@@ -4,7 +4,7 @@
 <p><strong><%= t('Current balance') %></strong>: <%= current_user.account.balance %> <%= t('points') %></p>
 <%= render 'form' %>
 
-<%= link_to t('Back'), accounts_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left" %>
+<%= link_to t('Back'), account_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left" %>
 
 <!--
 <%= link_to t('Back'), payments_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left" %>

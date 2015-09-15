@@ -1,0 +1,7 @@
+<div class="ui-body ui-body-a ui-corner-all">
+  <h2>公開しているもの</h2>
+  <ul data-role="listview" data-inset="true">
+    <li><%= link_to Offering.model_name.human, offerings_user_path(current_user) %></li>
+    <li><%= link_to Want.model_name.human, wants_user_path(current_user) %></li>
+  </ul>
+</div>

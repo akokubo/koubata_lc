@@ -1,8 +1,8 @@
-num = User.count
+user_ids = User.pluck(:id)
 
 80.times do
-  followed_id = Random.rand(num) + 1
-  follower_id = Random.rand(num) + 1
+  followed_id = user_ids.sample
+  follower_id = user_ids.sample
   if followed_id != follower_id
     relationship = Relationship.find_by(followed_id: followed_id, follower_id: follower_id)
     unless relationship

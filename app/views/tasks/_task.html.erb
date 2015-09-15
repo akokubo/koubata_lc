@@ -28,13 +28,11 @@ end
   </li>
 
   <li>
-    <strong><%= class_name.human_attribute_name(:price) %>:</strong>
-    <%= @task.price %>
+    <strong><%= class_name.human_attribute_name(:price_description) %>:</strong>
+    <%= @task.price_description %>
   </li>
-<!--
   <li>
-    <h2><%= class_name.human_attribute_name(:expired_at) %>:</h2>
-    <p><%= @task.expired_at.try(:strftime, "%Y/%m/%d %H:%M") %></p>
+    <strong><%= class_name.human_attribute_name(:opened) %>:</strong>
+    <%= @task.opened? ? t('opened') : t('closed') %>
   </li>
--->
 </ul>

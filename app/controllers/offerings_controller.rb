@@ -10,13 +10,12 @@ class OfferingsController < ApplicationController
   def show
     @class_name = Offering
     @task = @offering
+    @entry = Entry.new
   end
 
   def new
     @class_name = Offering
-    @offering = Offering.new
-    @offering.expired_at = Time.zone.now
-    @task = @offering
+    @task = Offering.new
     @categories = Category.all
   end
 
@@ -47,26 +46,13 @@ class OfferingsController < ApplicationController
   end
 
   def update
-    if @offering.user == current_user
-      if offering_params[:submit_hire]
-        update_hire(@offering, offering_params)
-        redirect_to @offering
-      else
-        @categories = Category.all
-        respond_to do |format|
-          if @offering.update(offering_params)
-            format.html { redirect_to @offering, notice: t('activerecord.successful.messages.updated', model: Offering.model_name.human) }
-            format.json { head :no_content }
-          else
-            format.html { render action: 'edit' }
-            format.json { render json: @offering.errors, status: :unprocessable_entity }
-          end
-        end
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to @offering, alert: t('You cannot edit!') }
+    respond_to do |format|
+      if @offering.user == current_user && @offering.update(offering_params)
+        format.html { redirect_to @offering, notice: t('activerecord.successful.messages.updated', model: Offering.model_name.human) }
         format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @offering.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -96,31 +82,6 @@ class OfferingsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def offering_params
-    params.require(:offering).permit(:title, :category_id, :description, :price, :expired_at, :no_expiration, :hired_id, :submit_hire)
-  end
-
-  def update_hire(offering, offering_params)
-    if offering_params[:hired_id]
-      hired_id = offering_params[:hired_id].to_i
-      entries = offering.entries
-      entries.each do |entry|
-        if entry.id == hired_id
-          entry.hired_at = Time.now
-        else
-          entry.hired_at = nil
-        end
-        entry.save
-      end
-      offering.expired_at = Time.now
-      offering.save
-    else
-      entries = offering.entries
-      entries.each do |entry|
-        entry.hired_at = nil
-        entry.save
-      end
-      offering.expired_at = nil
-      offering.save
-    end
+    params.require(:offering).permit(:title, :category_id, :description, :price_description, :opened)
   end
 end

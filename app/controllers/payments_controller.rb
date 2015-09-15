@@ -3,7 +3,7 @@ class PaymentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @payments = Payment.where('sender_id = :current_user OR recepient_id = :current_user', current_user: current_user)
+    @payments = Payment.with(current_user.account)
   end
 
   def show
@@ -48,13 +48,13 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(payment_params)
     begin
       Account.transfer(
-        sender: current_user,
-        recepient: @payment.recepient,
+        sender_account: current_user.account,
+        recepient_account: Account.find(@payment.recepient_account_id),
         amount: @payment.amount,
         subject: @payment.subject,
         comment: @payment.comment
       )
-      redirect_to accounts_url, notice: t('activerecord.successful.messages.created', model: Payment.model_name.human)
+      redirect_to account_url, notice: t('activerecord.successful.messages.created', model: Payment.model_name.human)
     rescue
       @recepients = User.where.not(id: current_user.id).active
       render action: 'new'
@@ -92,6 +92,6 @@ class PaymentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def payment_params
-    params.require(:payment).permit(:recepient_id, :subject, :amount, :comment)
+    params.require(:payment).permit(:recepient_account_id, :subject, :amount, :comment)
   end
 end

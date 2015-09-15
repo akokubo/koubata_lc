@@ -1,0 +1,17 @@
+<div class="ui-body ui-body-a ui-corner-all">
+  <div class="ui-grid-a">
+    <div class="ui-block-a">
+      <h2><%= @user.name %></h2>
+      <p><%= gravatar_for @user, size: 50 %></p>
+    </div>
+    <div class="ui-block-b">
+      <div class="ui-body ui-body-a ui-corner-all">
+        <%= render 'users/balance' %>
+        <%= render 'users/description' %>
+      </div>
+    </div>
+  </div>
+  <%= render 'users/edit_settings' %>
+  <%= render 'users/account' %>
+  <%= render 'users/following_stats' %>
+</div>

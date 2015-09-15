@@ -1,0 +1,6 @@
+<%= t('Search') %>
+<ul data-role="listview" data-inset="true">
+  <li><%= link_to t("Search ", model: User.model_name.human.pluralize(:locale)), users_path %></li>
+  <li><%= link_to t("Search ", model: Offering.model_name.human.pluralize(:locale)), offerings_path %></li>
+  <li><%= link_to t("Search ", model: Want.model_name.human.pluralize(:locale)), wants_path %></li>
+</ul>

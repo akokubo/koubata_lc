@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813065851) do
+ActiveRecord::Schema.define(version: 20150909010032) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -31,26 +31,29 @@ ActiveRecord::Schema.define(version: 20150813065851) do
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true
 
   create_table "entries", force: :cascade do |t|
-    t.integer  "task_id"
-    t.integer  "user_id"
+    t.integer  "contractor_id"
     t.datetime "owner_committed_at"
     t.datetime "paid_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "type"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.datetime "expected_at"
     t.datetime "performed_at"
     t.datetime "owner_canceled_at"
-    t.datetime "user_canceled_at"
-    t.text     "note"
-    t.datetime "user_committed_at"
-    t.integer  "price",              default: 0
+    t.datetime "contractor_canceled_at"
+    t.datetime "contractor_committed_at"
+    t.integer  "price",                   default: 0
     t.integer  "payment_id"
+    t.integer  "category_id"
+    t.text     "description"
+    t.string   "prior_price_description"
+    t.string   "title"
+    t.integer  "owner_id"
+    t.boolean  "opened",                  default: true
   end
 
+  add_index "entries", ["category_id"], name: "index_entries_on_category_id"
+  add_index "entries", ["contractor_id"], name: "index_entries_on_contractor_id"
   add_index "entries", ["payment_id"], name: "index_entries_on_payment_id"
-  add_index "entries", ["task_id"], name: "index_entries_on_task_id"
-  add_index "entries", ["user_id"], name: "index_entries_on_user_id"
 
   create_table "messages", force: :cascade do |t|
     t.text     "body",         null: false
@@ -79,8 +82,8 @@ ActiveRecord::Schema.define(version: 20150813065851) do
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "sender_id"
-    t.integer  "recepient_id"
+    t.integer  "sender_account_id"
+    t.integer  "recepient_account_id"
     t.string   "subject",                  null: false
     t.integer  "amount",                   null: false
     t.integer  "sender_balance_after",     null: false
@@ -92,8 +95,8 @@ ActiveRecord::Schema.define(version: 20150813065851) do
     t.integer  "recepient_balance_after"
   end
 
-  add_index "payments", ["recepient_id"], name: "index_payments_on_recepient_id"
-  add_index "payments", ["sender_id"], name: "index_payments_on_sender_id"
+  add_index "payments", ["recepient_account_id"], name: "index_payments_on_recepient_account_id"
+  add_index "payments", ["sender_account_id"], name: "index_payments_on_sender_account_id"
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"
@@ -107,16 +110,15 @@ ActiveRecord::Schema.define(version: 20150813065851) do
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
   create_table "tasks", force: :cascade do |t|
-    t.string   "type",        null: false
+    t.string   "type",                             null: false
     t.integer  "user_id"
-    t.string   "title",       null: false
+    t.string   "title",                            null: false
     t.integer  "category_id"
     t.text     "description"
-    t.string   "price",       null: false
-    t.datetime "expired_at"
+    t.string   "price_description",                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "closed_at"
+    t.boolean  "opened",            default: true
   end
 
   add_index "tasks", ["category_id"], name: "index_tasks_on_category_id"

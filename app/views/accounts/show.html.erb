@@ -1,15 +1,37 @@
 <% provide :title, Account.model_name.human %>
 <h1><%= yield(:title) %></h1>
 
-<p>
-  <strong><%= t('User') %>:</strong>
-  <%= @account.user.name %>
-</p>
+<p><strong><%= t('Balance') %></strong>: <%= current_user.account.balance %><%= t('points') %></p>
+<%= link_to t('New payment'), new_payment_path, class: "ui-btn" %>
 
-<p>
-  <strong><%= t('Balance') %>:</strong>
-  <%= @account.balance %>
-</p>
-
-<%= link_to t('Edit'), edit_account_path(@account) %> |
-<%= link_to t('Back'), accounts_path %>
+<h2><%= t('Transfer Record') %></h2>
+<% if @payments.present? %>
+  <table class="ui-body-a">
+    <thead>
+    <tr class="ui-bar-d">
+      <th><%= t('Datetime') %></th>
+      <th><%= t('Partner') %></th>
+      <th><%= t('Direction') %></th>
+      <th><%= t('Amount') %></th>
+      <th><%= t('Balance Before') %></th>
+      <th><%= t('Balance') %></th>
+      <th><%= t('Subject') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @payments.each do |payment| %>
+    <tr>
+      <td><%= l(payment.created_at) %></td>
+      <td><%= payment.partner_of(current_user.account).user.name %></td>
+      <td><%= t(payment.type_for(current_user.account)) %></td>
+      <td style="text-align: right;"><%= payment.amount_for(current_user.account) %></td>
+      <td style="text-align: right;"><%= payment.balance_before_for(current_user.account) %></td>
+      <td style="text-align: right;"><%= payment.balance_after_for(current_user.account) %></td>
+      <td><%= link_to payment.subject, payment %></td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <%= t('No transfer record') %>
+<% end %>

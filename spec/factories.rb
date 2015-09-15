@@ -20,58 +20,43 @@ FactoryGirl.define do
 
   # タスク(できること)の生成
   factory :task do
+    category
     user
     sequence(:title) { |n| "task_#{n}" }
     sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
-    sequence(:price) { |n| "the current price #{n}" }
-    expired_at 1.day.from_now
-    category
+    sequence(:price_description) { |n| "the current price #{n}" }
+    opened true
     type 'Offering'
   end
 
   # できることの生成
   factory :offering do
-    user
-    sequence(:title) { |n| "offering_#{n}" }
-    sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
-    sequence(:price) { |n| "the current price #{n}" }
-    expired_at 1.day.from_now
     category
+    user
+    sequence(:title) { |n| "task_#{n}" }
+    sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
+    sequence(:price_description) { |n| "the current price #{n}" }
+    opened true
   end
 
   # お願いの生成
   factory :want do
-    user
-    sequence(:title) { |n| "want_#{n}" }
-    sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
-    sequence(:price) { |n| "the current price #{n}" }
-    expired_at 1.day.from_now
     category
+    user
+    sequence(:title) { |n| "task_#{n}" }
+    sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
+    sequence(:price_description) { |n| "the current price #{n}" }
+    opened true
   end
 
   # エントリー(依頼)の生成
   factory :entry do
-    task
-    user
-    note { Faker::Lorem.sentence }
-    expected_at 1.day.from_now
-    price { [*1..99].sample }
-  end
-
-  # 依頼の生成
-  factory :contract do
-    offering
-    user
-    note { Faker::Lorem.sentence }
-    expected_at 1.day.from_now
-    price { [*1..99].sample }
-  end
-
-  # 請負の生成
-  factory :entrust do
-    want
-    user
-    note { Faker::Lorem.sentence }
+    category
+    sequence(:title) { |n| "task_#{n}" }
+    sequence(:description) { |n| "Lorem ipsum #{n}" * 5 }
+    sequence(:prior_price_description) { |n| "the current price #{n}" }
+    owner { user }
+    contractor { user }
     expected_at 1.day.from_now
     price { [*1..99].sample }
   end

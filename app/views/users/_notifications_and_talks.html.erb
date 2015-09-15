@@ -1,0 +1,15 @@
+<div class="ui-body ui-body-a ui-corner-all">
+  <ul data-role="listview" data-inset="true">
+    </li>
+    <li>
+      <%= link_to notifications_path do %>
+        <%= Notification.model_name.human %>
+        <span class="ui-li-count"><%= @notifications_count %></span>
+      <% end %>
+    </li>
+  </ul>
+  <ul data-role="listview" data-inset="true">
+    <li><%= link_to Talk.model_name.human, talks_path %></li>
+  </ul>
+  </ul>
+</div>

@@ -2,59 +2,87 @@ require 'rails_helper'
 
 describe Entry do
   let(:owner) { FactoryGirl.create(:user) }
-  let(:user) { FactoryGirl.create(:user) }
-  let(:task) { FactoryGirl.create(:task, user: owner) }
-  let(:sender_account)    { FactoryGirl.create(:account, user: user) }
+  let(:contractor) { FactoryGirl.create(:user) }
+  let(:sender_account)    { FactoryGirl.create(:account, user: contractor) }
   let(:recepient_account) { FactoryGirl.create(:account, user: owner) }
+  let(:offering) { FactoryGirl.create(:offering, user: contractor) }
+  let(:want) { FactoryGirl.create(:want, user: owner) }
 
   # @entryの作成
   before do
-    @entry = FactoryGirl.build(:entry, task: task, user: user)
+    FactoryGirl.create(:account, user: contractor)
+    FactoryGirl.create(:account, user: owner)
+    @entry = Entry.new
+    @entry.task = offering
+    @entry.owner = owner
+    @entry.expected_at = Time.now
+    @entry.price = 10
   end
 
   # entryを対象としたテストを実施
   subject { @entry }
 
   # 属性に反応するか
-  it { should respond_to(:task) }
-  it { should respond_to(:task_id) }
-  it { should respond_to(:user) }
-  it { expect(@entry.user).to eq user }
-  it { should respond_to(:user_id) }
-  it { should respond_to(:price) }
-  it { should respond_to(:payment) }
-  it { should respond_to(:payment_id) }
-  it { should respond_to(:note) }
-
-  #  メソッドに反応するか
+  it { should respond_to(:category_id) }
+  it { should respond_to(:category) }
+  it { should respond_to(:title) }
+  it { should respond_to(:description) }
+  it { should respond_to(:prior_price_description) }
+  it { should respond_to(:owner_id) }
   it { should respond_to(:owner) }
   it { expect(@entry.owner).to eq owner }
+  it { should respond_to(:contractor_id) }
+  it { should respond_to(:contractor) }
+  it { expect(@entry.contractor).to eq contractor }
+  it { should respond_to(:expected_at) }
+  it { should respond_to(:price) }
+
+  # 関連に反応するか
+  it { should respond_to(:payment) }
+  it { should respond_to(:payment_id) }
+
+  #  メソッドに反応するか
+  it { should respond_to(:contractor?) }
+  it { expect(@entry.owner?(@entry.contractor)).to be false }
+
   it { should respond_to(:owner?) }
   it { expect(@entry.owner?(@entry.owner)).to be true }
-  it { expect(@entry.owner?(@entry.user)).to be false }
-  it { should respond_to(:user?) }
-  it { expect(@entry.user?(@entry.user)).to be true }
-  it { expect(@entry.user?(@entry.owner)).to be false }
+
+  it { expect(@entry.contractor?(@entry.contractor)).to be true }
+  it { expect(@entry.contractor?(@entry.owner)).to be false }
+
   it { should respond_to(:performer?) }
   it { should respond_to(:payer?) }
   it { should respond_to(:payee) }
   it { should respond_to(:partner_of) }
-  it { expect(@entry.partner_of(owner)).to eq user }
-  it { expect(@entry.partner_of(user)).to eq owner }
+  it { expect(@entry.partner_of(owner)).to eq contractor }
+  it { expect(@entry.partner_of(contractor)).to eq owner }
   it { should respond_to(:url) }
 
   # 適正なデータが検証に通るか
   it { should be_valid }
 
-  # タスクIDが設定されていない場合
-  describe 'when task_id is not present' do
-    before { @entry.task_id = nil }
+  # 請負人IDが設定されていない場合
+  describe 'when contractor_id is not present' do
+    before { @entry.contractor_id = nil }
     it { should_not be_valid }
   end
 
-  # ユーザーIDが設定されていない場合
-  describe 'when user_id is not present' do
-    before { @entry.user_id = nil }
+  # 依頼人IDが設定されていない場合
+  describe 'when owner_id is not present' do
+    before { @entry.owner_id = nil }
+    it { should_not be_valid }
+  end
+
+  # カテゴリーIDが設定されていない場合
+  describe 'when category_id is not present' do
+    before { @entry.category_id = nil }
+    it { should_not be_valid }
+  end
+
+  # タイトルが設定されていない場合
+  describe 'when title is not present' do
+    before { @entry.title = nil }
     it { should_not be_valid }
   end
 
@@ -86,5 +114,15 @@ describe Entry do
   describe 'when expected_at is not present' do
     before { @entry.expected_at = nil }
     it { should_not be_valid }
+  end
+
+  describe 'when task is want' do
+    before { @entry.task = want }
+    it { expect(@entry.owner).to eq want.user }
+  end
+
+  describe 'when task is offering' do
+    before { @entry.task = offering }
+    it { expect(@entry.contractor).to eq offering.user }
   end
 end

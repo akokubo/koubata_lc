@@ -1,11 +1,6 @@
-  <p><%= t('Welcome to Koubata Project!') %></p>
-  <p><%= t('Be happy by using eco money!') %></p>
-  <p><%= t("If you don't have an account you can sign up!") %></p>
-  <%= link_to t("Sign up"), new_user_registration_path, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
-</div>
+<% provide :title, t("Koubata Project") %>
 
+<%= render 'home/welcome' %>
 <br>
+<%= render 'home/sign_in_links' %>
 
-<div class="ui-body ui-body-a ui-corner-all">
-  <%= link_to t("Sign in"), new_user_session_path, data: { ajax: false }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
-  <%= link_to t("Forgot your password?"), new_password_path(resource_name), data: { ajax: false }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>

@@ -1,0 +1,35 @@
+<%
+if @task.instance_of?(Offering)
+  class_name = Offering
+else
+  class_name = Want
+end
+%>
+
+<h3>取引の内容</h3>
+<ul data-role="listview" data-inset="true">
+  <li>
+    <strong><%= class_name.human_attribute_name(:title) %>:</strong>
+    <%= @task.title %>
+  </li>
+
+  <li>
+    <strong><%= class_name.human_attribute_name(:user) %>:</strong>&nbsp;
+    <span><%= gravatar_for @task.user, size: 20 %>&nbsp;<%= @task.user.name %></span>
+  </li>
+
+  <li>
+    <strong><%= class_name.human_attribute_name(:category) %>:</strong>
+    <%= @task.category.name %>
+  </li>
+
+  <li>
+    <h2><%= class_name.human_attribute_name(:description) %>:</h2>
+    <p><%= simple_format @task.description %></p>
+  </li>
+
+  <li>
+    <strong><%= class_name.human_attribute_name(:price_description) %>:</strong>
+    <%= @task.price_description %>
+  </li>
+</ul>

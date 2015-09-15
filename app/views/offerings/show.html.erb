@@ -14,18 +14,7 @@
   <%= link_to t('Back to my offerings'), offerings_user_path(current_user), data: { role: :button, icon: "arrow-l" } %>
 <% end %>
 
-<% if !current_user?(@task.user) %>
-  <% if @task.instance_of?(Offering) %>
-    <%= form_for(@task.contracts.build) do |f| %>
-      <%= f.hidden_field :task_id %>
-      <%= f.submit t('Entrust') %>
-    <% end %>
-  <% else %>
-    <%= form_for(@task.contracts.build) do |f| %>
-      <%= f.submit t('Contract') %>
-    <% end %>
-  <% end %>
-<% end %>
+<%= render 'offerings/entry' if !current_user?(@task.user) %>
 
 <% if !current_user?(@task.user) %>
   <%= link_to t('Back'), offerings_path, class: "ui-btn ui-icon-arrow-l ui-btn-icon-left"  %>

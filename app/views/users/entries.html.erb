@@ -1,49 +1,27 @@
-<h1>お願いしたこと</h1>
-<% if @contracts.any? %>
-  <table>
-    <tr>
-      <th><%= Contract.human_attribute_name(:expected_at) %></th>
-      <th><%= Offering.human_attribute_name(:title) %></th>
-      <th><%= Offering.human_attribute_name(:user) %></th>
-      <th><%= Contract.human_attribute_name(:status) %></th>
-    </tr>
-    <% @contracts.each do |contract| %>
-      <tr>
-        <td><%= l(contract.expected_at) if contract.expected_at %></td>
-        <td><%= link_to contract.task.title, offering_path(contract.task) %></td>
-        <td>
-          <%= gravatar_for contract.task.user, size: 16 %>
-          <%= link_to contract.task.user.name, contract %>
-        </td>
-        <td><%= t(contract.status) %></td>
-      </tr>
-    <% end %>
-  </table>
-<% else %>
-  <%= t('No contract') %>
-<% end %>
+<% provide :locale, I18n.locale.inspect %>
+<% provide :title,  t("Listing ", model: t("activerecord.models.#{@class_name.downcase}").pluralize(:locale)) %>
+<h1><%= yield(:title) %></h1>
 
-<h1>頼まれたこと</h1>
-<% if @entrusts.any? %>
-  <table>
+<% if @entries.any? %>
+  <table class="ui-body-a">
     <tr>
-      <th><%= Entrust.human_attribute_name(:expected_at) %></th>
-      <th><%= Want.human_attribute_name(:title) %></th>
-      <th><%= Want.human_attribute_name(:user) %></th>
-      <th><%= Entrust.human_attribute_name(:status) %></th>
+      <th><%= Entry.human_attribute_name(:expected_at) %></th>
+      <th><%= Entry.human_attribute_name(:title) %></th>
+      <th><%= Entry.human_attribute_name(:owner) %></th>
+      <th><%= Entry.human_attribute_name(:status) %></th>
     </tr>
-    <% @entrusts.each do |entrust| %>
+    <% @entries.each do |entry| %>
       <tr>
-        <td><%= l(entrust.expected_at) if entrust.expected_at %></td>
-        <td><%= link_to entrust.task.title, want_path(entrust.task) %></td>
+        <td><%= l(entry.expected_at) if entry.expected_at %></td>
+        <td><%= link_to entry.title, entry %></td>
         <td>
-          <%= gravatar_for entrust.task.user, size: 16 %>
-          <%= link_to entrust.task.user.name, entrust %>
+          <%= gravatar_for entry.owner, size: 16 %>
+          <%= link_to entry.owner.name, entry %>
         </td>
-        <td><%= t(entrust.status) %></td>
+        <td><%= t(entry.status) %></td>
       </tr>
     <% end %>
   </table>
 <% else %>
-  <%= t('No entrust') %>
+  <p><%= t("There is no ", model: t("activerecord.models.#{@class_name.downcase}")) %></p>
 <% end %>

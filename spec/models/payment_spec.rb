@@ -12,8 +12,8 @@ describe Payment do
   before do
     amount = 100
     @payment = Payment.new(
-      sender: sender,
-      recepient: recepient,
+      sender_account: sender_account,
+      recepient_account: recepient_account,
       subject: 'Lorem ipsum',
       amount: amount,
       comment: 'Lorem ipsum' * 5,
@@ -41,25 +41,25 @@ describe Payment do
 
   # userメソッドに応答する
   describe 'user methods' do
-    it { should respond_to(:sender) }
-    it { expect(@payment.sender).to eq sender }
+    it { should respond_to(:sender_account) }
+    it { expect(@payment.sender_account).to eq sender_account }
   end
 
   # partnerメソッドに応答する
   describe 'user methods' do
-    it { should respond_to(:recepient) }
-    it { expect(@payment.recepient).to eq recepient }
+    it { should respond_to(:recepient_account) }
+    it { expect(@payment.recepient_account).to eq recepient_account }
   end
 
   # from_idが存在しない場合
-  describe 'when sender_id is not present' do
-    before { @payment.sender_id = nil }
+  describe 'when sender_account_id is not present' do
+    before { @payment.sender_account_id = nil }
     it { should_not be_valid }
   end
 
   # to_idが存在しない場合
-  describe 'when recepient_id is not present' do
-    before { @payment.recepient_id = nil }
+  describe 'when recepient_account_id is not present' do
+    before { @payment.recepient_account_id = nil }
     it { should_not be_valid }
   end
 

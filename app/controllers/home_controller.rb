@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_action :authenticate_user!, only: [:status]
+
   def index
   end
 
@@ -12,16 +14,15 @@ class HomeController < ApplicationController
   end
 
   def status
-    @notifications_count = Notification.where(
-      'user_id = :current_user_id AND read_at IS NULL',
-      current_user_id: current_user.id
-    ).count
   end
 
   def watch_list
   end
 
   def new_display
+  end
+
+  def search
   end
 
   def detailed

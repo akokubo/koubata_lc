@@ -10,14 +10,13 @@
 </head>
 <body>
   <div data-role="page" data-theme="a">
-    <% if user_signed_in? %><%= render 'layouts/menu_panel' %><% end %>
     <%= render 'layouts/header' %>
     <div data-role="main" class="ui-content" data-theme="a">
-      <% if notice %><p class="alert alert-success"><%= notice %></p><% end %>
-      <% if alert %><p class="alert alert-error"><%= alert %></p><% end %>
+      <%= render 'layouts/alerts' %>
 <%= yield %>
-      <%= render 'layouts/footer' %>
+      <%= render 'layouts/signed_out' %>
     </div><!-- /main -->
+    <%= render 'layouts/footer' %>
   </div><!-- /page -->
 </body>
 </html>

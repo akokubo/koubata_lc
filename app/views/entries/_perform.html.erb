@@ -1,0 +1,7 @@
+<div class="ui-body ui-body-a ui-corner-all">
+  <%= form_for(@entry) do |f| %>
+  	<%= hidden_field_tag :perform, true %>
+    <%= f.submit t('Perform') %>
+  <% end %>
+</div>
+<br>

@@ -1,0 +1,6 @@
+<% if controller.controller_name == "home" && controller.action_name == "index" %>
+  <% if user_signed_in? %>
+    <br>
+    <%= link_to t("Sign out"), destroy_user_session_path, method: :delete, data: { ajax: false }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
+  <% end %>
+<% end %>

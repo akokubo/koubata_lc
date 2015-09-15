@@ -8,27 +8,27 @@ describe Offering do
   # @offeringの作成
   before do
     @offering = user.offerings.build(
+      category: category,
       title: 'Lorem ipsum',
-      category_id: category.id,
       description: 'Lorem ipsum' * 5,
-      price: '5 points',
-      expired_at: 1.day.from_now
+      price_description: '5 points'
     )
   end
 
-  # offeringを対象としたテストを実施
+  # @offeringを対象としたテストを実施
   subject { @offering }
 
   # 属性に反応するか
+  it { should respond_to(:category_id) }
+  it { should respond_to(:category) }
+  it { expect(@offering.category).to eq category }
+  it { should respond_to(:user_id) }
   it { should respond_to(:user) }
   it { expect(@offering.user).to eq user }
   it { should respond_to(:title) }
-  it { should respond_to(:category_id) }
   it { should respond_to(:description) }
-  it { should respond_to(:expired_at) }
-  it { should respond_to(:entries) }
-  it { should respond_to(:contracts) }
-  it { should respond_to(:closed_at) }
+  it { should respond_to(:price_description) }
+  it { should respond_to(:opened) }
 
   # 適正なデータが検証に通るか
   it { should be_valid }
@@ -53,22 +53,19 @@ describe Offering do
 
   # 価格が設定されていない場合
   describe 'when price is not present' do
-    before { @offering.price = nil }
+    before { @offering.price_description = nil }
     it { should_not be_valid }
   end
 
   # 表示期限が設定されていない場合
-  describe 'when expired_at is not present' do
-    before { @offering.expired_at = nil }
-    it { should be_valid }
+  describe 'when opened is not present' do
+    before { @offering.opened = nil }
+    it { should_not be_valid }
   end
 
   # 表示期限を解除した場合
-  describe 'when no_expiration is set' do
-    before do
-      @offering.no_expiration = 1
-      @offering.save
-    end
-    it { expect(@offering.expired_at).to eq nil }
+  describe 'when opened is false' do
+    before { @offering.opened = false }
+    it { should be_valid }
   end
 end

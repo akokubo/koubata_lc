@@ -1,28 +1,22 @@
-<div class="ui-body ui-body-a ui-corner-all">
-<% if @entry.instance_of?(Entrust) %>
-請負者: <%= @entry.user.name %>
+<h3>取引の状況</h3>
+<ul data-role="listview" data-inset="true">
+  <li><strong>依頼者</strong>: <%= @entry.owner.name %></li>
+  <li><strong>請負者</strong>: <%= @entry.contractor.name %></li>
+  <li><strong>状態</strong>: <%= t(@entry.status) %></li>
+</ul>
+
+<% if @entry.commitable?(current_user) %>
+  <%= render 'entries/commit' %>
 <% end %>
-<% if @entry.instance_of?(Contract) %>
-依頼者: <%= @entry.user.name %>
+
+<% if @entry.cancelable?(current_user) %>
+  <%= render 'entries/cancel' %>
 <% end %>
-<br>
-状態: <%= t(@entry.status) %>
-<% if @entry.status == "contracted" %>
-  <% if (@entry.instance_of?(Contract) && @entry.task.user == current_user) ||  (@entry.instance_of?(Entrust) && @entry.user == current_user) %>
-    <p>実施したら、「実施完了を押してください」</p>
-    <%= form_for(@entry) do |f| %>
-      <%= f.hidden_field :performed_at, value: Time.now %>
-      <%= f.submit "実施完了" %>
-    <% end %>
-  <% end %>
-<% elsif @entry.status == "performed" %>
-  <% if (@entry.instance_of?(Contract) && @entry.user == current_user) ||  (@entry.instance_of?(Entrust) && @entry.task.user == current_user) %>
-    <% if @entry.instance_of?(Contract) %>
-      <%= link_to '支払いへ', { controller: :payments, action: :new, contract: @entry.id }, data: { role: :button } %>
-    <% else %>
-      <%= link_to '支払いへ', { controller: :payments, action: :new, entrust: @entry.id }, data: { role: :button } %>
-    <% end %>
-  <% end %>
-<% elsif @entry.status == "paid" %>
+
+<% if @entry.performable?(current_user) %>
+  <%= render 'entries/perform' %>
 <% end %>
-</div>
+
+<% if @entry.payable?(current_user) %>
+  <%= render 'entries/pay' %>
+<% end %>

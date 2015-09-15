@@ -1,12 +1,28 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:show, :update]
 
   def index
     @users = User.where.not(id: current_user.id).active
   end
 
   def show
-    @user = User.find(params[:id])
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    respond_to do |format|
+      if @user == current_user && @user.update(user_params)
+          format.html { redirect_to root_path, notice: t('activerecord.successful.messages.updated', model: User.model_name.human) }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def talks
@@ -32,25 +48,16 @@ class UsersController < ApplicationController
   end
 
   def contracts
-    @class_name = Contract
+    @class_name = 'Contract'
     @user = User.find(params[:id])
-    @entries = []
-    entries_all = Entry.all.order('updated_at DESC')
-    entries_all.each do |entry|
-      @entries.push(entry) if entry.payer?(self)
-    end
+    @entries = Entry.where(contractor: @user).order('updated_at DESC')
     render 'contracts'
   end
 
   def entrusts
-    @class_name = Entrust
+    @class_name = 'Entrust'
     @user = User.find(params[:id])
-    @entries = []
-    entries_all = Entry.all.order('updated_at DESC')
-    entries_all.each do |entry|
-      @entries.push(entry) if entry.performer?(self)
-    end
-    # @entries = @user.entrusts
+    @entries = Entry.where(owner: @user).order('updated_at DESC')
     render 'entrusts'
   end
 
@@ -83,5 +90,15 @@ class UsersController < ApplicationController
       end
     end
     render 'entries'
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :description, :email)
   end
 end

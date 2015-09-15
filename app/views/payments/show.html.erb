@@ -10,12 +10,12 @@
 
 <li>
   <strong>支払人:</strong>
-  <%= @payment.sender.name %>
+  <%= @payment.sender_account.user.name %>
 </li>
 
 <li>
   <strong>受取人:</strong>
-  <%= @payment.recepient.name %>
+  <%= @payment.recepient_account.user.name %>
 </li>
 
 <li>
@@ -54,7 +54,7 @@
 </li>
 </ul>
 
-  <%= link_to t('Back'), accounts_path, class: "ui-btn" %>
+  <%= link_to t('Back'), account_path, class: "ui-btn" %>
 <!--
 <%= link_to t('Edit'), edit_payment_path(@payment) %> |
 <%= link_to t('Back'), payments_path %>

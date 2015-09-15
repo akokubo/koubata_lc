@@ -8,13 +8,7 @@ class NegotiationsController < ApplicationController
     @negotiation.sender = current_user
     @negotiation.recepient = @negotiation.entry.partner_of(current_user)
 
-    if @negotiation.entry.type == 'Contract'
-      path = contract_path(@negotiation.entry)
-    elsif  @negotiation.entry.type == 'Entrust'
-      path entrust_path(@negotiation.entry)
-    else
-      fail 'Entry type is invalid'
-    end
+    path = entry_path(@negotiation.entry)
 
     respond_to do |format|
       if @negotiation.save

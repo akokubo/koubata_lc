@@ -1,0 +1,26 @@
+<% provide :title, "#{@user.name}の情報の編集" %>
+<h2><%= yield(:title) %></h2>
+
+<%= form_for(@user) do |f| %>
+<ul data-role="listview" data-inset="true">
+  <li class="ui-field-contain">
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true %>
+  </li>
+
+  <li class="ui-contain">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </li>
+
+  <li class="ui-field-contain">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </li>
+  <li><%= f.submit t("Update") %></li>
+</ul>
+<% end %>
+<br>
+<br>
+
+<%= link_to t("Back"), root_path, class: "ui-btn ui-inline" %>
