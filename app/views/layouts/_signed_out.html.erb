@@ -3,7 +3,4 @@
     <br>
     <%= link_to t("Sign out"), destroy_user_session_path, method: :delete, data: { ajax: false }, class: "ui-btn ui-icon-arrow-r ui-btn-icon-right" %>
   <% end %>
-<% else %>
-  <br>
-  <%= link_to t("Home"), root_path, class: "ui-btn ui-icon-home ui-btn-icon-left" %>
 <% end %>

@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <div data-role="footer" data-position="fixed" data-theme="b">
-    <div data-role="navbar" data-grid="b">
+    <div data-role="navbar" data-grid="a">
       <ul>
         <li>
           <%= link_to talks_path, data: { icon: 'phone' } do %>
@@ -13,7 +13,6 @@
             <span class="count-icon"><%= @notifications_count %></span>
           <% end %>
         </li>
-        <li><a href="#" data-icon="calendar">スケジュール<span class="count-icon">200</span></a></li>
       </ul>
     </div>
   </div>

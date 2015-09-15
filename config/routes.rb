@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
+  match '/users/profile/edit', to: 'users#edit', via: 'get'
 
   resources :offerings
   resources :wants

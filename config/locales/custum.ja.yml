@@ -7,18 +7,20 @@ ja:
   "Sign up": ユーザー登録する
   "Forgot your password?": パスワード忘れはこちら
   "Send me reset password instructions": パスワード再設定
-  "Resend confirmation instructions": パスワード再
+  "Resend confirmation instructions": パスワード再設定の再送
   "Update": 更新
   "Need help?": お困りですか？
   "Didn't receive confirmation instructions?": パスワード再発行のメールが届かない
   "Didn't receive unlock instructions?": アカウントの凍結解除方法のメールが届かない
-  "Resend unlock instructions": アカウント再凍結解除
+  "Resend unlock instructions": アカウント凍結解除の再送
   "Sign out": ログアウト
   "Confirm my account": アカウント登録の確認
   "Change my password": パスワード再設定
   "Change your password": パスワード再設定
   "New password": 新しいパスワード
   "Confirm new password": 新しいパスワード(確認)
+  "Personal settings": プロフィールなどの管理
+  "Account settings": パスワードなどの管理
   "You can confirm your account email through the link below": 以下のリンクをクリックすると、アカウントの登録が完了します。
   "Someone has requested a link to change your password": パスワード再設定が申請されました。
   "You can do this through the link below": 以下のリンクをクリックするとパスワード再設定ができます。
@@ -129,6 +131,10 @@ ja:
   "Perform": 実施
   "Cancel": キャンセル
   "Pay": 支払う
+  "finished": 取引終了
+  "opened": 公開
+  "closed": 非公開(下書き)
+  "Search": 検索
   will_paginate:
     previous_label: "←前へ"
     next_label: "次へ→"

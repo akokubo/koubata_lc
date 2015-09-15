@@ -15,8 +15,8 @@
   <% end %>
 
     <li class="field ui-field-contain">
-      <%= label :payment, :recepient_id %>
-      <%= collection_select :payment, :recepient_id, @recepients, :id, :name %>
+      <%= label :payment, :recepient_account %>
+      <%= collection_select :payment, :recepient_account_id, @recepients, :account_id, :name %>
     </li>
 
     <li class="field ui-field-contain">

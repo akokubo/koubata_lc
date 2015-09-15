@@ -22,11 +22,11 @@
     <% @payments.each do |payment| %>
     <tr>
       <td><%= l(payment.created_at) %></td>
-      <td><%= payment.partner_of(current_user).name %></td>
-      <td><%= t(payment.type_for(current_user)) %></td>
-      <td style="text-align: right;"><%= payment.amount_for(current_user) %></td>
-      <td style="text-align: right;"><%= payment.balance_before_for(current_user) %></td>
-      <td style="text-align: right;"><%= payment.balance_after_for(current_user) %></td>
+      <td><%= payment.partner_of(current_user.account).user.name %></td>
+      <td><%= t(payment.type_for(current_user.account)) %></td>
+      <td style="text-align: right;"><%= payment.amount_for(current_user.account) %></td>
+      <td style="text-align: right;"><%= payment.balance_before_for(current_user.account) %></td>
+      <td style="text-align: right;"><%= payment.balance_after_for(current_user.account) %></td>
       <td><%= link_to payment.subject, payment %></td>
     </tr>
     <% end %>

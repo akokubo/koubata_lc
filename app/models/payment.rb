@@ -4,6 +4,11 @@ class Payment < ActiveRecord::Base
   belongs_to :recepient_account, class_name: 'Account', foreign_key: 'recepient_account_id'
   has_one :entry
 
+  scope :with, lambda { |user_account|
+    where('sender_account_id = :user_account_id OR recepient_account_id = :user_account_id', user_account_id: user_account.id)
+    .order('created_at DESC')
+  }
+
   # 必須属性の検証
   validates :sender_account_id,    presence: true
   validates :recepient_account_id, presence: true
@@ -20,7 +25,7 @@ class Payment < ActiveRecord::Base
   validate :sender_balance_after_validity
   validate :recepient_balance_after_validity
 
-  def partner_of(user_account)
+  def partner_of(account)
     if sender_account == account
       recepient_account
     elsif recepient_account == account

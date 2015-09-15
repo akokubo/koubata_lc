@@ -24,9 +24,10 @@ describe 'My Status' do
       it { should have_link(Account.model_name.human) }
       it { should have_link(Offering.model_name.human) }
       it { should have_link(Want.model_name.human) }
-      it { should have_link(I18n.t('Contract')) }
-      it { should have_link(I18n.t('Entrust')) }
-      it { should have_link(I18n.t('Settings')) }
+      it { should have_link(I18n.t('activerecord.models.contract')) }
+      it { should have_link(I18n.t('activerecord.models.entrust')) }
+      it { should have_link(I18n.t('Personal settings')) }
+      it { should have_link(I18n.t('Account settings')) }
       it { should have_link(I18n.t('Home')) }
     end
   end

@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   has_one :account,    dependent: :destroy
+  def account_id
+    account.id
+  end
   has_many :tasks,     dependent: :destroy
   has_many :offerings, dependent: :destroy
   has_many :wants,     dependent: :destroy

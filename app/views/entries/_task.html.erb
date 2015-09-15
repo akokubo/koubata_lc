@@ -6,6 +6,7 @@ else
 end
 %>
 
+<h3>取引の内容</h3>
 <ul data-role="listview" data-inset="true">
   <li>
     <strong><%= class_name.human_attribute_name(:title) %>:</strong>
@@ -30,9 +31,5 @@ end
   <li>
     <strong><%= class_name.human_attribute_name(:price_description) %>:</strong>
     <%= @task.price_description %>
-  </li>
-  <li>
-    <strong><%= class_name.human_attribute_name(:opened) %>:</strong>
-    <%= @task.opened? ? t('opened') : t('closed') %>
   </li>
 </ul>

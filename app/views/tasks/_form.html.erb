@@ -32,23 +32,15 @@
     </li>
 
     <li class="field ui-field-contain">
-      <%= f.label :price %>
-      <%= f.text_field :price %>
+      <%= f.label :price_description %>
+      <%= f.text_field :price_description %>
     </li>
-<!--
+
     <li class="field ui-field-contain">
-      <%= f.label :no_expiration %>
-      <%= check_box_tag "#{@class_name.to_s.downcase}[no_expiration]", 1, true %>
-      <div class="field ui-field-contain" id="<%= @class_name.to_s.downcase %>_expired_at_div">
-        <%= f.label :expired_at %>
-        <% if @mobile %>
-          <%= f.datetime_local_field :expired_at, placeholder: t("Remain blank if no expiration") %>
-        <% else %>
-          <%= f.datetime_select :expired_at, {}, data: { role: "none"} %>
-        <% end %>
-      </div>
+      <%= f.label :opened %>
+      <%= f.check_box :opened, { data: { role: 'flipswitch'} }, checked_value = "true", unchecked_value = "false" %>
     </li>
--->
+
     <li class="actions">
       <%= f.submit %>
     </li>

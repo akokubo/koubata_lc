@@ -1,17 +1,8 @@
-<% provide :title, t("Koubata Project") %>
-<div class="ui-body ui-body-a ui-corner-all">
-  <% unless user_signed_in? %>
-    <%= render "index_not_signed_in" %>
-  <% else %>
-    <%= render "index_signed_in" %>
-  <% end %>
-</div>
-
+<% unless user_signed_in? %>
+  <%= render "home/index_not_signed_in" %>
+<% else %>
+  <%= render "home/index_signed_in" %>
+<% end %>
 <br>
 
-<div class="ui-body ui-body-a ui-corner-all">
-  <ul data-role="listview" data-inset="true">
-    <li><%= link_to t("About"), about_path %></li>
-    <li><%= link_to t("Contact"), contact_path %></li>
-  </ul>
-</div>
+<%= render "home/info" %>

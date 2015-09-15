@@ -6,8 +6,7 @@ class EntriesController < ApplicationController
     @task = Task.new(
       title: @entry.title,
       description: @entry.description,
-      price: @entry.prior_price,
-      expired_at: @entry.expired_at,
+      price_description: @entry.prior_price_description,
       category: @entry.category,
       user: @entry.owner
     )

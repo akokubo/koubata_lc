@@ -74,7 +74,7 @@ class Entry < ActiveRecord::Base
 
   def status
     if paid?
-      'closed'
+      'finished'
     elsif performed?
       'to be paid'
     elsif owner_canceled?

@@ -3,7 +3,7 @@ class PaymentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @payments = Payment.where('sender_account_id = :current_user_account OR recepient_account_id = :current_user_account', current_user_account: current_user.account)
+    @payments = Payment.with(current_user.account)
   end
 
   def show
@@ -49,7 +49,7 @@ class PaymentsController < ApplicationController
     begin
       Account.transfer(
         sender_account: current_user.account,
-        recepient_account: @payment.recepient.account,
+        recepient_account: Account.find(@payment.recepient_account_id),
         amount: @payment.amount,
         subject: @payment.subject,
         comment: @payment.comment
@@ -92,6 +92,6 @@ class PaymentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def payment_params
-    params.require(:payment).permit(:recepient_id, :subject, :amount, :comment)
+    params.require(:payment).permit(:recepient_account_id, :subject, :amount, :comment)
   end
 end

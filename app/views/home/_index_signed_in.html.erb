@@ -1,7 +1,13 @@
-<%= t('Hi', name: current_user.name) %>
-<ul data-role="listview" data-inset="true">
-  <li><%= link_to t("Search ", model: User.model_name.human.pluralize(:locale)), users_path %></li>
-  <li><%= link_to t("Search ", model: Offering.model_name.human.pluralize(:locale)), offerings_path %></li>
-  <li><%= link_to t("Search ", model: Want.model_name.human.pluralize(:locale)), wants_path %></li>
-  <li><%= link_to Talk.model_name.human, talks_path %></li>
-</ul>
+<% provide :title, t("My Status") %>
+<% @user ||= current_user %>
+
+<div class="ui-body ui-body-a ui-corner-all">
+  <h1><%= t(yield(:title)) %></h1>
+  <%= render 'users/profile' %>
+  <br>
+  <%= render 'users/notifications_and_talks' %>
+  <br>
+  <%= render 'users/trades_in_progress' %>
+  <br>
+  <%= render 'users/services_on_display' %>
+</div>

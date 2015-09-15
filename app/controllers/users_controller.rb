@@ -1,12 +1,28 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:show, :update]
 
   def index
     @users = User.where.not(id: current_user.id).active
   end
 
   def show
-    @user = User.find(params[:id])
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    respond_to do |format|
+      if @user == current_user && @user.update(user_params)
+          format.html { redirect_to root_path, notice: t('activerecord.successful.messages.updated', model: User.model_name.human) }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def talks
@@ -74,5 +90,15 @@ class UsersController < ApplicationController
       end
     end
     render 'entries'
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :description, :email)
   end
 end
