@@ -1,140 +1,140 @@
 ja:
-  "Koubata Project": ハッピー幸畑たすけあい
-  "Be happy by using eco money!": 「ハッピー幸畑たすけあい」に参加しませんか？
-  "Hi": こんにちは %{name} さん
-  "Sign in": ログイン
-  "Registration": ユーザー登録
-  "Sign up": ユーザー登録する
-  "Forgot your password?": パスワード忘れはこちら
-  "Send me reset password instructions": パスワード再設定
-  "Resend confirmation instructions": パスワード再設定の再送
-  "Update": 更新
-  "Need help?": お困りですか？
-  "Didn't receive confirmation instructions?": パスワード再発行のメールが届かない
-  "Didn't receive unlock instructions?": アカウントの凍結解除方法のメールが届かない
-  "Resend unlock instructions": アカウント凍結解除の再送
-  "Sign out": ログアウト
-  "Confirm my account": アカウント登録の確認
-  "Change my password": パスワード再設定
-  "Change your password": パスワード再設定
-  "New password": 新しいパスワード
-  "Confirm new password": 新しいパスワード(確認)
-  "Personal settings": プロフィールなどの管理
-  "Account settings": パスワードなどの管理
-  "You can confirm your account email through the link below": 以下のリンクをクリックすると、アカウントの登録が完了します。
-  "Someone has requested a link to change your password": パスワード再設定が申請されました。
-  "You can do this through the link below": 以下のリンクをクリックするとパスワード再設定ができます。
-  "If you didn't request this, please ignore this email": もしもあなたがパスワード再設定を申請していない場合、このメールを無視してください。
-  "Your password won't change until you access the link above and create a new one": 上のリンクをクリックしてパスワードを再設定しない限り、パスワードは変更されません。
-  "Your account has been locked due to an excessive number of unsuccessful sign in attempts": 何度もログインに失敗したため、アカウントが凍結されました。
-  "Click the link below to unlock your account": アカウント凍結解除するには以下のリンクをクリックしてください
-  "leave blank if you don't want to change it": 変更しない場合は入力しないでください。
-  "we need your current password to confirm your changes": 更新には現在のパスワードの入力が必要。
-  "Cancel my account": アカウントを削除する
-  "Are you sure?": 本当に削除しますか？
-  "Unhappy?": 問題がありましたか？
-  "Show": 詳細表示
-  "Edit": 編集
-  "Destroy": 削除
-  "Back": 戻る
-  "Entrust": お願いする
-  "Contract": 引き受ける
-  "Welcome": ようこそ
-  "Hello": こんにちは
-  "Home": ホーム
-  "Menu": メニュー
-  "Favorites": お気に入り
-  "Feeds": ニュースフィード
-  "Logs": ログ
-  "Self Informations": わたしの情報
-  "Friends": 友だち
-  "Settings": ユーザー情報の編集
-  "System": システム
-  "My Status": マイ幸
-  "Watch List": お気に入り
-  "Detailed": 詳しいしくみ
-  "New Display": 新しく掲載
-  "Displayed": 掲載済
-  "Instructions": 使い方
-  "About": 「ハッピー幸畑たすけあい」とは
-  "Contact": お問い合わせ
-  "User": ユーザー
-  "Transfer Record": 取引履歴
-  "Datetime": 日時
-  "Person": 相手
-  "Type": 種別
-  "Amount": 金額
-  "Balance": 残高
-  "Balance Before": 取引前残高
-  "Subject": 件名
-  "deposit": 入金
-  "withdraw": 送金
-  "points": 幸
-  "Current balance": 現在の残高
-  "Welcome to Koubata Project!": 「ハッピー幸畑たすけあい」へようこそ
-  "If you don't have an account you can sign up!": ユーザー登録してはじめましょう！
-  "No transfer record": 取引履歴はありません。
-  "No messsage": メッセージはありません。
-  "No talk": メッセージはありません。
-  "No notification": お知らせはありません。
-  "Listing ": "%{model}・リスト"
-  "New ": "新しく%{model}を作成"
-  "Editing ": "%{model}を編集"
-  "Search ": "%{model}を検索"
-  "There is no ": "%{model}は登録されていません"
-  "Remain blank if no expiration": 設定しない場合は空欄
-  "prohibited this offering from being saved": つのエラーにより保存しませんでした。
-  "prohibited this want from being saved": つのエラーにより保存しませんでした。
-  "Compose new message": 新しいメッセージを入力...
-  "Submit new message": 送信
-  "Submit new talk": 送信
-  "Submit new payment": 振込を実行
-  "New payment": 送金する
-  "Back to my offerings": 自分が「提供できること」へ戻る
-  "Back to my wants": 自分が「お願いしたいこと」へ戻る
-  "You cannot edit!": あなたは編集できません
-  "You cannot delete!": あなたは削除できません
-  "Other": その他
-  "Entry": エントリーする
-  "Unentry": エントリーを取り消す
-  "Hire": 依頼する
-  "Take": 引き受ける
-  "Expire": 締め切る
-  "Unexpire": 締め切り期限を解除
-  "follows": さんがフォローしている人
-  "is followed by": さんをフォローしている人
-  "No followed user": 誰もフォローしていません
-  "No follower": フォロワーはいません
-  "Follow": フォローする
-  "Unfollow": フォローをやめる
-  "Contracts": お願いしたこと
-  "Entrusts": 引き受けたこと
-  "No contract": 「お願いしたこと」はありません。
-  "No entrust": 「引き受けたこと」はありません。
-  "closed": 終了
-  "to be paid": 支払待
-  "owner canceld": 依頼者キャンセル
-  "contractor canceled": 請負者キャンセル
-  "to be performed": 実施待
-  "owner committed": 依頼者条件提案中
-  "contractor committed": 請負者条件提案中
-  "to be committed": 条件提示待
-  "Prev": 前へ
-  "Next": 次へ
-  "talk with": "%{companion}とのメッセージ"
-  "Submit new negotiation": 送信
-  "Recepient": 送信相手
-  "Must be written": 必ず記入し、互いに確認
-  "Partner": 相手
-  "Direction": 種別
-  "Commit": 条件を提案/承認
-  "Perform": 実施
-  "Cancel": キャンセル
-  "Pay": 支払う
-  "finished": 取引終了
-  "opened": 公開
-  "closed": 非公開(下書き)
-  "Search": 検索
+  'About': '「ハッピー幸畑たすけあい」とは'
+  'Account settings': 'パスワードなどの管理'
+  'Amount': '金額'
+  'Are you sure?': '本当に削除しますか？'
+  'Back to my offerings': '自分が「提供できること」へ戻る'
+  'Back to my wants': '自分が「お願いしたいこと」へ戻る'
+  'Back': '戻る'
+  'Balance Before': '取引前残高'
+  'Balance': '残高'
+  'Be happy by using eco money!': '「ハッピー幸畑たすけあい」に参加しませんか？'
+  'Cancel my account': 'アカウントを削除する'
+  'Cancel': 'キャンセル'
+  'Change my password': 'パスワード再設定'
+  'Change your password': 'パスワード再設定'
+  'Click the link below to unlock your account': 'アカウント凍結解除するには以下のリンクをクリックしてください'
+  'Commit': '条件を提案/承認'
+  'Compose new message': '新しいメッセージを入力...'
+  'Confirm my account': 'アカウント登録の確認'
+  'Confirm new password': '新しいパスワード(確認)'
+  'Contact': 'お問い合わせ'
+  'Contract': '引き受ける'
+  'Contracts': 'お願いしたこと'
+  'Current balance': '現在の残高'
+  'Datetime': '日時'
+  'Destroy': '削除'
+  'Detailed': '詳しいしくみ'
+  "Didn't receive confirmation instructions?": 'パスワード再発行のメールが届かない'
+  "Didn't receive unlock instructions?": 'アカウントの凍結解除方法のメールが届かない'
+  'Direction': '種別'
+  'Displayed': '掲載済'
+  'Edit': '編集'
+  'Editing ': '%{model}を編集'
+  'Entrust': 'お願いする'
+  'Entrusts': '引き受けたこと'
+  'Entry': 'エントリーする'
+  'Expire': '締め切る'
+  'Favorites': 'お気に入り'
+  'Feeds': 'ニュースフィード'
+  'Follow': 'フォローする'
+  'Forgot your password?': 'パスワード忘れはこちら'
+  'Friends': '友だち'
+  'Hello': 'こんにちは'
+  'Hi': 'こんにちは %{name} さん'
+  'Hire': '依頼する'
+  'Home': 'ホーム'
+  'Instructions': '使い方'
+  "If you didn't request this, please ignore this email": 'もしもあなたがパスワード再設定を申請していない場合、このメールを無視してください。'
+  "If you don't have an account you can sign up!": 'ユーザー登録してはじめましょう！'
+  'Koubata Project': 'ハッピー幸畑たすけあい'
+  "leave blank if you don't want to change it": '変更しない場合は入力しないでください。'
+  'Listing ': '%{model}・リスト'
+  'Logs': 'ログ'
+  'Menu': 'メニュー'
+  'Must be written': '必ず記入し、互いに確認'
+  'My Status': 'マイ幸'
+  'Need help?': 'お困りですか？'
+  'New ': '新しく%{model}を作成'
+  'New Display': '新しく掲載'
+  'New password': '新しいパスワード'
+  'New payment': '送金する'
+  'Next': '次へ'
+  'No contract': '「お願いしたこと」はありません。'
+  'No entrust': '「引き受けたこと」はありません。'
+  'No followed user': '誰もフォローしていません'
+  'No follower': 'フォロワーはいません'
+  'No messsage': 'メッセージはありません。'
+  'No notification': 'お知らせはありません。'
+  'No talk': 'メッセージはありません。'
+  'No transfer record': '取引履歴はありません。'
+  'Other': 'その他'
+  'Partner': '相手'
+  'Pay': '支払う'
+  'Perform': '実施'
+  'Person': '相手'
+  'Personal settings': 'プロフィールなどの管理'
+  'Prev': '前へ'
+  'Recepient': '送信相手'
+  'Registration': 'ユーザー登録'
+  'Remain blank if no expiration': '設定しない場合は空欄'
+  'Resend confirmation instructions': 'パスワード再設定の再送'
+  'Resend unlock instructions': 'アカウント凍結解除の再送'
+  'Search ': '%{model}を検索'
+  'Search': '検索'
+  'Self Informations': 'わたしの情報'
+  'Send me reset password instructions': 'パスワード再設定'
+  'Settings': 'ユーザー情報の編集'
+  'Show': '詳細表示'
+  'Sign in': 'ログイン'
+  'Sign out': 'ログアウト'
+  'Sign up': 'ユーザー登録する'
+  'Someone has requested a link to change your password': 'パスワード再設定が申請されました。'
+  'Subject': '件名'
+  'Submit new message': '送信'
+  'Submit new negotiation': '送信'
+  'Submit new payment': '振込を実行'
+  'Submit new talk': '送信'
+  'System': 'システム'
+  'Take': '引き受ける'
+  'There is no ': '%{model}は登録されていません'
+  'Transfer Record': '取引履歴'
+  'Type': '種別'
+  'Unentry': 'エントリーを取り消す'
+  'Unexpire': '締め切り期限を解除'
+  'Unfollow': 'フォローをやめる'
+  'Unhappy?': '問題がありましたか？'
+  'Update': '更新'
+  'User': 'ユーザー'
+  'Watch List': 'お気に入り'
+  'Welcome to Koubata Project!': '「ハッピー幸畑たすけあい」へようこそ'
+  'Welcome': 'ようこそ'
+  'You can confirm your account email through the link below': '以下のリンクをクリックすると、アカウントの登録が完了します。'
+  'You can do this through the link below': '以下のリンクをクリックするとパスワード再設定ができます。'
+  'You cannot delete!': 'あなたは削除できません'
+  'You cannot edit!': 'あなたは編集できません'
+  'Your account has been locked due to an excessive number of unsuccessful sign in attempts': '何度もログインに失敗したため、アカウントが凍結されました。'
+  'closed': '終了'
+  'closed': '非公開(下書き)'
+  'contractor canceled': '請負者キャンセル'
+  'contractor committed': '請負者条件提案中'
+  'deposit': '入金'
+  'finished': '取引終了'
+  'follows': 'さんがフォローしている人'
+  'is followed by': 'さんをフォローしている人'
+  'opened': '公開'
+  'owner canceld': '依頼者キャンセル'
+  'owner committed': '依頼者条件提案中'
+  'points': '幸'
+  'prohibited this offering from being saved': 'つのエラーにより保存しませんでした。'
+  'prohibited this want from being saved': 'つのエラーにより保存しませんでした。'
+  'talk with': '%{companion}とのメッセージ'
+  'to be committed': '条件提示待'
+  'to be paid': '支払待'
+  'to be performed': '実施待'
+  'we need your current password to confirm your changes': '更新には現在のパスワードの入力が必要。'
+  'withdraw': '送金'
+  "Your password won't change until you access the link above and create a new one": '上のリンクをクリックしてパスワードを再設定しない限り、パスワードは変更されません。'
   will_paginate:
-    previous_label: "←前へ"
-    next_label: "次へ→"
+    previous_label: '←前へ'
+    next_label: '次へ→'

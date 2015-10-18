@@ -2,23 +2,23 @@ ja:
   helpers:
     submit:
       create: '登録する'
-      update: '更新する'
       submit: '保存する'
+      update: '更新する'
     label:
       user:
+        current_password: '現在のパスワード'
         email: 'メールアドレス'
         password: 'パスワード'
-        current_password: '現在のパスワード'
       offering:
-        title: '件名'
         category: 'カテゴリー'
         description: '内容'
-        price: '価格'
         exprired_at: '表示期限'
-      want:
+        price: '価格'
         title: '件名'
+      want:
         description: '内容'
         exprired_at: '表示期限'
+        title: '件名'
       message:
         recepient_id: '送り先'
     title:
