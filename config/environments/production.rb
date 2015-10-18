@@ -78,5 +78,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # deviseの確認メールの送信ホストの設定
-  config.action_mailer.default_url_options = { host: 'http://koubata-project-demo.herokuapp.com/' }
+  host =  ENV['MAILER_HOST'] ||= 'http://example.com/'
+  config.action_mailer.default_url_options = { host: host }
 end
