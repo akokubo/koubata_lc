@@ -6,6 +6,7 @@ ja:
       send_paranoid_instructions: メールアドレスが登録されていれば、数分以内にアカウントを確認する方法が記載されているメールが届きます。
     failure:
       already_authenticated: 既にログインしています。
+      deleted_account: "アカウントを削除しました。"
       inactive: アカウントが有効化されていません。
       invalid: メールアドレスまたはパスワードが違います。
       last_attempt: あと一回間違えるとアカウントが凍結されます。
