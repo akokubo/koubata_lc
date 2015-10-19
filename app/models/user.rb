@@ -194,13 +194,14 @@ class User < ActiveRecord::Base
 
   def owner_commit!(entry, args = {})
     recent_price = entry.price
-    recent_expect_at = entry.expected_at
+    recent_expected_at = entry.expected_at
     entry.update!(
         owner_committed_at: Time.now,
         expected_at: args[:expected_at],
         price: args[:price]
     )
-    if entry.expected_at != recent_expect_at || entry.price != recent_price
+    entry.reload
+    if entry.expected_at != recent_expected_at || entry.price != recent_price
       entry.update!(contractor_committed_at: nil)      
     end
     entry
@@ -208,13 +209,14 @@ class User < ActiveRecord::Base
 
   def contractor_commit!(entry, args = {})
     recent_price = entry.price
-    recent_expect_at = entry.expected_at
+    recent_expected_at = entry.expected_at
     entry.update!(
         contractor_committed_at: Time.now,
         expected_at: args[:expected_at],
         price: args[:price]
     )
-    if entry.expected_at != recent_expect_at || entry.price != recent_price
+    entry.reload
+    if entry.expected_at != recent_expected_at || entry.price != recent_price
       entry.update!(owner_committed_at: nil)      
     end
     entry
