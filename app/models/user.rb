@@ -1,8 +1,11 @@
 class User < ActiveRecord::Base
+  after_create :creating_account
+
   has_one :account,    dependent: :destroy
   def account_id
     account.id
   end
+
   has_many :tasks,     dependent: :destroy
   has_many :offerings, dependent: :destroy
   has_many :wants,     dependent: :destroy
@@ -92,14 +95,6 @@ class User < ActiveRecord::Base
   #
   def entry!(entry)
     entry.save!
-=begin
-    if entry.task.type == 'Offering'
-      entry = contracts.create!(task: entry.task, expected_at: entry.expected_at, price: entry.price)
-    elsif entry.task.type == 'Want'
-      entry = entrusts.create!(task: entry.task, expected_at: entry.expected_at, price: entry.price)
-    end
-=end
-    # entry = entries.create!(task: entry.task, expected_at: entry.expected_at, price: entry.price)
     entry = commit!(entry, had_nofied: true)
     notify_entry!(entry)
     entry
@@ -198,29 +193,29 @@ class User < ActiveRecord::Base
   private
 
   def owner_commit!(entry, args = {})
-    if !entry.conditions_change?(expected_at: args[:expected_at], price: args[:price])
-      entry.update!(owner_committed_at: Time.now)
-    else
-      entry.update!(
+    recent_price = entry.price
+    recent_expect_at = entry.expected_at
+    entry.update!(
         owner_committed_at: Time.now,
-        contractor_committed_at: nil,
         expected_at: args[:expected_at],
         price: args[:price]
-      )
+    )
+    if entry.expected_at != recent_expect_at || entry.price != recent_price
+      entry.update!(contractor_committed_at: nil)      
     end
     entry
   end
 
   def contractor_commit!(entry, args = {})
-    if !entry.conditions_change?(expected_at: args[:expected_at], price: args[:price])
-      entry.update!(contractor_committed_at: Time.now)
-    else
-      entry.update!(
-        owner_committed_at: nil,
+    recent_price = entry.price
+    recent_expect_at = entry.expected_at
+    entry.update!(
         contractor_committed_at: Time.now,
         expected_at: args[:expected_at],
         price: args[:price]
-      )
+    )
+    if entry.expected_at != recent_expect_at || entry.price != recent_price
+      entry.update!(owner_committed_at: nil)      
     end
     entry
   end
@@ -282,5 +277,9 @@ class User < ActiveRecord::Base
     body = "#{name}さんが「#{entry.title}」に支払いました。"
     notification = recepient.notifications.find_by(url: entry.url)
     notification.update!(user: recepient, body: body, url: entry.url, read_at: nil)
+  end
+
+  def creating_account
+    self.create_account(balance: 1000)
   end
 end

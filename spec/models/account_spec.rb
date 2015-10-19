@@ -5,7 +5,7 @@ describe Account do
   let(:user) { FactoryGirl.create(:user) }
 
   # @accountの作成
-  before { @account = FactoryGirl.build(:account, user: user) }
+  before { @account = user.account }
 
   # accountを対象としたテストを実施
   subject { @account }
@@ -53,11 +53,6 @@ describe Account do
   describe 'when transfer' do
     let(:sender) { FactoryGirl.create(:user) }
     let(:recepient) { FactoryGirl.create(:user) }
-
-    before do
-      sender.create_account(balance: 1000)
-      recepient.create_account(balance: 1000)
-    end
 
     # 適正な支払いの場合
     it 'has valid amount should change accounts balance' do

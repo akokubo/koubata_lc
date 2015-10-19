@@ -1,24 +1,6 @@
 names = %w(sakai kasiwaya kushibiki kokubo tsasaki kuji t-sachiko ksuga tsunoda wajima haship kurebayashi)
 japanese_names = %w(坂井雄介 柏谷至 櫛引素夫 小久保温 佐々木てる 久慈きみ代 田中志子 菅勝彦 角田均 和島茂 橋本恭能 紅林亘)
 
-account_dummy = Account.create(
-  user_id: 1,
-  balance: 0
-)
-account_dummy.destroy
-
-account_dummy = Account.create(
-  user_id: 1,
-  balance: 0
-)
-account_dummy.destroy
-
-account_dummy = Account.create(
-  user_id: 1,
-  balance: 0
-)
-account_dummy.destroy
-
 user_dummy = User.create(
   name: 'hau hau',
   email: 'hauhau@aomori-u.ac.jp',
@@ -37,10 +19,6 @@ user_dummy.destroy
     password_confirmation: 'password',
     confirmed_at: Time.now
   )
-  Account.create(
-    user_id: user.id,
-    balance: 1000
-  )
 end
 
 user = User.create(
@@ -49,10 +27,6 @@ user = User.create(
   password: 'password',
   password_confirmation: 'password',
   confirmed_at: Time.now
-)
-Account.create(
-  user_id: user.id,
-  balance: 1000
 )
 
 user = User.find_by(name: '小久保温')

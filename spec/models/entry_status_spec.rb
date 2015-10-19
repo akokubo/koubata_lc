@@ -8,8 +8,6 @@ describe 'Entry Status' do
 
   # @entryの作成
   before do
-    FactoryGirl.create(:account, user: contractor)
-    FactoryGirl.create(:account, user: owner)
     @entry = Entry.new
     @entry.task = offering
     @entry.owner = owner

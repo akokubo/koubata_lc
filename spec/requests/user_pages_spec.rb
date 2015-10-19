@@ -6,7 +6,6 @@ describe 'My Status' do
   describe 'user signed in' do
     before do
       user = FactoryGirl.create(:user)
-      FactoryGirl.create(:account, user: user)
       visit new_user_session_path
       fill_in User.human_attribute_name(:email), with: user.email
       fill_in User.human_attribute_name(:password), with: user.password
@@ -35,7 +34,6 @@ describe 'My Status' do
   describe 'user not signed in' do
     before do
       user = FactoryGirl.create(:user)
-      FactoryGirl.create(:account, user: user)
       get status_path
     end
 

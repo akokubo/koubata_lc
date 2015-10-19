@@ -5,8 +5,8 @@ describe Payment do
   let(:sender)    { FactoryGirl.create(:user) }
   let(:recepient) { FactoryGirl.create(:user) }
 
-  let(:sender_account)    { sender.create_account(balance: 1000) }
-  let(:recepient_account) { recepient.create_account(balance: 1000) }
+  let(:sender_account)    { sender.account }
+  let(:recepient_account) { recepient.account }
 
   # paymentの生成
   before do

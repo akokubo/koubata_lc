@@ -3,15 +3,13 @@ require 'rails_helper'
 describe Entry do
   let(:owner) { FactoryGirl.create(:user) }
   let(:contractor) { FactoryGirl.create(:user) }
-  let(:sender_account)    { FactoryGirl.create(:account, user: contractor) }
-  let(:recepient_account) { FactoryGirl.create(:account, user: owner) }
   let(:offering) { FactoryGirl.create(:offering, user: contractor) }
   let(:want) { FactoryGirl.create(:want, user: owner) }
 
   # @entryの作成
   before do
-    FactoryGirl.create(:account, user: contractor)
-    FactoryGirl.create(:account, user: owner)
+    sender_account = contractor.account
+    recepient_account = owner.account
     @entry = Entry.new
     @entry.task = offering
     @entry.owner = owner

@@ -8,11 +8,6 @@ FactoryGirl.define do
     confirmed_at Time.now
   end
 
-  factory :account do
-    user
-    balance 1000
-  end
-
   # カテゴリーの生成
   factory :category do
     sequence(:name) { |n| "category_#{n}" }
