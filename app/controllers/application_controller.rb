@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
     else
       @mobile = false
     end
+    @mobile = false
     @mobile
   end
 
