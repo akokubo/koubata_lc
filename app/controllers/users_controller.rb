@@ -50,14 +50,40 @@ class UsersController < ApplicationController
   def contracts
     @class_name = 'Contract'
     @user = User.find(params[:id])
-    @entries = Entry.where(contractor: @user).order('updated_at DESC')
+    @entries = Entry.in_progress.where(contractor_id: @user.id).order('updated_at DESC')
     render 'contracts'
   end
 
   def entrusts
     @class_name = 'Entrust'
     @user = User.find(params[:id])
-    @entries = Entry.where(owner: @user).order('updated_at DESC')
+    @entries = Entry.in_progress.where(owner_id: @user.id).order('updated_at DESC')
+    render 'entrusts'
+  end
+
+  def recent_contracts
+    @class_name = 'Contract'
+    @user = User.find(params[:id])
+    not_finished = Entry.not_finished
+    not_finished = not_finished.where_values.reduce(:and)
+    not_owner_canceled = Entry.not_owner_canceled
+    not_owner_canceled = not_owner_canceled.where_values.reduce(:and)
+    not_contractor_canceled = Entry.not_contractor_canceled
+    not_contractor_canceled = not_contractor_canceled.where_values.reduce(:and)
+    @entries = Entry.where(not_finished.or(not_owner_canceled).or(not_contractor_canceled)).where(contractor_id: @user.id).order('updated_at DESC')
+    render 'contracts'
+  end
+
+  def recent_entrusts
+    @class_name = 'Entrust'
+    @user = User.find(params[:id])
+    not_finished = Entry.not_finished
+    not_finished = not_finished.where_values.reduce(:and)
+    not_owner_canceled = Entry.not_owner_canceled
+    not_owner_canceled = not_owner_canceled.where_values.reduce(:and)
+    not_contractor_canceled = Entry.not_contractor_canceled
+    not_contractor_canceled = not_contractor_canceled.where_values.reduce(:and)
+    @entries = Entry.where(not_finished.or(not_owner_canceled).or(not_contractor_canceled)).where(owner_id: @user.id).order('updated_at DESC')
     render 'entrusts'
   end
 

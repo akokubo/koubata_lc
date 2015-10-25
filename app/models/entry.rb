@@ -1,7 +1,7 @@
 class Entry < ActiveRecord::Base
   belongs_to :category
-  belongs_to :owner, class_name: 'User'
-  belongs_to :contractor, class_name: 'User'
+  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+  belongs_to :contractor, class_name: 'User', foreign_key: 'contractor_id'
   belongs_to :payment
 
   has_many :negotiations
@@ -14,6 +14,12 @@ class Entry < ActiveRecord::Base
   validates :prior_price_description, presence: true
   validates :expected_at, presence: true
   validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
+
+#  scope :finished, -> { where.not(confirmed_at: nil).where(deleted_at: nil) }
+  scope :not_finished, -> { where.not(paid_at: nil) }
+  scope :not_owner_canceled, -> { where.not(owner_canceled_at: nil) }
+  scope :not_contractor_canceled, -> { where.not(contractor_canceled_at: nil) }
+  scope :in_progress, -> { where(paid_at: nil).where(owner_canceled_at: nil).where(contractor_canceled_at: nil) }
 
   def task=(task)
     self.category = task.category
@@ -140,5 +146,15 @@ class Entry < ActiveRecord::Base
   # ユーザーがキャンセル済
   def contractor_canceled?
     contractor_canceled_at.present?
+  end
+
+  # 進行中か？
+  def in_progress?
+    !recent?
+  end
+
+  # 過去のものか？
+  def recent?
+    paid? || canceled?
   end
 end

@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       get 'entries'
       get 'contracts'
       get 'entrusts'
+      get 'recent_contracts'
+      get 'recent_entrusts'
       get :following, :followers
     end
   end
