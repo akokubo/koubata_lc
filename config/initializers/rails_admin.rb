@@ -1,3 +1,17 @@
+# Fix for bug when specified japanese datetime string
+# http://qiita.com/kuboon/items/1d009e2f89729fe5db78
+module RailsAdmin
+  module Config
+    module Fields
+      module Types
+        class Datetime < RailsAdmin::Config::Fields::Base
+          @format = :default
+        end
+      end
+    end
+  end
+end
+
 RailsAdmin.config do |config|
 
   ### Popular gems integration
