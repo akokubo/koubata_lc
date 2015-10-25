@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   has_many :tasks,     dependent: :destroy
   has_many :offerings, dependent: :destroy
   has_many :wants,     dependent: :destroy
-  has_many :entries
+  has_many :entries, foreign_key: 'owner_id'
+  has_many :reverse_entries, foreign_key: 'contractor_id', class_name: 'Entry'
 
   has_many :sended_messages,   class_name: 'Message', foreign_key: 'sender_id'
   has_many :received_messages, class_name: 'Message', foreign_key: 'recepient_id'
