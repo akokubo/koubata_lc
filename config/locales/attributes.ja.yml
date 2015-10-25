@@ -143,7 +143,7 @@ ja:
         password: 'パスワード'
         password_confirmation: 'パスワード(確認)'
         received_messages: '受信メッセージ'
-        recepients: '純真者'
+        recepients: '受信者'
         relationships: 'フォローしている'
         remember_created_at: 'パスワード記憶生成日時'
         remember_me: 'パスワードを記憶'
