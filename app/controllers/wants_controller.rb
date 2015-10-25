@@ -10,7 +10,7 @@ class WantsController < ApplicationController
   def show
     @class_name = Want
     @task = @want
-    @entry = Entry.new
+    @entry = Entry.new(price: 1)
   end
 
   def new

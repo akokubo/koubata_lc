@@ -11,7 +11,7 @@
     </div>
     <div class="field ui-field-contain">
       <%= f.label :price %>
-      <%= f.number_field :price %>
+      <%= f.number_field :price, min: 1 %>
     </div>
     <%= f.submit t('Entrust') %>
   <% end %>
