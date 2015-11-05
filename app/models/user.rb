@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
          :confirmable, :lockable, :timeoutable, :omniauthable
 
   validates :name, presence: true
+  validates :admin, inclusion: { in: [true, false] }
 
   scope :active, -> { where.not(confirmed_at: nil).where(deleted_at: nil) }
 

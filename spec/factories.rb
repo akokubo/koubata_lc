@@ -6,6 +6,7 @@ FactoryGirl.define do
     password 'foobarfoobar'
     password_confirmation 'foobarfoobar'
     confirmed_at Time.now
+    admin false
   end
 
   # カテゴリーの生成

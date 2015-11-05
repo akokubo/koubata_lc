@@ -129,6 +129,12 @@ describe User do
     it { should be_invalid }
   end
 
+  # admin属性が空の場合
+  describe 'when admin is not present' do
+    before { @user.admin = nil }
+    it { should_not be_valid }
+  end
+
   describe 'following' do
     let(:other_user) { FactoryGirl.create(:user) }
     before do
