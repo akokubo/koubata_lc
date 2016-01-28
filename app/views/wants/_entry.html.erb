@@ -3,11 +3,7 @@
     <%= f.hidden_field :task_id, value: @task.id %>
     <div class="field ui-field-contain">
       <%= f.label :expected_at %>
-      <% if @mobile %>
-        <%= f.datetime_local_field :expected_at %>
-      <% else %>
-        <%= f.datetime_select :expected_at, {}, data: { role: "none"} %>
-      <% end %>
+      <%= f.datetime_select :expected_at, {}, data: { role: "none"} %>
     </div>
     <div class="field ui-field-contain">
       <%= f.label :price %>

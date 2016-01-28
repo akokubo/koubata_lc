@@ -52,7 +52,20 @@ class EntriesController < ApplicationController
 
   def update
     # @entry.performed_at = Time.now if params[:contract][:performed_at].present?
-    @entry = current_user.commit!(@entry, entry_params) if params[:force_commit].present?
+
+    if params[:force_commit].present?
+      options = {}
+
+      if (entry_params.key?("expected_at(1i)") && entry_params["expected_at(1i)"].present?)
+        temp_expected_at = Time.new(entry_params["expected_at(1i)"].to_i, entry_params["expected_at(2i)"].to_i, entry_params["expected_at(3i)"].to_i, entry_params["expected_at(4i)"].to_i, entry_params["expected_at(5i)"].to_i)
+        options[:expected_at] = temp_expected_at
+      end
+      if (entry_params.key?(:price) && entry_params[:price].present?)
+        options[:price] = entry_params[:price]
+      end
+      @entry = current_user.commit!(@entry, options)
+    end
+
     @entry = current_user.cancel!(@entry) if params[:cancel].present?
     @entry = current_user.perform!(@entry) if params[:perform].present?
     @entry = current_user.pay_for!(@entry, amount: params[:entry][:amount], comment: params[:entry][:comment]) if params[:pay].present?
